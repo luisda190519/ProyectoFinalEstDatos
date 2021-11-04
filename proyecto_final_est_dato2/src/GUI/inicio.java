@@ -45,7 +45,7 @@ import javax.swing.JPanel;
 
 public class inicio extends javax.swing.JFrame {
 
-    private cliente cliente = new cliente();
+    private cliente cliente;
     private ImageIcon foto;
     private String fotoPath;
 
@@ -85,6 +85,11 @@ public class inicio extends javax.swing.JFrame {
 
         });
     }
+
+    public void setCliente(cliente cliente) {
+        this.cliente = cliente;
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -328,7 +333,7 @@ public class inicio extends javax.swing.JFrame {
 
     private void jmensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmensajeActionPerformed
         if (!jmensaje.getText().equals("")) {
-            cliente.enviarMensaje(nameField.getText(), jmensaje.getText());
+            cliente.getHc().enviarMensaje(nameField.getText(), jmensaje.getText());
             jmensaje.setText("");
         }
     }//GEN-LAST:event_jmensajeActionPerformed
@@ -353,7 +358,8 @@ public class inicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre");
         } else {
             this.setVisible(false);
-            cliente.insertarCliente(nameField.getText(), fotoPath);
+            cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
+            cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
             chat.setVisible(true);
             chat.setLocationRelativeTo(null);
             chat.setSize(1230, 730); //778,520
@@ -405,7 +411,7 @@ public class inicio extends javax.swing.JFrame {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-            String lineToRemove = cliente.getNombre() + "," + cliente.getFoto();
+            String lineToRemove = cliente.getHc().getNombre() + "," + cliente.getHc().getFoto();
             String currentLine;
 
             while ((currentLine = reader.readLine()) != null) {

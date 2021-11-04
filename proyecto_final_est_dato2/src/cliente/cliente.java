@@ -44,12 +44,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
-public class cliente implements Runnable {
+public class cliente {
 
-    private BufferedWriter writer;
-    private BufferedReader reader;
-    private static DataOutputStream dataOutputStream = null;
-    private static DataInputStream dataInputStream = null;
     String nombre;
     public JPanel panel;
     public String foto;
@@ -66,20 +62,19 @@ public class cliente implements Runnable {
     private static DefaultTableModel chatModel = new DefaultTableModel(null, titulos);
     private static DefaultTableModel usuariosConectadosModel = new DefaultTableModel(null, titulos);
     private ArrayList<userPanel> userPanels = new ArrayList<userPanel>();
+    private Socket socketClient;
+    private hiloChatCliente hc;
+    private static cliente cliente;
 
-    public cliente() {
-        try {
-            Socket socketClient = new Socket("localhost", 2003);
-            dataInputStream = new DataInputStream(socketClient.getInputStream());
-            dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
-            this.writer = new BufferedWriter(new OutputStreamWriter(dataOutputStream));
-            this.reader = new BufferedReader(new InputStreamReader(dataInputStream));
-        } catch (Exception e) {
-            System.out.println("error " + e);
-        }
+    public cliente getCliente() {
+        return cliente;
     }
 
-    public static void main(String[] args) {
+    public cliente() {
+
+    }
+
+    public static void main(String[] args) throws IOException {
         inicio = new inicio();
         inicio.setVisible(true);
         inicio.setLocationRelativeTo(null);
@@ -88,33 +83,19 @@ public class cliente implements Runnable {
         usuariosConectados = inicio.getTable12();
         propiedadesTabla2();
 
-        Thread t1 = new Thread(inicio.getCliente());
-        t1.start();
+        cliente = new cliente();
+        inicio.setCliente(cliente);
     }
 
-    public void enviarMensaje(String nombre, String mensaje) {
-        try {
-            writer.write(nombre + ": " + mensaje + "\n");
-            writer.write(foto);
-            writer.write("\r\n");
-            writer.flush();
-        } catch (Exception e) {
-            System.out.println("error " + e);
-        }
+    public hiloChatCliente getHc() {
+        return hc;
     }
 
-    public void insertarCliente(String nombre, String foto) {
+    public void connect(String ip, int port) {
         try {
-            this.nombre = nombre;
-            this.foto = foto;
-            makeFile();
-            usuariosConectadosModel.setRowCount(0);
-            writer.write("/addUser\n");
-            writer.write(this.nombre + "\n");
-            writer.write(foto + "\n");
-            writer.write("/closeUser");
-            writer.write("\r\n");
-            writer.flush();
+            socketClient = new Socket(ip, port);
+            hc = new hiloChatCliente(socketClient, cliente);
+            hc.start();
         } catch (Exception e) {
             System.out.println("error " + e);
         }
@@ -123,95 +104,6 @@ public class cliente implements Runnable {
     public void updateUsers() {
         for (userPanel u : userPanels) {
             panel.add(u);
-        }
-    }
-
-    @Override
-    public void run() {
-        try {
-            String msg = "", texto = "";
-            int i = 0, j = 0, aux = 0;
-
-            while ((msg = reader.readLine()) != null) {
-                System.out.println(msg);
-
-                if (msg.equals("/nuevoUsuario")) {
-                    msg = reader.readLine();
-                    while (!msg.equals("/finUsuario")) {
-                        String data[] = msg.split(",");
-                        ImageIcon icon = new ImageIcon(data[1]);
-                        Image img = icon.getImage();
-                        Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-                        icon = new ImageIcon(newimg);
-                        //usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), data[0]});
-
-                        usuariosConectadosModel.setRowCount(0);
-                        try (Scanner entrada = new Scanner(archivo)) {
-                            while (entrada.hasNextLine()) {
-                                String linea = entrada.nextLine();
-                                String data2[] = linea.split(",");
-                                icon = new ImageIcon(data2[1]);
-                                img = icon.getImage();
-                                newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-                                icon = new ImageIcon(newimg);
-                                usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), data2[0]});
-                            }
-                        } catch (Exception ex) {
-                            System.out.println("error");
-                        }
-
-                        msg = reader.readLine();
-                    }
-
-                    System.out.println("el fin es " + msg);
-
-                } else {
-                    System.out.println("entre " + msg);
-                    texto = msg;
-                    msg = reader.readLine();
-                    String path = msg;
-                    foto2 = new ImageIcon(path);
-                    Image img = foto2.getImage();
-                    Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-                    foto2 = new ImageIcon(newimg);
-                    chatModel.addRow(new Object[]{new JLabel(foto2), texto});
-
-                }
-
-//                if (i == 0 && !msg.equals(foto)) {
-//                    //chat.append(msg + "\n");
-//                    texto = msg;
-//                    i++;
-//                } else {
-//                    if (tablaCreada == true) {
-//                        if (j == 0) {
-//                            buscarPosx(aux);
-//                            buscarPosy(aux);
-//                            setTableIcon(msg);
-//                            j++;
-//                            aux++;
-//                        }
-//                    }
-//
-//                    if (!texto.equals("") && !texto.equals(nombre)) {
-//                        foto2 = new ImageIcon(msg);
-//                        Image img = foto2.getImage();
-//                        Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-//                        foto2 = new ImageIcon(newimg);
-//
-//                        chatModel.addRow(new Object[]{new JLabel(foto2), texto});
-//                        //tabla2.changeSelection(tabla2.getRowCount() - 1, 0, false, false);
-//                        chatTable.scrollRectToVisible(chatTable.getCellRect(chatTable.getRowCount() - 1, chatTable.getColumnCount(), true));
-//                        System.out.println(msg);
-//                    }
-//
-//                    i = 0;
-//                    j = 0;
-//
-//                }
-            }
-
-        } catch (Exception e) {
         }
     }
 
@@ -281,6 +173,10 @@ public class cliente implements Runnable {
 
     }
 
+    public static DefaultTableModel getChatModel() {
+        return chatModel;
+    }
+
     public static byte[] toByteArray(BufferedImage bi, String format) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(bi, format, baos);
@@ -290,6 +186,10 @@ public class cliente implements Runnable {
 
     public static final byte[] getImageBytes(Webcam webcam, String format) {
         return ImageUtils.toByteArray(webcam.getImage(), format);
+    }
+
+    public static DefaultTableModel getUsuariosConectadosModel() {
+        return usuariosConectadosModel;
     }
 
     public static BufferedImage toBufferedImage(byte[] bytes) throws IOException {

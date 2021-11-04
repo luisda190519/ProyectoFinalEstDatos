@@ -292,7 +292,7 @@ public class vozGUI extends javax.swing.JFrame {
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
-            String lineToRemove = cliente.getNombre() + "," + cliente.getFoto();
+            String lineToRemove = cliente.getHc().getNombre() + "," + cliente.getHc().getFoto();
             String currentLine;
 
             while ((currentLine = reader.readLine()) != null) {
