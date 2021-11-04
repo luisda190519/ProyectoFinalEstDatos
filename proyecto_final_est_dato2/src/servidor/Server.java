@@ -21,7 +21,7 @@ import org.teleal.cling.UpnpServiceImpl;
 import org.teleal.cling.support.igd.PortMappingListener;
 import org.teleal.cling.support.model.PortMapping;
 
-public class Server implements Runnable {
+public class Server {
 
     private Socket socket;
     private static Vector client = new Vector();
@@ -30,6 +30,7 @@ public class Server implements Runnable {
     private int port;
     private ArrayList<String> usuarios;
     private ServerSocket s;
+    private static ArrayList<hiloChat> hilosChat = new ArrayList<hiloChat>();
 
     public Server(Socket socket) {
         try {
@@ -72,67 +73,32 @@ public class Server implements Runnable {
         while (true) {
             Socket socket = s.accept();
             Server server = new Server(socket);
-            Thread thread = new Thread(server);
-            thread.start();
+            hiloChat hiloChat = new hiloChat(socket, server);
+            hiloChat.start();
+            hilosChat.add(hiloChat);
+            System.out.println(hilosChat.size());
 
         }
     }
 
-    @Override
-    public void run() {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
-            client.add(writer);
-
-            while (true) {
-                String data = reader.readLine().trim();
-                System.out.println("Recivido " + data);
-
-                if (data.equals("/addUser")) {
-                    data = reader.readLine().trim();
-                    String name = data;
-                    data = reader.readLine().trim();
-                    String path = data;
-
-                    usuarios.add(name + "," + path);
-                    System.out.println("entre");
-
-                    for (int i = 0; i < client.size(); i++) {
-                        try {
-                            BufferedWriter bw = (BufferedWriter) client.get(i);
-                            bw.write("/nuevoUsuario\n");
-                            for (String usuario : usuarios) {
-                                System.out.println("el size es " + usuarios.size() + "  " + usuario);
-                                bw.write(usuario);
-                                bw.write("\r\n");
-                                bw.flush();
-                            }
-                            bw.write("/finUsuario\n");
-                        } catch (Exception e) {
-                            System.out.println("error " + e);
-                        }
-                    }
-
-                    data = reader.readLine().trim();
-
-                } else {
-                    for (int i = 0; i < client.size(); i++) {
-                        try {
-                            BufferedWriter bw = (BufferedWriter) client.get(i);
-                            bw.write(data);
-                            bw.write("\r\n");
-                            bw.flush();
-                        } catch (Exception e) {
-                        }
-                    }
-                }
-
-            }
-        } catch (Exception e) {
+    public void flush() throws IOException {
+        for (hiloChat hc : hilosChat) {
+            hc.flush();
         }
+    }
 
+    public ArrayList<String> getUsuarios() {
+        return usuarios;
+    }
+
+    public void addUsuarios(String usuario) {
+        this.usuarios.add(usuario);
+    }
+
+    public void transmision(String mensaje) throws IOException {
+        for (hiloChat hc : hilosChat) {
+            hc.enviarMensaje(mensaje);
+        }
     }
 
     public int getNumeroCliente() {

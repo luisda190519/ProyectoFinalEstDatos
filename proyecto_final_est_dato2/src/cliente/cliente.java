@@ -1,5 +1,6 @@
 package cliente;
 
+import GUI.changeCellColor;
 import GUI.imgTabla;
 import GUI.inicio;
 import GUI.userPanel;
@@ -45,8 +46,10 @@ import javax.swing.table.TableColumnModel;
 
 public class cliente implements Runnable {
 
-    BufferedWriter writer;
-    BufferedReader reader;
+    private BufferedWriter writer;
+    private BufferedReader reader;
+    private static DataOutputStream dataOutputStream = null;
+    private static DataInputStream dataInputStream = null;
     String nombre;
     public JPanel panel;
     public String foto;
@@ -62,12 +65,15 @@ public class cliente implements Runnable {
     private static String titulos[] = {"", ""};
     private static DefaultTableModel chatModel = new DefaultTableModel(null, titulos);
     private static DefaultTableModel usuariosConectadosModel = new DefaultTableModel(null, titulos);
+    private ArrayList<userPanel> userPanels = new ArrayList<userPanel>();
 
     public cliente() {
         try {
             Socket socketClient = new Socket("localhost", 2003);
-            this.writer = new BufferedWriter(new OutputStreamWriter(socketClient.getOutputStream()));
-            this.reader = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
+            dataInputStream = new DataInputStream(socketClient.getInputStream());
+            dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
+            this.writer = new BufferedWriter(new OutputStreamWriter(dataOutputStream));
+            this.reader = new BufferedReader(new InputStreamReader(dataInputStream));
         } catch (Exception e) {
             System.out.println("error " + e);
         }
@@ -114,8 +120,10 @@ public class cliente implements Runnable {
         }
     }
 
-    public void updateUsers(JPanel panel, ImageIcon imagen) {
-        panel.add(new userPanel(imagen));
+    public void updateUsers() {
+        for (userPanel u : userPanels) {
+            panel.add(u);
+        }
     }
 
     @Override
@@ -228,7 +236,9 @@ public class cliente implements Runnable {
                 Image img = icon.getImage();
                 Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
                 icon = new ImageIcon(newimg);
-                updateUsers(this.panel, icon);
+                userPanel u = new userPanel(icon);
+                userPanels.add(u);
+                updateUsers();
             }
         } catch (Exception ex) {
             System.out.println("error");
@@ -240,9 +250,11 @@ public class cliente implements Runnable {
         chatTable.setDefaultRenderer(Object.class, new imgTabla());
         chatTable.setRowHeight(50);
         chatTable.setModel(chatModel);
+        chatTable.getColumnModel().getColumn(1).setCellRenderer(new changeCellColor(44, 47, 51));
         usuariosConectados.setDefaultRenderer(Object.class, new imgTabla());
         usuariosConectados.setRowHeight(50);
         usuariosConectados.setModel(usuariosConectadosModel);
+        usuariosConectados.getColumnModel().getColumn(1).setCellRenderer(new changeCellColor(35, 39, 42));
     }
 
     public void setTableIcon(String foto) throws IOException {

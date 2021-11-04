@@ -140,7 +140,7 @@ public class inicio extends javax.swing.JFrame {
                 chatBtnActionPerformed(evt);
             }
         });
-        side.add(chatBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 170, 40));
+        side.add(chatBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 160, 40));
 
         vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png"))); // NOI18N
         vozBtn.setBorder(null);
@@ -157,7 +157,7 @@ public class inicio extends javax.swing.JFrame {
                 vozBtnActionPerformed(evt);
             }
         });
-        side.add(vozBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 170, 40));
+        side.add(vozBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 160, 40));
 
         userPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/defaultfoto.png"))); // NOI18N
         userPic.setBorder(null);
@@ -168,7 +168,10 @@ public class inicio extends javax.swing.JFrame {
         panel.setBackground(new java.awt.Color(44, 47, 51));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jmensaje.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jmensaje.setBackground(new java.awt.Color(153, 170, 181));
+        jmensaje.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jmensaje.setForeground(new java.awt.Color(255, 255, 255));
+        jmensaje.setBorder(null);
         jmensaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmensajeActionPerformed(evt);
@@ -179,6 +182,7 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane2.setBorder(null);
 
         table1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        table1.setForeground(new java.awt.Color(255, 255, 255));
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -199,6 +203,7 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane3.setBorder(null);
 
         table2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        table2.setForeground(new java.awt.Color(255, 255, 255));
         table2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -249,6 +254,7 @@ public class inicio extends javax.swing.JFrame {
         joinMeeting.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         joinMeeting.setForeground(new java.awt.Color(255, 255, 255));
         joinMeeting.setText("Iniciar reunion");
+        joinMeeting.setBorder(null);
         joinMeeting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 joinMeetingActionPerformed(evt);
@@ -292,6 +298,7 @@ public class inicio extends javax.swing.JFrame {
         choosePicBtn.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         choosePicBtn.setForeground(new java.awt.Color(255, 255, 255));
         choosePicBtn.setText("Escoja su foto de perfil");
+        choosePicBtn.setBorder(null);
         choosePicBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 choosePicBtnActionPerformed(evt);
@@ -413,7 +420,7 @@ public class inicio extends javax.swing.JFrame {
             inputFile.delete();
             boolean successful = tempFile.renameTo(inputFile);
         } catch (Exception e) {
-            System.out.println("error"+e);
+            System.out.println("error" + e);
         }
     }
 
