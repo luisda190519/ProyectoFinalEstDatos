@@ -101,7 +101,7 @@ public class cliente implements Runnable {
         try {
             this.nombre = nombre;
             this.foto = foto;
-            //makeFile();
+            makeFile();
             usuariosConectadosModel.setRowCount(0);
             writer.write("/addUser\n");
             writer.write(this.nombre + "\n");
@@ -115,9 +115,6 @@ public class cliente implements Runnable {
     }
 
     public void updateUsers(JPanel panel, ImageIcon imagen) {
-        panel.removeAll();
-        System.out.println("el panel es " + panel.getName());
-        panel.setLayout(new GridLayout(5, 5));
         panel.add(new userPanel(imagen));
     }
 
@@ -129,19 +126,6 @@ public class cliente implements Runnable {
 
             while ((msg = reader.readLine()) != null) {
                 System.out.println(msg);
-                try (Scanner entrada = new Scanner(archivo)) {
-                    while (entrada.hasNextLine()) {
-                        String linea = entrada.nextLine();
-                        String data[] = linea.split(",");
-                        ImageIcon icon = new ImageIcon(data[1]);
-                        Image img = icon.getImage();
-                        Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-                        icon = new ImageIcon(newimg);
-                        usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), data[0]});
-                    }
-                } catch (Exception ex) {
-                    System.out.println("error");
-                }
 
                 if (msg.equals("/nuevoUsuario")) {
                     msg = reader.readLine();
@@ -152,6 +136,22 @@ public class cliente implements Runnable {
                         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
                         icon = new ImageIcon(newimg);
                         //usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), data[0]});
+
+                        usuariosConectadosModel.setRowCount(0);
+                        try (Scanner entrada = new Scanner(archivo)) {
+                            while (entrada.hasNextLine()) {
+                                String linea = entrada.nextLine();
+                                String data2[] = linea.split(",");
+                                icon = new ImageIcon(data2[1]);
+                                img = icon.getImage();
+                                newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+                                icon = new ImageIcon(newimg);
+                                usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), data2[0]});
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("error");
+                        }
+
                         msg = reader.readLine();
                     }
 
@@ -168,22 +168,6 @@ public class cliente implements Runnable {
                     foto2 = new ImageIcon(newimg);
                     chatModel.addRow(new Object[]{new JLabel(foto2), texto});
 
-                }
-
-                if (true) {
-                    try (Scanner entrada = new Scanner(archivo)) {
-                        while (entrada.hasNextLine()) {
-                            String linea = entrada.nextLine();
-                            String data[] = linea.split(",");
-                            ImageIcon icon = new ImageIcon(data[1]);
-                            Image img = icon.getImage();
-                            Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
-                            icon = new ImageIcon(newimg);
-                            updateUsers(panel, icon);
-                        }
-                    } catch (Exception ex) {
-                        System.out.println("error");
-                    }
                 }
 
 //                if (i == 0 && !msg.equals(foto)) {
@@ -225,16 +209,29 @@ public class cliente implements Runnable {
 
     public void setPanel(JPanel panel, vozGUI voz) {
         this.panel = panel;
+        this.panel.removeAll();
+        this.panel.setLayout(new GridLayout(5, 5));
         this.camaraPrendida = voz.isCamaraPrendida();
         this.tablaCreada = true;
+        updatePanels();
+    }
 
-        try {
-            writer.write("\n");
-            writer.write(foto);
-            writer.write("\r\n");
-            writer.flush();
-        } catch (Exception e) {
-            System.out.println("error " + e);
+    public void updatePanels() {
+        this.panel.removeAll();
+        this.panel.setLayout(new GridLayout(5, 5));
+
+        try (Scanner entrada = new Scanner(archivo)) {
+            while (entrada.hasNextLine()) {
+                String linea = entrada.nextLine();
+                String data[] = linea.split(",");
+                ImageIcon icon = new ImageIcon(data[1]);
+                Image img = icon.getImage();
+                Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+                icon = new ImageIcon(newimg);
+                updateUsers(this.panel, icon);
+            }
+        } catch (Exception ex) {
+            System.out.println("error");
         }
 
     }

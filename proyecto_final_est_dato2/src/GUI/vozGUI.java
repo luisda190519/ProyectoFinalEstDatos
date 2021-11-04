@@ -133,6 +133,7 @@ public class vozGUI extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(44, 47, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        micVol.setBackground(new java.awt.Color(44, 47, 51));
         micVol.setMaximum(300);
         micVol.setMinimum(50);
         micVol.setValue(100);
@@ -211,7 +212,7 @@ public class vozGUI extends javax.swing.JFrame {
         panel.setLayout(new java.awt.GridBagLayout());
         jScrollPane3.setViewportView(panel);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 950, 530));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 930, 530));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -313,8 +314,8 @@ public class vozGUI extends javax.swing.JFrame {
     }
 
     public void exitProcedure() {
-        System.out.println("entre");
         deleteUserProfile();
+        cliente.updatePanels();
         this.dispose();
         System.exit(0);
     }

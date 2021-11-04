@@ -11,7 +11,7 @@ public class userPanel extends javax.swing.JPanel {
 
     public userPanel(ImageIcon imagen) {
         initComponents();
-
+        this.setMaximumSize(this.getPreferredSize());
         Image img = imagen.getImage();
         Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
         imagen = new ImageIcon(newimg);
@@ -78,7 +78,7 @@ public class userPanel extends javax.swing.JPanel {
 
         pic = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(35, 39, 42));
+        setBackground(new java.awt.Color(44, 47, 51));
         setMaximumSize(new java.awt.Dimension(323, 165));
         setMinimumSize(new java.awt.Dimension(323, 165));
 
@@ -87,16 +87,16 @@ public class userPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(66, 66, 66)
                 .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(27, 27, 27)
                 .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

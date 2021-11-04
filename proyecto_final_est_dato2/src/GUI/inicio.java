@@ -91,6 +91,7 @@ public class inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         chat = new javax.swing.JFrame();
+        jPanel3 = new javax.swing.JPanel();
         side = new javax.swing.JPanel();
         chatBtn = new javax.swing.JButton();
         vozBtn = new javax.swing.JButton();
@@ -99,10 +100,9 @@ public class inicio extends javax.swing.JFrame {
         jmensaje = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         table1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        users = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         table2 = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         joinMeeting = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -116,9 +116,11 @@ public class inicio extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
 
         chat.setBackground(new java.awt.Color(35, 39, 42));
-        chat.setPreferredSize(new java.awt.Dimension(1200, 700));
         chat.setResizable(false);
         chat.setSize(new java.awt.Dimension(1200, 700));
+
+        jPanel3.setBackground(new java.awt.Color(44, 47, 51));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         side.setBackground(new java.awt.Color(35, 39, 42));
         side.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -161,6 +163,8 @@ public class inicio extends javax.swing.JFrame {
         userPic.setBorder(null);
         side.add(userPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 120));
 
+        jPanel3.add(side, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 700));
+
         panel.setBackground(new java.awt.Color(44, 47, 51));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -170,7 +174,7 @@ public class inicio extends javax.swing.JFrame {
                 jmensajeActionPerformed(evt);
             }
         });
-        panel.add(jmensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 670, 40));
+        panel.add(jmensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 660, 40));
 
         jScrollPane2.setBorder(null);
 
@@ -186,9 +190,11 @@ public class inicio extends javax.swing.JFrame {
         table1.setEnabled(false);
         jScrollPane2.setViewportView(table1);
 
-        panel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 670, 580));
+        panel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 660, 580));
 
-        jPanel1.setBackground(new java.awt.Color(35, 39, 42));
+        jPanel3.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 720, 700));
+
+        users.setBackground(new java.awt.Color(35, 39, 42));
 
         jScrollPane3.setBorder(null);
 
@@ -204,49 +210,34 @@ public class inicio extends javax.swing.JFrame {
         table2.setEnabled(false);
         jScrollPane3.setViewportView(table2);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout usersLayout = new javax.swing.GroupLayout(users);
+        users.setLayout(usersLayout);
+        usersLayout.setHorizontalGroup(
+            usersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(usersLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        usersLayout.setVerticalGroup(
+            usersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(usersLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(44, 47, 51));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 0, -1, 700));
 
         javax.swing.GroupLayout chatLayout = new javax.swing.GroupLayout(chat.getContentPane());
         chat.getContentPane().setLayout(chatLayout);
         chatLayout.setHorizontalGroup(
             chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(chatLayout.createSequentialGroup()
-                .addComponent(side, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(chatLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(243, Short.MAX_VALUE)))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
         );
         chatLayout.setVerticalGroup(
             chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(side, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -297,7 +288,9 @@ public class inicio extends javax.swing.JFrame {
         ipField.setText("localhost");
         jPanel2.add(ipField, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 470, 480, -1));
 
+        choosePicBtn.setBackground(new java.awt.Color(114, 137, 218));
         choosePicBtn.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        choosePicBtn.setForeground(new java.awt.Color(255, 255, 255));
         choosePicBtn.setText("Escoja su foto de perfil");
         choosePicBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -354,7 +347,6 @@ public class inicio extends javax.swing.JFrame {
         } else {
             this.setVisible(false);
             cliente.insertarCliente(nameField.getText(), fotoPath);
-            cliente.makeFile();
             chat.setVisible(true);
             chat.setLocationRelativeTo(null);
             chat.setSize(1230, 730); //778,520
@@ -498,7 +490,6 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
@@ -513,6 +504,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JTable table2;
     private javax.swing.JLabel title;
     private javax.swing.JButton userPic;
+    private javax.swing.JPanel users;
     private javax.swing.JButton vozBtn;
     // End of variables declaration//GEN-END:variables
 }
