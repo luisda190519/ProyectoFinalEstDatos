@@ -23,7 +23,6 @@ import org.teleal.cling.UpnpService;
 import org.teleal.cling.UpnpServiceImpl;
 import org.teleal.cling.support.igd.PortMappingListener;
 import org.teleal.cling.support.model.PortMapping;
-import soundUtils.BroadcastThread;
 
 public class Server {
 
@@ -57,10 +56,8 @@ public class Server {
             throw new Exception("Error " + ex);
         }
 
-        BroadcastThread bt = new BroadcastThread(this);
-        bt.start();
-        
-        while (true) {
+        new BroadcastThread().start();
+        for (;;) {
             try {
                 Socket c = s.accept();
                 ClientConnection cc = new ClientConnection(this, c); //create a ClientConnection thread
@@ -86,15 +83,15 @@ public class Server {
         }
     }
 
-    //El buffered writer hay que ponerle el flush al acabar
     public void flush() throws IOException {
         for (hiloChat hc : hilosChat) {
             hc.flush();
         }
     }
-
-    public void removeUser(hiloChat hc) {
+    
+    public void removeUser(hiloChat hc){
         hilosChat.remove(hc);
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
     public ArrayList<String> getUsuarios() {
@@ -105,30 +102,21 @@ public class Server {
         this.usuarios.add(usuario);
     }
 
-    //Transmite el mensaje a todos los hilos de chat
     public void transmision(String mensaje) throws IOException {
         for (hiloChat hc : hilosChat) {
             hc.enviarMensaje(mensaje);
         }
     }
 
-    public ArrayList<Message> getBroadCastQueue() {
-        return broadCastQueue;
-    }
-
-    public ArrayList<ClientConnection> getClients() {
-        return clients;
-    }
-
     public int getNumeroCliente() {
         return client.size();
     }
 
-    //add a message to the broadcast queue. this method is used by all ClientConnection instances
-    public void addToBroadcastQueue(Message m) {
+    public void addToBroadcastQueue(Message m) { //add a message to the broadcast queue. this method is used by all ClientConnection instances
         try {
             broadCastQueue.add(m);
         } catch (Throwable t) {
+            //mutex error, try again
             Utils.sleep(1);
             addToBroadcastQueue(m);
         }
@@ -136,10 +124,47 @@ public class Server {
 
     private void addToClients(ClientConnection cc) {
         try {
-            clients.add(cc);
+            clients.add(cc); //add the new connection to the list of connections
         } catch (Throwable t) {
+            //mutex error, try again
             Utils.sleep(1);
             addToClients(cc);
+        }
+    }
+
+    private class BroadcastThread extends Thread {
+
+        public BroadcastThread() {
+        }
+
+        @Override
+        public void run() {
+            for (;;) {
+                try {
+                    ArrayList<ClientConnection> toRemove = new ArrayList<ClientConnection>(); //create a list of dead connections
+                    for (ClientConnection cc : clients) {
+                        if (!cc.isAlive()) { //connection is dead, need to be removed
+                            Log.add("dead connection closed: " + cc.getInetAddress() + ":" + cc.getPort() + " on port " + port);
+                            toRemove.add(cc);
+                        }
+                    }
+                    clients.removeAll(toRemove); //delete all dead connections
+                    if (broadCastQueue.isEmpty()) { //nothing to send
+                        Utils.sleep(10); //avoid busy wait
+                        continue;
+                    } else { //we got something to broadcast
+                        Message m = broadCastQueue.get(0);
+                        for (ClientConnection cc : clients) { //broadcast the message
+                            if (cc.getChId() != m.getChId()) {
+                                cc.addToQueue(m);
+                            }
+                        }
+                        broadCastQueue.remove(m); //remove it from the broadcast queue
+                    }
+                } catch (Throwable t) {
+                    //mutex error, try again
+                }
+            }
         }
     }
 }
