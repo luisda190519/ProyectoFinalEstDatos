@@ -88,11 +88,6 @@ public class Server {
             hc.flush();
         }
     }
-    
-    public void removeUser(hiloChat hc){
-        hilosChat.remove(hc);
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    }
 
     public ArrayList<String> getUsuarios() {
         return usuarios;

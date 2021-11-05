@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/proyecto_final_est_dato2/src/servidor/Server.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/proyecto_final_est_dato2/src/GUI/inicio.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/proyecto_final_est_dato2/src/GUI/vozGUI.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/proyecto_final_est_dato2/src/cliente/cliente.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/proyecto_final_est_dato2/src/servidor/hiloChat.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/proyecto_final_est_dato2/src/cliente/hiloChatCliente.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

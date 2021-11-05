@@ -27,8 +27,8 @@ public class hiloChat extends Thread {
     public void enviarMensaje(String mensaje) throws IOException {
         writer.write(mensaje);
     }
-
-    public void flush() throws IOException {
+    
+    public void flush() throws IOException{
         writer.flush();
     }
 
@@ -58,12 +58,10 @@ public class hiloChat extends Thread {
                         server.transmision("\r\n");
                         server.flush();
                     }
-
+                    
                     server.transmision("/finUsuario\n");
                     data = reader.readLine().trim();
 
-                } else if (data.equals("/dc")) {
-                    server.removeUser(this);
                 } else {
                     server.transmision(data);
                     server.transmision("\r\n");

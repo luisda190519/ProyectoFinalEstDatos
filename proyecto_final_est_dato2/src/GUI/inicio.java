@@ -431,7 +431,6 @@ public class inicio extends javax.swing.JFrame {
 
     public void exitProcedure() {
         deleteUserProfile();
-        cliente.getHc().desconectarse();
         this.dispose();
         System.exit(0);
     }
