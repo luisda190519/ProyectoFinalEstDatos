@@ -315,6 +315,7 @@ public class vozGUI extends javax.swing.JFrame {
 
     public void exitProcedure() {
         deleteUserProfile();
+        cliente.getHc().desconectarse();
         cliente.updatePanels();
         this.dispose();
         System.exit(0);

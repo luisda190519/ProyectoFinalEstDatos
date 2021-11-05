@@ -49,6 +49,16 @@ public class hiloChatCliente extends Thread {
         }
     }
 
+    public void desconectarse() {
+        try {
+            writer.write("/dc");
+            writer.write("\r\n");
+            writer.flush();
+        } catch (Exception e) {
+            System.out.println("error " + e);
+        }
+    }
+
     public void insertarCliente(String nombre, String foto) {
         try {
             this.nombre = nombre;
