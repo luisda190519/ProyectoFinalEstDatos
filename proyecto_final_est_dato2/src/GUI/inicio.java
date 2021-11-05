@@ -1,7 +1,7 @@
 package GUI;
 
-import cliente.MicThread;
-import cliente.SoundPacket;
+import VoiceUtils.MicThread;
+import VoiceUtils.SoundPacket;
 import cliente.cliente;
 import java.awt.Color;
 import java.awt.Component;
@@ -36,9 +36,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
-import servidor.Log;
-import servidor.Server;
-import servidor.Utils;
+import Utils.Log;
+import Utils.Utils;
 import static cliente.cliente.chatTable;
 import java.awt.event.WindowAdapter;
 import javax.swing.JPanel;

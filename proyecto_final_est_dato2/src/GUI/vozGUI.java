@@ -1,8 +1,8 @@
 package GUI;
 
-import cliente.ClienteVoz;
-import cliente.MicThread;
-import cliente.SoundPacket;
+import VoiceUtils.ClienteVoz;
+import VoiceUtils.MicThread;
+import VoiceUtils.SoundPacket;
 import cliente.cliente;
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -30,7 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
-import servidor.Utils;
+import Utils.Utils;
 
 public class vozGUI extends javax.swing.JFrame {
 
