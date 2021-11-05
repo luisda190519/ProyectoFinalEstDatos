@@ -1,10 +1,19 @@
 package Utils;
 
+
 import javax.swing.JOptionPane;
 
-public class ErrorMessage {
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-    public static void main(String args[]) {
-        JOptionPane.showMessageDialog(new JOptionPane(), "This is a library, not a program.\nPlease run VoiceChat_Server or VoiceChat_Client");
+/**
+ *
+ * @author dosse
+ */
+public class ErrorMessage {
+    public static void main(String args[]){
+        JOptionPane.showMessageDialog(new JOptionPane(),"This is a library, not a program.\nPlease run VoiceChat_Server or VoiceChat_Client");
     }
 }
