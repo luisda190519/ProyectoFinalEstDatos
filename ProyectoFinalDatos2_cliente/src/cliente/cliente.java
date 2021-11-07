@@ -51,7 +51,7 @@ public class cliente {
     public String foto;
     public ArrayList<String> fotos = new ArrayList<String>();
     public boolean tablaCreada = false;
-    public ImageIcon foto2;
+    public ImageIcon clientUserPic;
     public static JTable chatTable;
     public static JTable usuariosConectados;
     private File folder = new File("data");
@@ -65,6 +65,9 @@ public class cliente {
     private Socket socketClient;
     private hiloChatCliente hc;
     private static cliente cliente;
+    private ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
+    private hiloImagen hi;
+    private ArrayList<String> names = new ArrayList<String>();
 
     public cliente getCliente() {
         return cliente;
@@ -72,6 +75,15 @@ public class cliente {
 
     public cliente() {
 
+    }
+
+    public ImageIcon searchPic(String path) {
+        for (ImageIcon icon : images) {
+            if (icon.equals(path)) {
+                return icon;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) throws IOException {
@@ -150,10 +162,10 @@ public class cliente {
     }
 
     public void setTableIcon(String foto) throws IOException {
-        foto2 = new ImageIcon(foto);
-        Image img = foto2.getImage();
+        clientUserPic = new ImageIcon(foto);
+        Image img = clientUserPic.getImage();
         Image newimg = img.getScaledInstance(95, 95, java.awt.Image.SCALE_SMOOTH);
-        foto2 = new ImageIcon(newimg);
+        clientUserPic = new ImageIcon(newimg);
         BufferedImage br;
         Webcam cam = Webcam.getDefault();
         //fill(foto);
@@ -162,9 +174,9 @@ public class cliente {
             while (camaraPrendida == true) {
                 cam.open();
                 br = cam.getImage();
-                foto2 = new ImageIcon(br);
+                clientUserPic = new ImageIcon(br);
                 Image newimg2 = br.getScaledInstance(95, 95, java.awt.Image.SCALE_SMOOTH);
-                foto2 = new ImageIcon(newimg2);
+                clientUserPic = new ImageIcon(newimg2);
             }
         } else {
             //fill(foto);
@@ -175,6 +187,34 @@ public class cliente {
 
     public static DefaultTableModel getChatModel() {
         return chatModel;
+    }
+
+    public void addClientImage(BufferedImage img) {
+        ImageIcon icon = new ImageIcon(img);
+        images.add(icon);
+        System.out.println("el size de iamge " + images.size());
+    }
+
+    public void updateImages(String name, int i) {
+        Image img = images.get(i).getImage();
+        names.add(0, name);
+        Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon(newimg);
+        usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), name});
+    }
+
+    public int getIndex(String msg) {
+        String data[] = msg.split(":");
+        for (int i = 0; i < images.size(); i++) {
+            if (data[0].equals(images.get(i))) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public ArrayList<ImageIcon> getImages() {
+        return images;
     }
 
     public static byte[] toByteArray(BufferedImage bi, String format) throws IOException {

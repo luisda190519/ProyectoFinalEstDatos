@@ -1,5 +1,6 @@
 package Server;
 
+import com.github.sarxos.webcam.Webcam;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -9,6 +10,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.Socket;
+import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 public class hiloChat extends Thread {
 
@@ -27,8 +32,8 @@ public class hiloChat extends Thread {
     public void enviarMensaje(String mensaje) throws IOException {
         writer.write(mensaje);
     }
-    
-    public void flush() throws IOException{
+
+    public void flush() throws IOException {
         writer.flush();
     }
 
@@ -50,18 +55,28 @@ public class hiloChat extends Thread {
                     data = reader.readLine().trim();
                     String path = data;
 
-                    server.addUsuarios(name + "," + path);
+                    server.addName(name);
 
-                    for (String usuario : server.getUsuarios()) {
-                        server.transmision("/nuevoUsuario\n");
+                    ImageIcon icon = new ImageIcon(path);
+                    BufferedImage bi = ImageIO.read(new File(path));
+
+                    server.addImages(bi);
+                    server.addUsuarios(name + "," + path);
+                    sleep(500);
+
+                    server.transmision("\n/nuevoUsuario\n");
+                    for (String usuario : server.getNames()) {
                         server.transmision(usuario);
                         server.transmision("\r\n");
                         server.flush();
                     }
-                    
+
                     server.transmision("/finUsuario\n");
+                    server.flush();
                     data = reader.readLine().trim();
 
+                } else if (data.equals("/deleteUser")) {
+                    server.deleteUser(this);
                 } else {
                     server.transmision(data);
                     server.transmision("\r\n");

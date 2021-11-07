@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -28,6 +30,7 @@ public class hiloChatCliente extends Thread {
     private ImageIcon foto2;
     private File folder = new File("data");
     private File archivo = new File(folder, "usuarios.txt");
+    private hiloImagen hi;
 
     public hiloChatCliente(Socket socket, cliente c) throws IOException {
         this.socketClient = socket;
@@ -36,12 +39,29 @@ public class hiloChatCliente extends Thread {
         dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
         this.writer = new BufferedWriter(new OutputStreamWriter(dataOutputStream));
         this.reader = new BufferedReader(new InputStreamReader(dataInputStream));
+
+        hi = new hiloImagen(socketClient, c, this);
+        hi.start();
+
     }
 
     public void enviarMensaje(String nombre, String mensaje) {
         try {
+            writer.write("\n");
+            writer.write("/starMessage\n");
             writer.write(nombre + ": " + mensaje + "\n");
             writer.write(foto);
+            writer.write("\n/stopMessage");
+            writer.write("\r\n");
+            writer.flush();
+        } catch (Exception e) {
+            System.out.println("error " + e);
+        }
+    }
+
+    public void deleteUser() {
+        try {
+            writer.write("/deleteUser\n");
             writer.write("\r\n");
             writer.flush();
         } catch (Exception e) {
@@ -66,92 +86,51 @@ public class hiloChatCliente extends Thread {
         }
     }
 
+    public void esperar() {
+        try {
+            hi.wait();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public void run() {
         try {
             String msg = "", texto = "";
             int i = 0, j = 0, aux = 0;
+            sleep(500);
 
             while ((msg = reader.readLine()) != null) {
-                System.out.println(msg);
-
+                msg = reader.readLine();
                 if (msg.equals("/nuevoUsuario")) {
+                    c.getUsuariosConectadosModel().setRowCount(0);
                     msg = reader.readLine();
                     while (!msg.equals("/finUsuario")) {
-                        String data[] = msg.split(",");
-                        ImageIcon icon = new ImageIcon(data[1]);
-                        Image img = icon.getImage();
-                        Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-                        icon = new ImageIcon(newimg);
-                        //usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), data[0]});
-
-                        c.getUsuariosConectadosModel().setRowCount(0);
-                        try (Scanner entrada = new Scanner(archivo)) {
-                            while (entrada.hasNextLine()) {
-                                String linea = entrada.nextLine();
-                                String data2[] = linea.split(",");
-                                icon = new ImageIcon(data2[1]);
-                                img = icon.getImage();
-                                newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-                                icon = new ImageIcon(newimg);
-                                c.getUsuariosConectadosModel().addRow(new Object[]{new JLabel(icon), data2[0]});
-                            }
-                        } catch (Exception ex) {
-                            System.out.println("error");
+                        if (i > 0) {
+                            hi.notify();
                         }
-
+                        c.updateImages(msg, i);
                         msg = reader.readLine();
+                        i++;
                     }
 
-                    System.out.println("el fin es " + msg);
-
-                } else {
-                    System.out.println("entre " + msg);
+                } else if (msg.equals("/starMessage")) {
+                    msg = reader.readLine();
                     texto = msg;
                     msg = reader.readLine();
                     String path = msg;
-                    foto2 = new ImageIcon(path);
+                    foto2 = c.getImages().get(c.getIndex(msg));
                     Image img = foto2.getImage();
                     Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
                     foto2 = new ImageIcon(newimg);
                     c.getChatModel().addRow(new Object[]{new JLabel(foto2), texto});
-
+                    msg = reader.readLine();
                 }
-
-//                if (i == 0 && !msg.equals(foto)) {
-//                    //chat.append(msg + "\n");
-//                    texto = msg;
-//                    i++;
-//                } else {
-//                    if (tablaCreada == true) {
-//                        if (j == 0) {
-//                            buscarPosx(aux);
-//                            buscarPosy(aux);
-//                            setTableIcon(msg);
-//                            j++;
-//                            aux++;
-//                        }
-//                    }
-//
-//                    if (!texto.equals("") && !texto.equals(nombre)) {
-//                        foto2 = new ImageIcon(msg);
-//                        Image img = foto2.getImage();
-//                        Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-//                        foto2 = new ImageIcon(newimg);
-//
-//                        chatModel.addRow(new Object[]{new JLabel(foto2), texto});
-//                        //tabla2.changeSelection(tabla2.getRowCount() - 1, 0, false, false);
-//                        chatTable.scrollRectToVisible(chatTable.getCellRect(chatTable.getRowCount() - 1, chatTable.getColumnCount(), true));
-//                        System.out.println(msg);
-//                    }
-//
-//                    i = 0;
-//                    j = 0;
-//
-//                }
             }
 
         } catch (Exception e) {
+            System.out.println("error " + e);
         }
     }
 

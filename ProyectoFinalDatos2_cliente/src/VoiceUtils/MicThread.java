@@ -1,6 +1,5 @@
 package VoiceUtils;
 
-
 import VoiceUtils.SoundPacket;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,15 +13,6 @@ import javax.sound.sampled.TargetDataLine;
 import Utils.Message;
 import Utils.Utils;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * reads data from microphone and sends it to the server
- *
- * @author dosse
- */
 public class MicThread extends Thread {
 
     public static double amplification = 1.0;
@@ -41,7 +31,7 @@ public class MicThread extends Thread {
 
     @Override
     public void run() {
-        for (;;) {
+        while (true) {
             if (mic.available() >= SoundPacket.defaultDataLenght) { //we got enough data to send
                 byte[] buff = new byte[SoundPacket.defaultDataLenght];
                 while (mic.available() >= SoundPacket.defaultDataLenght) { //flush old data from mic to reduce lag, and read most recent data

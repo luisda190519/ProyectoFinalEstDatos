@@ -326,7 +326,7 @@ public class vozGUI extends javax.swing.JFrame {
 
     public void join() {
         try {
-            new ClienteVoz("127.0.0.1", 1049).start(); //connect to specified server at specified port
+            new ClienteVoz("127.0.0.1", 2004).start(); //connect to specified server at specified port
         } catch (Exception ex) { //connection failed
             JOptionPane.showMessageDialog(rootPane, ex, "Error", JOptionPane.ERROR_MESSAGE);
             return;

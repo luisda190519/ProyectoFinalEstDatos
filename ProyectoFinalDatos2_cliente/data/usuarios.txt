@@ -1,0 +1,4 @@
+df,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg
+aa,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg
+sda,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg
+asd,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg

@@ -4,6 +4,7 @@ import soundUtils.ClientConnection;
 import Utils.Log;
 import Utils.Message;
 import Utils.Utils;
+import java.awt.image.BufferedImage;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -16,6 +17,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -23,6 +26,7 @@ import org.teleal.cling.UpnpService;
 import org.teleal.cling.UpnpServiceImpl;
 import org.teleal.cling.support.igd.PortMappingListener;
 import org.teleal.cling.support.model.PortMapping;
+import soundUtils.BroadcastThread;
 
 public class Server {
 
@@ -31,57 +35,39 @@ public class Server {
     private ArrayList<Message> broadCastQueue = new ArrayList<Message>();
     private ArrayList<ClientConnection> clients = new ArrayList<ClientConnection>();
     private int port;
-    private ArrayList<String> usuarios;
+    private ArrayList<String> usuarios = new ArrayList<String>();
     private ServerSocket s;
     private static ArrayList<hiloChat> hilosChat = new ArrayList<hiloChat>();
+    private ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+    private static ArrayList<hiloImagen> hiloImagen = new ArrayList<hiloImagen>();
+    private ArrayList<String> names = new ArrayList<String>();
 
-    public Server(Socket socket) {
-        try {
-            this.socket = socket;
-            usuarios = new ArrayList<String>();
-        } catch (Exception e) {
-            System.out.println("error " + e);
-            e.printStackTrace();
-        }
-    }
-
-    public Server(int port) throws Exception {
-        this.port = port;
-
-        try {
-            s = new ServerSocket(port);
-            Log.add("Port " + port + ": server started");
-        } catch (IOException ex) {
-            Log.add("Server error " + ex + "(port " + port + ")");
-            throw new Exception("Error " + ex);
-        }
-
-        new BroadcastThread().start();
-        for (;;) {
-            try {
-                Socket c = s.accept();
-                ClientConnection cc = new ClientConnection(this, c); //create a ClientConnection thread
-                cc.start();
-                addToClients(cc);
-                Log.add("new client " + c.getInetAddress() + ":" + c.getPort() + " on port " + port);
-            } catch (IOException ex) {
-            }
-        }
+    public Server() {
     }
 
     public static void main(String[] args) throws Exception {
         ServerSocket s = new ServerSocket(2003);
-        serverGUI serverGUI = new serverGUI();
+        Server server = new Server();
 
         while (true) {
             Socket socket = s.accept();
-            Server server = new Server(socket);
+            server.socket = socket;
             hiloChat hiloChat = new hiloChat(socket, server);
             hiloChat.start();
             hilosChat.add(hiloChat);
-            System.out.println(hilosChat.size());
-
         }
+    }
+
+    public ArrayList<BufferedImage> getImages() {
+        return images;
+    }
+
+    public ArrayList<Message> getBroadCastQueue() {
+        return broadCastQueue;
+    }
+
+    public ArrayList<ClientConnection> getClients() {
+        return clients;
     }
 
     public void flush() throws IOException {
@@ -98,14 +84,34 @@ public class Server {
         this.usuarios.add(usuario);
     }
 
+    public void addImages(BufferedImage image) throws IOException {
+        images.add(image);
+        hiloImagen hi = new hiloImagen(socket);
+        hiloImagen.add(hi);
+        System.out.println("el tamaño del hilo imagen es de " + hiloImagen.size() + " y el de images " + images.size());
+        this.transmision();
+    }
+
     public void transmision(String mensaje) throws IOException {
         for (hiloChat hc : hilosChat) {
             hc.enviarMensaje(mensaje);
         }
     }
 
+    public void transmision() throws IOException {
+        for (hiloImagen hi : hiloImagen) {
+            for (BufferedImage bi : images) {
+                hi.enviarMensaje(bi);
+            }
+        }
+    }
+
     public int getNumeroCliente() {
         return client.size();
+    }
+
+    public void deleteUser(hiloChat hc) {
+        hilosChat.remove(hc);
     }
 
     public void addToBroadcastQueue(Message m) { //add a message to the broadcast queue. this method is used by all ClientConnection instances
@@ -128,39 +134,12 @@ public class Server {
         }
     }
 
-    private class BroadcastThread extends Thread {
-
-        public BroadcastThread() {
-        }
-
-        @Override
-        public void run() {
-            for (;;) {
-                try {
-                    ArrayList<ClientConnection> toRemove = new ArrayList<ClientConnection>(); //create a list of dead connections
-                    for (ClientConnection cc : clients) {
-                        if (!cc.isAlive()) { //connection is dead, need to be removed
-                            Log.add("dead connection closed: " + cc.getInetAddress() + ":" + cc.getPort() + " on port " + port);
-                            toRemove.add(cc);
-                        }
-                    }
-                    clients.removeAll(toRemove); //delete all dead connections
-                    if (broadCastQueue.isEmpty()) { //nothing to send
-                        Utils.sleep(10); //avoid busy wait
-                        continue;
-                    } else { //we got something to broadcast
-                        Message m = broadCastQueue.get(0);
-                        for (ClientConnection cc : clients) { //broadcast the message
-                            if (cc.getChId() != m.getChId()) {
-                                cc.addToQueue(m);
-                            }
-                        }
-                        broadCastQueue.remove(m); //remove it from the broadcast queue
-                    }
-                } catch (Throwable t) {
-                    //mutex error, try again
-                }
-            }
-        }
+    public void addName(String name) {
+        names.add(name);
     }
+
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
 }

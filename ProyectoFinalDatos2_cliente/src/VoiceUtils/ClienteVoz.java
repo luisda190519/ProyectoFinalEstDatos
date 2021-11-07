@@ -32,7 +32,7 @@ public class ClienteVoz extends Thread {
             } catch (Exception e) {
                 System.out.println("mic unavailable " + e);
             }
-            for (;;) {
+            while (true) {
 
                 if (s.getInputStream().available() > 0) {
                     Message in = (Message) (fromServer.readObject());

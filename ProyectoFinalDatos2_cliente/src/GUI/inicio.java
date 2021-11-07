@@ -88,7 +88,6 @@ public class inicio extends javax.swing.JFrame {
     public void setCliente(cliente cliente) {
         this.cliente = cliente;
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -431,6 +430,7 @@ public class inicio extends javax.swing.JFrame {
 
     public void exitProcedure() {
         deleteUserProfile();
+        cliente.getHc().deleteUser();
         this.dispose();
         System.exit(0);
     }
