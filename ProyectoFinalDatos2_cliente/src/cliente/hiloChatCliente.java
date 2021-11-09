@@ -105,6 +105,7 @@ public class hiloChatCliente extends Thread {
             BufferedImage img = null;
 
             while (msg != null) {
+                sleep(100);
                 msg = reader.readLine();
                 System.out.println("el msg es " + msg);
                 c.updatePanels();
@@ -135,14 +136,6 @@ public class hiloChatCliente extends Thread {
                 } else {
                     try {
                         int size = Integer.parseInt(msg);
-                        img = ImageIO.read(socketClient.getInputStream());
-                        if (img != null) {
-                            if (j == 0) {
-                                c.clearImages();
-                            }
-                            c.addClientImage(img);
-                            j++;
-                        }
 
                     } catch (Exception e) {
                     }

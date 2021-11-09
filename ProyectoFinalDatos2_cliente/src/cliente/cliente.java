@@ -107,6 +107,11 @@ public class cliente {
             socketClient = new Socket(ip, port);
             hc = new hiloChatCliente(socketClient, cliente);
             hc.start();
+
+            Socket s = new Socket(ip, port + 1);
+            hiloImagen hi = new hiloImagen(s, cliente);
+            hi.start();
+
         } catch (Exception e) {
             System.out.println("error " + e);
         }
@@ -177,8 +182,8 @@ public class cliente {
         ImageIcon icon = new ImageIcon(img);
         images.add(icon);
     }
-    
-    public void clearImages(){
+
+    public void clearImages() {
         images.clear();
     }
 

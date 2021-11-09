@@ -542,7 +542,7 @@ public class inicio extends javax.swing.JFrame {
     private void chatBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBtn1ActionPerformed
         chat.setVisible(true);
         chat.setLocationRelativeTo(null);
-        this.setVisible(false);
+        call.setVisible(false);
     }//GEN-LAST:event_chatBtn1ActionPerformed
 
     private void vozBtn1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vozBtn1MouseEntered

@@ -38,12 +38,6 @@ public class hiloChat extends Thread {
         writer.flush();
     }
 
-    public void enviarMensaje(BufferedImage image) throws IOException {
-        ByteArrayOutputStream ous = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", ous);
-        socket.getOutputStream().write(ous.toByteArray());
-    }
-
     @Override
     public void run() {
         try {
@@ -68,6 +62,8 @@ public class hiloChat extends Thread {
                     
                     server.addImages(bi);
                     server.addUsuarios(name + "," + path);
+                    
+                    sleep(100);
 
                     server.transmision("/nuevoUsuario");
                     server.transmision("\r\n");

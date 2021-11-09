@@ -47,6 +47,7 @@ public class Server {
 
     public static void main(String[] args) throws Exception {
         ServerSocket s = new ServerSocket(2003);
+        ServerSocket s2 = new ServerSocket(2004);
         Server server = new Server();
 
         while (true) {
@@ -55,6 +56,12 @@ public class Server {
             hiloChat hiloChat = new hiloChat(socket, server);
             hiloChat.start();
             hilosChat.add(hiloChat);
+
+            Socket socket2 = s2.accept();
+            hiloImagen hi = new hiloImagen(socket2);
+            hi.start();
+            hiloImagen.add(hi);
+
         }
     }
 
@@ -96,15 +103,9 @@ public class Server {
     }
 
     public void transmision(BufferedImage image) throws IOException {
-        
-        for (hiloChat hc : hilosChat) {
+        for (hiloImagen hiImagen : hiloImagen) {
             for (BufferedImage bi : images) {
-                hc.enviarMensaje(images.size() + "");
-                hc.enviarMensaje("\r\n");
-                this.flush();
-                hc.enviarMensaje(bi);
-                this.transmision("\r\n");
-                this.flush();
+                hiImagen.enviarMensaje(bi);
             }
         }
     }

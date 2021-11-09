@@ -19,7 +19,7 @@ public class hiloImagen extends Thread {
     private hiloChatCliente hc;
     private int tamaño = 0;
 
-    public hiloImagen(Socket socket, cliente cliente, hiloChatCliente hc) throws IOException {
+    public hiloImagen(Socket socket, cliente cliente) throws IOException {
         this.socket = socket;
         this.cliente = cliente;
         this.hc = hc;
@@ -33,7 +33,7 @@ public class hiloImagen extends Thread {
     public void run() {
         try {
             int i = 0;
-            while (i <= tamaño) {
+            while (true) {
                 BufferedImage img = ImageIO.read(socket.getInputStream());
                 if (img != null) {
                     cliente.addClientImage(img);
