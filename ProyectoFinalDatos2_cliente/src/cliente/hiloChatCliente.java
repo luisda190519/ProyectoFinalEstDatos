@@ -1,6 +1,7 @@
 package cliente;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -14,6 +15,7 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -40,9 +42,8 @@ public class hiloChatCliente extends Thread {
         this.writer = new BufferedWriter(new OutputStreamWriter(dataOutputStream));
         this.reader = new BufferedReader(new InputStreamReader(dataInputStream));
 
-        hi = new hiloImagen(socketClient, c, this);
-        hi.start();
-
+        //hi = new hiloImagen(socketClient, c, this);
+        //hi.start();
     }
 
     public void enviarMensaje(String nombre, String mensaje) {
@@ -97,40 +98,55 @@ public class hiloChatCliente extends Thread {
     @Override
     public void run() {
         try {
-            String msg = "", texto = "";
-            int i = 0, j = 0, aux = 0;
-            sleep(500);
+            String msg = "", texto = "", aux = "", aux2 = "";
+            int i = 0, j = 0;
+            //hi.join();
+            //sleep(500);
+            BufferedImage img = null;
 
-            while ((msg = reader.readLine()) != null) {
+            while (msg != null) {
                 msg = reader.readLine();
-                if (msg.equals("/nuevoUsuario")) {
-                    c.getUsuariosConectadosModel().setRowCount(0);
-                    msg = reader.readLine();
-                    while (!msg.equals("/finUsuario")) {
-                        if (i > 0) {
-                            hi.notify();
-                        }
-                        c.updateImages(msg, i);
-                        msg = reader.readLine();
-                        i++;
-                    }
-
-                } else if (msg.equals("/starMessage")) {
+                if (msg.equals("/starMessage")) {
                     msg = reader.readLine();
                     texto = msg;
+                    foto2 = c.getImages().get(c.getIndex(msg));
                     msg = reader.readLine();
                     String path = msg;
-                    foto2 = c.getImages().get(c.getIndex(msg));
-                    Image img = foto2.getImage();
-                    Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+                    Image imgage = foto2.getImage();
+                    Image newimg = imgage.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
                     foto2 = new ImageIcon(newimg);
                     c.getChatModel().addRow(new Object[]{new JLabel(foto2), texto});
                     msg = reader.readLine();
+                } else {
+                    try {
+                        int size = Integer.parseInt(msg);
+                        img = ImageIO.read(socketClient.getInputStream());
+                        while (img != null) {
+                            c.addClientImage(img);
+                            img = null;
+                            msg = reader.readLine();
+                            msg = reader.readLine();
+                            System.out.println(msg);
+                        }
+
+                        if (msg.equals("/nuevoUsuario")) {
+                            msg = reader.readLine();
+                            while (!msg.equals("/finUsuario")) {
+                                c.updateImages(msg, i);
+                                msg = reader.readLine();
+                                i++;
+                            }
+
+                        }
+                    } catch (Exception e) {
+                    }
                 }
+
             }
 
         } catch (Exception e) {
             System.out.println("error " + e);
+            Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

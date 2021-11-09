@@ -31,15 +31,3 @@ public class hiloImagen extends Thread {
     }
 
 }
-
-//    @Override
-//    public void run() {
-//        try {
-//            BufferedImage img = ImageIO.read(socket.getInputStream());
-//            Thread.sleep(10);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            JOptionPane.showMessageDialog(null, e);
-//        }
-//    }
-

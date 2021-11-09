@@ -192,12 +192,11 @@ public class cliente {
     public void addClientImage(BufferedImage img) {
         ImageIcon icon = new ImageIcon(img);
         images.add(icon);
-        System.out.println("el size de iamge " + images.size());
     }
 
     public void updateImages(String name, int i) {
         Image img = images.get(i).getImage();
-        names.add(0, name);
+        names.add(name);
         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(newimg);
         usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), name});
@@ -205,8 +204,9 @@ public class cliente {
 
     public int getIndex(String msg) {
         String data[] = msg.split(":");
-        for (int i = 0; i < images.size(); i++) {
-            if (data[0].equals(images.get(i))) {
+        for (int i = 0; i < names.size(); i++) {
+            if (data[0].equals(names.get(i))) {
+                System.out.println("el data 0 es " + data[0] + " y el i es " + i);
                 return i;
             }
         }

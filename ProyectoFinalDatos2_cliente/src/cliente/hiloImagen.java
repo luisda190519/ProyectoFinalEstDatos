@@ -17,6 +17,7 @@ public class hiloImagen extends Thread {
     private Socket socket;
     private cliente cliente;
     private hiloChatCliente hc;
+    private int tamaño = 0;
 
     public hiloImagen(Socket socket, cliente cliente, hiloChatCliente hc) throws IOException {
         this.socket = socket;
@@ -24,24 +25,20 @@ public class hiloImagen extends Thread {
         this.hc = hc;
     }
 
+    public void setTamaño(int tamaño) {
+        this.tamaño = tamaño;
+    }
+
     @Override
     public void run() {
         try {
-            int i = 0, tamaño = 0;
-            while (true) {
-                if (i < tamaño + 1) {
-                    BufferedImage img = ImageIO.read(socket.getInputStream());
-                    if (img != null) {
-                        cliente.addClientImage(img);
-                        System.out.println("entre");
-                        i++;
-                    }
-                } else {
-                    tamaño = cliente.getImages().size();
-                    i = 0;
-                    synchronized (this) {
-                        wait();
-                    }
+            int i = 0;
+            while (i <= tamaño) {
+                BufferedImage img = ImageIO.read(socket.getInputStream());
+                if (img != null) {
+                    cliente.addClientImage(img);
+                    System.out.println("entre con tamaño " + tamaño);
+                    i++;
                 }
             }
         } catch (Exception e) {
