@@ -12,6 +12,7 @@ import java.io.Writer;
 import java.net.Socket;
 import javax.swing.ImageIcon;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import javax.imageio.ImageIO;
 
@@ -37,6 +38,12 @@ public class hiloChat extends Thread {
         writer.flush();
     }
 
+    public void enviarMensaje(BufferedImage image) throws IOException {
+        ByteArrayOutputStream ous = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", ous);
+        socket.getOutputStream().write(ous.toByteArray());
+    }
+
     @Override
     public void run() {
         try {
@@ -58,18 +65,22 @@ public class hiloChat extends Thread {
                     server.addName(name);
                     ImageIcon icon = new ImageIcon(path);
                     BufferedImage bi = ImageIO.read(new File(path));
-
+                    
                     server.addImages(bi);
                     server.addUsuarios(name + "," + path);
 
-                    server.transmision("\n/nuevoUsuario\n");
+                    server.transmision("/nuevoUsuario");
+                    server.transmision("\r\n");
+                    server.flush();
+
                     for (String usuario : server.getNames()) {
                         server.transmision(usuario);
                         server.transmision("\r\n");
                         server.flush();
                     }
 
-                    server.transmision("/finUsuario\n");
+                    server.transmision("/finUsuario");
+                    server.transmision("\r\n");
                     server.flush();
                     data = reader.readLine().trim();
 

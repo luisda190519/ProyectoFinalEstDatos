@@ -47,6 +47,11 @@ public class inicio extends javax.swing.JFrame {
     private cliente cliente;
     private ImageIcon foto;
     private String fotoPath;
+    public boolean camaraPrendida = false;
+    private ImageIcon videoOn = new ImageIcon("src/imagenes/3.png");
+    private ImageIcon videoOff = new ImageIcon("src/imagenes/4.png");
+    private ImageIcon audioOn = new ImageIcon("src/imagenes/1.png");
+    private ImageIcon audioOff = new ImageIcon("src/imagenes/2.png");
 
     public inicio() {
         initComponents();
@@ -62,6 +67,7 @@ public class inicio extends javax.swing.JFrame {
         table1.getTableHeader().setBackground(new Color(0, 0, 0, 0.6f));
         table1.getTableHeader().setForeground(new Color(44, 47, 51));
         jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        table1.setTableHeader(null);
 
         table2.setOpaque(false);
         table2.setShowGrid(false);
@@ -73,20 +79,15 @@ public class inicio extends javax.swing.JFrame {
         table2.getTableHeader().setBackground(new Color(0, 0, 0, 0.6f));
         table2.getTableHeader().setForeground(new Color(44, 47, 51));
         jScrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        table2.setTableHeader(null);
 
         chat.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         chat.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
                 exitProcedure();
-
             }
-
         });
-    }
-
-    public void setCliente(cliente cliente) {
-        this.cliente = cliente;
     }
 
     @SuppressWarnings("unchecked")
@@ -106,6 +107,17 @@ public class inicio extends javax.swing.JFrame {
         users = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         table2 = new javax.swing.JTable();
+        call = new javax.swing.JFrame();
+        jPanel1 = new javax.swing.JPanel();
+        micVol = new javax.swing.JSlider();
+        jvideo = new javax.swing.JButton();
+        jaudio = new javax.swing.JButton();
+        side1 = new javax.swing.JPanel();
+        chatBtn1 = new javax.swing.JButton();
+        vozBtn1 = new javax.swing.JButton();
+        userPic1 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        callPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         joinMeeting = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -248,6 +260,104 @@ public class inicio extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        call.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        call.setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(44, 47, 51));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        micVol.setBackground(new java.awt.Color(44, 47, 51));
+        micVol.setMaximum(300);
+        micVol.setMinimum(50);
+        micVol.setValue(100);
+        micVol.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                micVolStateChanged(evt);
+            }
+        });
+        jPanel1.add(micVol, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 610, 330, -1));
+
+        jvideo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/3.png"))); // NOI18N
+        jvideo.setBorder(null);
+        jvideo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jvideoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jvideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 570, 90, 90));
+
+        jaudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1.png"))); // NOI18N
+        jaudio.setBorder(null);
+        jaudio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jaudioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jaudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, 90, 90));
+
+        side1.setBackground(new java.awt.Color(35, 39, 42));
+        side1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        chatBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i1.png"))); // NOI18N
+        chatBtn1.setBorder(null);
+        chatBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                chatBtn1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                chatBtn1MouseExited(evt);
+            }
+        });
+        chatBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chatBtn1ActionPerformed(evt);
+            }
+        });
+        side1.add(chatBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 170, 40));
+
+        vozBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png"))); // NOI18N
+        vozBtn1.setBorder(null);
+        vozBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                vozBtn1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                vozBtn1MouseExited(evt);
+            }
+        });
+        vozBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vozBtn1ActionPerformed(evt);
+            }
+        });
+        side1.add(vozBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 170, 40));
+
+        userPic1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/defaultfoto.png"))); // NOI18N
+        userPic1.setBorder(null);
+        side1.add(userPic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 120));
+
+        jPanel1.add(side1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
+
+        jScrollPane4.setBorder(null);
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(150, 150));
+
+        callPanel.setBackground(new java.awt.Color(44, 47, 51));
+        callPanel.setLayout(new java.awt.GridBagLayout());
+        jScrollPane4.setViewportView(callPanel);
+
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 930, 530));
+
+        javax.swing.GroupLayout callLayout = new javax.swing.GroupLayout(call.getContentPane());
+        call.getContentPane().setLayout(callLayout);
+        callLayout.setHorizontalGroup(
+            callLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+        );
+        callLayout.setVerticalGroup(
+            callLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(44, 47, 51));
@@ -336,14 +446,17 @@ public class inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmensajeActionPerformed
 
+    public void setCliente(cliente cliente) {
+        this.cliente = cliente;
+    }
+
     private void vozBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vozBtnActionPerformed
         foto = (ImageIcon) userPic.getIcon();
-        vozGUI voz = new vozGUI(cliente, foto, chat);
-        voz.setVisible(true);
-        voz.setLocationRelativeTo(null);
+        userPic1.setIcon(foto);
+        call.setSize(1200, 750);
+        call.setVisible(true);
+        call.setLocationRelativeTo(null);
         chat.setVisible(false);
-        JPanel panel = voz.getPanel();
-        añadirPanel(panel, voz);
     }//GEN-LAST:event_vozBtnActionPerformed
     private void chatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBtnActionPerformed
         // TODO add your handling code here:
@@ -352,8 +465,6 @@ public class inicio extends javax.swing.JFrame {
     private void joinMeetingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinMeetingActionPerformed
         if (nameField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite su nombre");
-        } else if (buscarNombre(nameField.getText())) {
-            JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre");
         } else {
             this.setVisible(false);
             cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
@@ -394,63 +505,70 @@ public class inicio extends javax.swing.JFrame {
         vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png")));
     }//GEN-LAST:event_vozBtnMouseExited
 
-    public void añadirPanel(JPanel panel, vozGUI voz) {
-        cliente.setPanel(panel, voz);
+    private void micVolStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_micVolStateChanged
+        if (jaudio.getIcon() == audioOn) {
+            MicThread.amplification = ((double) (micVol.getValue())) / 100.0;
+        }
+    }//GEN-LAST:event_micVolStateChanged
+
+    private void jvideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jvideoActionPerformed
+        if (jvideo.getIcon() == videoOff) {
+            jvideo.setIcon(videoOn);
+            camaraPrendida = true;
+        } else {
+            jvideo.setIcon(videoOff);
+            camaraPrendida = false;
+        }
+    }//GEN-LAST:event_jvideoActionPerformed
+
+    private void jaudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jaudioActionPerformed
+        if (jaudio.getIcon() == audioOff) {
+            jaudio.setIcon(audioOn);
+            MicThread.amplification = ((double) (micVol.getValue())) / 100.0;
+        } else {
+            jaudio.setIcon(audioOff);
+            MicThread.amplification = 0;
+        }
+    }//GEN-LAST:event_jaudioActionPerformed
+
+    private void chatBtn1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBtn1MouseEntered
+        chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i2.png")));
+    }//GEN-LAST:event_chatBtn1MouseEntered
+
+    private void chatBtn1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBtn1MouseExited
+        chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i1.png")));
+    }//GEN-LAST:event_chatBtn1MouseExited
+
+    private void chatBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBtn1ActionPerformed
+        chat.setVisible(true);
+        chat.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_chatBtn1ActionPerformed
+
+    private void vozBtn1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vozBtn1MouseEntered
+        vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i4.png")));
+    }//GEN-LAST:event_vozBtn1MouseEntered
+
+    private void vozBtn1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vozBtn1MouseExited
+        vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png")));
+    }//GEN-LAST:event_vozBtn1MouseExited
+
+    private void vozBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vozBtn1ActionPerformed
+
+    }//GEN-LAST:event_vozBtn1ActionPerformed
+
+    public JPanel getCallPanel() {
+        return callPanel;
     }
 
     public cliente getCliente() {
         return cliente;
     }
 
-    public void deleteUserProfile() {
-        File inputFile = cliente.getArchivo();
-        File tempFile = new File("data/myTempFile.txt");
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-            String lineToRemove = cliente.getHc().getNombre() + "," + cliente.getHc().getFoto();
-            String currentLine;
-
-            while ((currentLine = reader.readLine()) != null) {
-                String trimmedLine = currentLine.trim();
-                if (trimmedLine.equals(lineToRemove)) {
-                    continue;
-                }
-                writer.write(currentLine + System.getProperty("line.separator"));
-            }
-            writer.close();
-            reader.close();
-            inputFile.delete();
-            boolean successful = tempFile.renameTo(inputFile);
-        } catch (Exception e) {
-            System.out.println("error" + e);
-        }
-    }
-
     public void exitProcedure() {
-        deleteUserProfile();
         cliente.getHc().deleteUser();
         this.dispose();
         System.exit(0);
-    }
-
-    public boolean buscarNombre(String nombreBuscar) {
-        File file = cliente.getArchivo();
-        try (Scanner entrada = new Scanner(file)) {
-            while (entrada.hasNextLine()) {
-                String linea = entrada.nextLine();
-                String data[] = linea.split(",");
-                String nombre = data[0];
-                String dir = data[1];
-                if (nombre.equals(nombreBuscar)) {
-                    return true;
-                }
-            }
-        } catch (Exception ex) {
-            System.out.println("error");
-        }
-        return false;
     }
 
     public JTable getTable1() {
@@ -459,6 +577,10 @@ public class inicio extends javax.swing.JFrame {
 
     public JTable getTable12() {
         return table2;
+    }
+
+    public boolean isCamaraPrendida() {
+        return camaraPrendida;
     }
 
     public static void main(String args[]) {
@@ -494,29 +616,41 @@ public class inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFrame call;
+    private javax.swing.JPanel callPanel;
     private javax.swing.JFrame chat;
     private javax.swing.JButton chatBtn;
+    private javax.swing.JButton chatBtn1;
     private javax.swing.JButton choosePicBtn;
     private javax.swing.JTextField ipField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JButton jaudio;
     private javax.swing.JTextField jmensaje;
     private javax.swing.JButton joinMeeting;
+    private javax.swing.JButton jvideo;
+    private javax.swing.JSlider micVol;
     private javax.swing.JTextField nameField;
     private javax.swing.JPanel panel;
     private javax.swing.JTextField portField;
     private javax.swing.JPanel side;
+    private javax.swing.JPanel side1;
     private javax.swing.JTable table1;
     private javax.swing.JTable table2;
     private javax.swing.JLabel title;
     private javax.swing.JButton userPic;
+    private javax.swing.JButton userPic1;
     private javax.swing.JPanel users;
     private javax.swing.JButton vozBtn;
+    private javax.swing.JButton vozBtn1;
     // End of variables declaration//GEN-END:variables
+
 }

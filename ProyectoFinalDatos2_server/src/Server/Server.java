@@ -86,11 +86,7 @@ public class Server {
 
     public void addImages(BufferedImage image) throws IOException {
         images.add(image);
-        hiloImagen hi = new hiloImagen(socket);
-        hiloImagen.add(hi);
-        System.out.println("el tamaño del hilo imagen es de " + hiloImagen.size() + " y el de images " + images.size());
         this.transmision(image);
-
     }
 
     public void transmision(String mensaje) throws IOException {
@@ -100,18 +96,15 @@ public class Server {
     }
 
     public void transmision(BufferedImage image) throws IOException {
-        if (images.size() > 1) {
-            this.transmision("\n\n\n" + images.size());
-            this.transmision("\r\n");
-            this.flush();
-        } else {
-            this.transmision("\n" + images.size());
-            this.transmision("\r\n");
-            this.flush();
-        }
-        for (hiloImagen hi : hiloImagen) {
+        
+        for (hiloChat hc : hilosChat) {
             for (BufferedImage bi : images) {
-                hi.enviarMensaje(bi);
+                hc.enviarMensaje(images.size() + "");
+                hc.enviarMensaje("\r\n");
+                this.flush();
+                hc.enviarMensaje(bi);
+                this.transmision("\r\n");
+                this.flush();
             }
         }
     }

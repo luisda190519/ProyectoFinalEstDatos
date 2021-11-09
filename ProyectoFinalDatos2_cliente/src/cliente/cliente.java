@@ -47,7 +47,6 @@ import javax.swing.table.TableColumnModel;
 public class cliente {
 
     String nombre;
-    public JPanel panel;
     public String foto;
     public ArrayList<String> fotos = new ArrayList<String>();
     public boolean tablaCreada = false;
@@ -115,37 +114,22 @@ public class cliente {
 
     public void updateUsers() {
         for (userPanel u : userPanels) {
-            panel.add(u);
+            inicio.getCallPanel().add(u);
         }
     }
 
-    public void setPanel(JPanel panel, vozGUI voz) {
-        this.panel = panel;
-        this.panel.removeAll();
-        this.panel.setLayout(new GridLayout(5, 5));
-        this.camaraPrendida = voz.isCamaraPrendida();
-        this.tablaCreada = true;
-        updatePanels();
-    }
-
     public void updatePanels() {
-        this.panel.removeAll();
-        this.panel.setLayout(new GridLayout(5, 5));
+        inicio.getCallPanel().removeAll();
+        userPanels.clear();
+        inicio.getCallPanel().setLayout(new GridLayout(5, 5));
 
-        try (Scanner entrada = new Scanner(archivo)) {
-            while (entrada.hasNextLine()) {
-                String linea = entrada.nextLine();
-                String data[] = linea.split(",");
-                ImageIcon icon = new ImageIcon(data[1]);
-                Image img = icon.getImage();
-                Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
-                icon = new ImageIcon(newimg);
-                userPanel u = new userPanel(icon);
-                userPanels.add(u);
-                updateUsers();
-            }
-        } catch (Exception ex) {
-            System.out.println("error");
+        for (ImageIcon icon : images) {
+            Image img = icon.getImage();
+            Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+            icon = new ImageIcon(newimg);
+            userPanel u = new userPanel(icon);
+            userPanels.add(u);
+            updateUsers();
         }
 
     }
@@ -193,6 +177,10 @@ public class cliente {
         ImageIcon icon = new ImageIcon(img);
         images.add(icon);
     }
+    
+    public void clearImages(){
+        images.clear();
+    }
 
     public void updateImages(String name, int i) {
         Image img = images.get(i).getImage();
@@ -236,29 +224,6 @@ public class cliente {
         InputStream is = new ByteArrayInputStream(bytes);
         BufferedImage bi = ImageIO.read(is);
         return bi;
-
-    }
-
-    public void makeFile() {
-        if (!archivo.exists()) {
-            folder.mkdir();
-            try {
-                archivo.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("error");
-            }
-        }
-        try (FileWriter fw = new FileWriter(archivo.getAbsoluteFile(), true)) {
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(nombre + "," + foto);
-            bw.newLine();
-            bw.flush();
-            bw.close();
-            fw.close();
-
-        } catch (Exception e) {
-            System.out.println("error");
-        }
 
     }
 

@@ -48,11 +48,16 @@ public class hiloChatCliente extends Thread {
 
     public void enviarMensaje(String nombre, String mensaje) {
         try {
-            writer.write("\n");
-            writer.write("/starMessage\n");
+            writer.write("/starMessage");
+            writer.write("\r\n");
+            writer.flush();
             writer.write(nombre + ": " + mensaje + "\n");
+            writer.write("\r\n");
+            writer.flush();
             writer.write(foto);
-            writer.write("\n/stopMessage");
+            writer.write("\r\n");
+            writer.flush();
+            writer.write("/stopMessage");
             writer.write("\r\n");
             writer.flush();
         } catch (Exception e) {
@@ -62,7 +67,7 @@ public class hiloChatCliente extends Thread {
 
     public void deleteUser() {
         try {
-            writer.write("/deleteUser\n");
+            writer.write("/deleteUser");
             writer.write("\r\n");
             writer.flush();
         } catch (Exception e) {
@@ -74,11 +79,16 @@ public class hiloChatCliente extends Thread {
         try {
             this.nombre = nombre;
             this.foto = foto;
-            makeFile();
             c.getUsuariosConectadosModel().setRowCount(0);
-            writer.write("/addUser\n");
-            writer.write(this.nombre + "\n");
-            writer.write(foto + "\n");
+            writer.write("/addUser");
+            writer.write("\r\n");
+            writer.flush();
+            writer.write(this.nombre);
+            writer.write("\r\n");
+            writer.flush();
+            writer.write(foto);
+            writer.write("\r\n");
+            writer.flush();
             writer.write("/closeUser");
             writer.write("\r\n");
             writer.flush();
@@ -87,26 +97,31 @@ public class hiloChatCliente extends Thread {
         }
     }
 
-    public void esperar() {
-        try {
-            hi.wait();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     @Override
     public void run() {
         try {
             String msg = "", texto = "", aux = "", aux2 = "";
             int i = 0, j = 0;
-            //hi.join();
-            //sleep(500);
             BufferedImage img = null;
 
             while (msg != null) {
                 msg = reader.readLine();
-                if (msg.equals("/starMessage")) {
+                System.out.println("el msg es " + msg);
+                c.updatePanels();
+
+                if (msg.equals("")) {
+                    msg = reader.readLine();
+                }
+
+                if (msg.equals("/nuevoUsuario")) {
+                    msg = reader.readLine();
+                    c.getUsuariosConectadosModel().setRowCount(0);
+                    while (!msg.equals("/finUsuario")) {
+                        c.updateImages(msg, i);
+                        msg = reader.readLine();
+                        i++;
+                    }
+                } else if (msg.equals("/starMessage")) {
                     msg = reader.readLine();
                     texto = msg;
                     foto2 = c.getImages().get(c.getIndex(msg));
@@ -121,23 +136,14 @@ public class hiloChatCliente extends Thread {
                     try {
                         int size = Integer.parseInt(msg);
                         img = ImageIO.read(socketClient.getInputStream());
-                        while (img != null) {
-                            c.addClientImage(img);
-                            img = null;
-                            msg = reader.readLine();
-                            msg = reader.readLine();
-                            System.out.println(msg);
-                        }
-
-                        if (msg.equals("/nuevoUsuario")) {
-                            msg = reader.readLine();
-                            while (!msg.equals("/finUsuario")) {
-                                c.updateImages(msg, i);
-                                msg = reader.readLine();
-                                i++;
+                        if (img != null) {
+                            if (j == 0) {
+                                c.clearImages();
                             }
-
+                            c.addClientImage(img);
+                            j++;
                         }
+
                     } catch (Exception e) {
                     }
                 }
