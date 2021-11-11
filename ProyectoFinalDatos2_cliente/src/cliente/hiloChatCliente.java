@@ -100,15 +100,11 @@ public class hiloChatCliente extends Thread {
     @Override
     public void run() {
         try {
-            String msg = "", texto = "", aux = "", aux2 = "";
-            int i = 0, j = 0;
-            BufferedImage img = null;
+            String msg = "", texto = "";
+            int i = 0;
 
             while (msg != null) {
-                sleep(100);
                 msg = reader.readLine();
-                System.out.println("el msg es " + msg);
-                c.updatePanels();
 
                 if (msg.equals("")) {
                     msg = reader.readLine();
@@ -122,6 +118,7 @@ public class hiloChatCliente extends Thread {
                         msg = reader.readLine();
                         i++;
                     }
+                    c.updatePanels();
                 } else if (msg.equals("/starMessage")) {
                     msg = reader.readLine();
                     texto = msg;
@@ -133,14 +130,9 @@ public class hiloChatCliente extends Thread {
                     foto2 = new ImageIcon(newimg);
                     c.getChatModel().addRow(new Object[]{new JLabel(foto2), texto});
                     msg = reader.readLine();
-                } else {
-                    try {
-                        int size = Integer.parseInt(msg);
-
-                    } catch (Exception e) {
-                    }
+                } else if (msg.equals("/clear")) {
+                    c.clearPanel();
                 }
-
             }
 
         } catch (Exception e) {

@@ -59,10 +59,14 @@ public class hiloChat extends Thread {
                     server.addName(name);
                     ImageIcon icon = new ImageIcon(path);
                     BufferedImage bi = ImageIO.read(new File(path));
-                    
+
+                    server.transmision("/clear");
+                    server.transmision("\r\n");
+                    server.flush();
+
                     server.addImages(bi);
                     server.addUsuarios(name + "," + path);
-                    
+
                     sleep(100);
 
                     server.transmision("/nuevoUsuario");

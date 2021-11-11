@@ -33,11 +33,11 @@ public class hiloImagen extends Thread {
     public void run() {
         try {
             int i = 0;
+            sleep(100);
             while (true) {
                 BufferedImage img = ImageIO.read(socket.getInputStream());
                 if (img != null) {
                     cliente.addClientImage(img);
-                    System.out.println("entre con tamaño " + tamaño);
                     i++;
                 }
             }

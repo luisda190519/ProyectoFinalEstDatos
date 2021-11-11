@@ -81,6 +81,9 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         table2.setTableHeader(null);
 
+        jaudio.setIcon(audioOff);
+        jvideo.setIcon(videoOff);
+
         chat.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         chat.addWindowListener(new WindowAdapter() {
             @Override
@@ -277,7 +280,7 @@ public class inicio extends javax.swing.JFrame {
         });
         jPanel1.add(micVol, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 610, 330, -1));
 
-        jvideo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/3.png"))); // NOI18N
+        jvideo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/4.png"))); // NOI18N
         jvideo.setBorder(null);
         jvideo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +289,7 @@ public class inicio extends javax.swing.JFrame {
         });
         jPanel1.add(jvideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 570, 90, 90));
 
-        jaudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1.png"))); // NOI18N
+        jaudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/2.png"))); // NOI18N
         jaudio.setBorder(null);
         jaudio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,6 +459,7 @@ public class inicio extends javax.swing.JFrame {
         call.setSize(1200, 750);
         call.setVisible(true);
         call.setLocationRelativeTo(null);
+        MicThread.amplification = 0;
         chat.setVisible(false);
     }//GEN-LAST:event_vozBtnActionPerformed
     private void chatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBtnActionPerformed

@@ -46,9 +46,15 @@ public class Server {
     }
 
     public static void main(String[] args) throws Exception {
-        ServerSocket s = new ServerSocket(2003);
-        ServerSocket s2 = new ServerSocket(2004);
         Server server = new Server();
+        server.port = 2003;
+        ServerSocket s = new ServerSocket(server.port);
+        ServerSocket s2 = new ServerSocket(server.port + 1);
+        ServerSocket s3 = new ServerSocket(server.port + 2);
+        
+        Log.add("Port " + server.port + 2 + ": server started");
+        BroadcastThread bt = new BroadcastThread(server);
+        bt.start();
 
         while (true) {
             Socket socket = s.accept();
@@ -61,6 +67,12 @@ public class Server {
             hiloImagen hi = new hiloImagen(socket2);
             hi.start();
             hiloImagen.add(hi);
+
+            Socket socket3 = s3.accept();
+            ClientConnection cc = new ClientConnection(server, socket3);
+            cc.start();
+            server.addToClients(cc);
+            Log.add("new client " + socket3.getInetAddress() + ":" + socket3.getPort() + " on port " + server.port + 2);
 
         }
     }
@@ -131,6 +143,7 @@ public class Server {
     private void addToClients(ClientConnection cc) {
         try {
             clients.add(cc); //add the new connection to the list of connections
+            System.out.println("entre");
         } catch (Throwable t) {
             //mutex error, try again
             Utils.sleep(1);

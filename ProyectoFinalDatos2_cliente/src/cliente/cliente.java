@@ -4,7 +4,7 @@ import GUI.changeCellColor;
 import GUI.imgTabla;
 import GUI.inicio;
 import GUI.userPanel;
-import GUI.vozGUI;
+import VoiceUtils.ClienteVoz;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.util.ImageUtils;
 import static com.github.sarxos.webcam.util.ImageUtils.toByteArray;
@@ -68,21 +68,8 @@ public class cliente {
     private hiloImagen hi;
     private ArrayList<String> names = new ArrayList<String>();
 
-    public cliente getCliente() {
-        return cliente;
-    }
-
     public cliente() {
 
-    }
-
-    public ImageIcon searchPic(String path) {
-        for (ImageIcon icon : images) {
-            if (icon.equals(path)) {
-                return icon;
-            }
-        }
-        return null;
     }
 
     public static void main(String[] args) throws IOException {
@@ -98,10 +85,6 @@ public class cliente {
         inicio.setCliente(cliente);
     }
 
-    public hiloChatCliente getHc() {
-        return hc;
-    }
-
     public void connect(String ip, int port) {
         try {
             socketClient = new Socket(ip, port);
@@ -111,6 +94,9 @@ public class cliente {
             Socket s = new Socket(ip, port + 1);
             hiloImagen hi = new hiloImagen(s, cliente);
             hi.start();
+
+            ClienteVoz cv = new ClienteVoz(ip, port + 2);
+            cv.start();
 
         } catch (Exception e) {
             System.out.println("error " + e);
@@ -124,8 +110,6 @@ public class cliente {
     }
 
     public void updatePanels() {
-        inicio.getCallPanel().removeAll();
-        userPanels.clear();
         inicio.getCallPanel().setLayout(new GridLayout(5, 5));
 
         for (ImageIcon icon : images) {
@@ -183,7 +167,8 @@ public class cliente {
         images.add(icon);
     }
 
-    public void clearImages() {
+    public void clearPanel() {
+        inicio.getCallPanel().removeAll();
         images.clear();
     }
 
@@ -250,6 +235,23 @@ public class cliente {
 
     public String getFoto() {
         return foto;
+    }
+
+    public hiloChatCliente getHc() {
+        return hc;
+    }
+
+    public ImageIcon searchPic(String path) {
+        for (ImageIcon icon : images) {
+            if (icon.equals(path)) {
+                return icon;
+            }
+        }
+        return null;
+    }
+
+    public cliente getCliente() {
+        return cliente;
     }
 
 }
