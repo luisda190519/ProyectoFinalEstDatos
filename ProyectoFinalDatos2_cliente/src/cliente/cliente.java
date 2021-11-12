@@ -96,6 +96,7 @@ public class cliente {
 
             ClientVoz cv = new ClientVoz(ip, port + 2);
             cv.start();
+            MicThread.amplification = 0;
 
         } catch (Exception e) {
             System.out.println("error " + e);
@@ -110,16 +111,7 @@ public class cliente {
 
     public void updatePanels() {
         inicio.getCallPanel().setLayout(new GridLayout(5, 5));
-
-        for (ImageIcon icon : images) {
-            Image img = icon.getImage();
-            Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
-            icon = new ImageIcon(newimg);
-            userPanel u = new userPanel(icon);
-            userPanels.add(u);
-            updateUsers();
-        }
-
+        updateUsers();
     }
 
     public static void propiedadesTabla2() {
@@ -164,11 +156,18 @@ public class cliente {
     public void addClientImage(BufferedImage img) {
         ImageIcon icon = new ImageIcon(img);
         images.add(icon);
+        Image imageChange = icon.getImage();
+        Image newimg = imageChange.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newimg);
+        userPanel u = new userPanel(icon);
+        userPanels.add(u);
     }
 
     public void clearPanel() {
-        inicio.getCallPanel().removeAll();
         images.clear();
+        names.clear();
+        userPanels.clear();
+        inicio.getCallPanel().removeAll();
     }
 
     public void updateImages(String name, int i) {
@@ -183,7 +182,6 @@ public class cliente {
         String data[] = msg.split(":");
         for (int i = 0; i < names.size(); i++) {
             if (data[0].equals(names.get(i))) {
-                System.out.println("el data 0 es " + data[0] + " y el i es " + i);
                 return i;
             }
         }

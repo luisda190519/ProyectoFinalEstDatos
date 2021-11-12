@@ -1,5 +1,6 @@
 package Server;
 
+import com.github.sarxos.webcam.Webcam;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -28,6 +29,19 @@ public class hiloImagen extends Thread {
         ByteArrayOutputStream ous = new ByteArrayOutputStream();
         ImageIO.write(image, "png", ous);
         socket.getOutputStream().write(ous.toByteArray());
+    }
+
+    public void cameraOn() throws IOException {
+        BufferedImage image;
+        Webcam cam = Webcam.getDefault();
+        while (true) {
+            cam.open();
+            image = cam.getImage();
+
+            ByteArrayOutputStream ous = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", ous);
+            socket.getOutputStream().write(ous.toByteArray());
+        }
     }
 
 }

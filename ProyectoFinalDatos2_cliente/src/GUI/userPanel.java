@@ -5,7 +5,9 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
+import static java.lang.Math.random;
 import javax.swing.*;
+import java.util.Random;
 
 public class userPanel extends javax.swing.JPanel {
 
@@ -16,8 +18,32 @@ public class userPanel extends javax.swing.JPanel {
         Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
         imagen = new ImageIcon(newimg);
 
+        int n = (int) (Math.random() * (5 - 0 + 1) + 0);
+        Color c = null;
+
+        switch (n) {
+            case 0:
+                c = new Color(35, 39, 42);
+                break;
+            case 1:
+                c = new Color(0, 173, 181);
+                break;
+            case 2:
+                c = new Color(255, 81, 81);
+                break;
+            case 3:
+                c = new Color(136, 224, 239);
+                break;
+            case 4:
+                c = new Color(156, 61, 84);
+                break;
+            case 5:
+                c = new Color(57, 166, 163);
+                break;
+        }
+
         pic.setIcon(imagen);
-        JPanel p2 = new RoundedPanel(15, new Color(35, 39, 42));
+        JPanel p2 = new RoundedPanel(15, c);
         p2.setBounds(0, 0, 323, 165);
         p2.setOpaque(false);
         this.add(p2);

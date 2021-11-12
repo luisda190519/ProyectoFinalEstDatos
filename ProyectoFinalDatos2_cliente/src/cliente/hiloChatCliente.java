@@ -41,9 +41,6 @@ public class hiloChatCliente extends Thread {
         dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
         this.writer = new BufferedWriter(new OutputStreamWriter(dataOutputStream));
         this.reader = new BufferedReader(new InputStreamReader(dataInputStream));
-
-        //hi = new hiloImagen(socketClient, c, this);
-        //hi.start();
     }
 
     public void enviarMensaje(String nombre, String mensaje) {
@@ -72,6 +69,16 @@ public class hiloChatCliente extends Thread {
             writer.flush();
         } catch (Exception e) {
             System.out.println("error " + e);
+        }
+    }
+
+    public void cameraOn() {
+        try {
+            writer.write("/cameraOn");
+            writer.write("\r\n");
+            writer.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -132,6 +139,7 @@ public class hiloChatCliente extends Thread {
                     msg = reader.readLine();
                 } else if (msg.equals("/clear")) {
                     c.clearPanel();
+                    i = 0;
                 }
             }
 

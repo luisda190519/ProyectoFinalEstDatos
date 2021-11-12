@@ -51,7 +51,7 @@ public class Server {
         ServerSocket s = new ServerSocket(server.port);
         ServerSocket s2 = new ServerSocket(server.port + 1);
         ServerSocket s3 = new ServerSocket(server.port + 2);
-        
+
         Log.add("Port " + server.port + 2 + ": server started");
         BroadcastThread bt = new BroadcastThread(server);
         bt.start();
@@ -106,6 +106,12 @@ public class Server {
     public void addImages(BufferedImage image) throws IOException {
         images.add(image);
         this.transmision(image);
+    }
+
+    public void addCamera() throws IOException {
+        for (hiloImagen hiImagen : hiloImagen) {
+            hiImagen.cameraOn();
+        }
     }
 
     public void transmision(String mensaje) throws IOException {

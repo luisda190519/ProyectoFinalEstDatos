@@ -458,7 +458,6 @@ public class inicio extends javax.swing.JFrame {
         call.setSize(1200, 750);
         call.setVisible(true);
         call.setLocationRelativeTo(null);
-        MicThread.amplification = 0;
         chat.setVisible(false);
     }//GEN-LAST:event_vozBtnActionPerformed
     private void chatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBtnActionPerformed
@@ -517,7 +516,7 @@ public class inicio extends javax.swing.JFrame {
     private void jvideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jvideoActionPerformed
         if (jvideo.getIcon() == videoOff) {
             jvideo.setIcon(videoOn);
-            camaraPrendida = true;
+            cliente.getHc().cameraOn();
         } else {
             jvideo.setIcon(videoOff);
             camaraPrendida = false;

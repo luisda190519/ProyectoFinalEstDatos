@@ -17,27 +17,27 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class hiloChat extends Thread {
-
+    
     private Socket socket;
     private Server server;
     private static DataOutputStream dataOutputStream;
     private static DataInputStream dataInputStream;
     private BufferedReader reader;
     private BufferedWriter writer;
-
+    
     public hiloChat(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
     }
-
+    
     public void enviarMensaje(String mensaje) throws IOException {
         writer.write(mensaje);
     }
-
+    
     public void flush() throws IOException {
         writer.flush();
     }
-
+    
     @Override
     public void run() {
         try {
@@ -45,57 +45,61 @@ public class hiloChat extends Thread {
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
             reader = new BufferedReader(new InputStreamReader(dataInputStream));
             writer = new BufferedWriter(new OutputStreamWriter(dataOutputStream));
-
+            
             while (true) {
                 String data = reader.readLine().trim();
                 System.out.println("Recivido " + data);
-
+                
                 if (data.equals("/addUser")) {
                     data = reader.readLine().trim();
                     String name = data;
                     data = reader.readLine().trim();
                     String path = data;
-
+                    
                     server.addName(name);
                     ImageIcon icon = new ImageIcon(path);
                     BufferedImage bi = ImageIO.read(new File(path));
-
+                    
                     server.transmision("/clear");
                     server.transmision("\r\n");
                     server.flush();
-
+                    
+                    sleep(100);
+                    
                     server.addImages(bi);
                     server.addUsuarios(name + "," + path);
-
+                    
                     sleep(100);
-
+                    
                     server.transmision("/nuevoUsuario");
                     server.transmision("\r\n");
                     server.flush();
-
+                    
                     for (String usuario : server.getNames()) {
                         server.transmision(usuario);
                         server.transmision("\r\n");
                         server.flush();
                     }
-
+                    
                     server.transmision("/finUsuario");
                     server.transmision("\r\n");
                     server.flush();
                     data = reader.readLine().trim();
-
+                    
                 } else if (data.equals("/deleteUser")) {
                     server.deleteUser(this);
+                } else if (data.equals("/cameraOn")) {
+                    server.addCamera();
                 } else {
                     server.transmision(data);
                     server.transmision("\r\n");
                     server.flush();
                 }
-
+                
             }
         } catch (Exception e) {
         }
-
+        
     }
-
+    
 }
