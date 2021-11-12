@@ -4,7 +4,6 @@ import GUI.changeCellColor;
 import GUI.imgTabla;
 import GUI.inicio;
 import GUI.userPanel;
-import VoiceUtils.ClienteVoz;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.util.ImageUtils;
 import static com.github.sarxos.webcam.util.ImageUtils.toByteArray;
@@ -95,7 +94,7 @@ public class cliente {
             hiloImagen hi = new hiloImagen(s, cliente);
             hi.start();
 
-            ClienteVoz cv = new ClienteVoz(ip, port + 2);
+            ClientVoz cv = new ClientVoz(ip, port + 2);
             cv.start();
 
         } catch (Exception e) {

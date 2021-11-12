@@ -1,11 +1,21 @@
 package soundUtils;
 
+
 import Server.Server;
 import Utils.Log;
 import Utils.Message;
 import Utils.Utils;
 import java.util.ArrayList;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author luisda19
+ */
 public class BroadcastThread extends Thread {
 
     private Server s;
@@ -16,12 +26,12 @@ public class BroadcastThread extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        for (;;) {
             try {
                 ArrayList<ClientConnection> toRemove = new ArrayList<ClientConnection>(); //create a list of dead connections
                 for (ClientConnection cc : s.getClients()) {
                     if (!cc.isAlive()) { //connection is dead, need to be removed
-                        Log.add("dead connection closed: " + cc.getInetAddress() + ":" + cc.getPort());
+                        Log.add("dead connection closed: " + cc.getInetAddress() + ":" + cc.getPort() + " on port " + s.port);
                         toRemove.add(cc);
                     }
                 }
@@ -43,5 +53,4 @@ public class BroadcastThread extends Thread {
             }
         }
     }
-
 }

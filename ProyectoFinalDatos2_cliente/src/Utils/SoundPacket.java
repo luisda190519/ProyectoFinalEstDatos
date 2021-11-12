@@ -1,4 +1,4 @@
-package VoiceUtils;
+package Utils;
 
 import java.io.Serializable;
 import javax.sound.sampled.AudioFormat;

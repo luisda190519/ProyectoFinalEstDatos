@@ -34,7 +34,7 @@ public class Server {
     private static Vector client = new Vector();
     private ArrayList<Message> broadCastQueue = new ArrayList<Message>();
     private ArrayList<ClientConnection> clients = new ArrayList<ClientConnection>();
-    private int port;
+    public int port;
     private ArrayList<String> usuarios = new ArrayList<String>();
     private ServerSocket s;
     private static ArrayList<hiloChat> hilosChat = new ArrayList<hiloChat>();
