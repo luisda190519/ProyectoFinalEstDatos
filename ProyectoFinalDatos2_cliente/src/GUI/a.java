@@ -44,19 +44,19 @@ public class a extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         iniciarTitulo = new javax.swing.JLabel();
         imagenLabel = new javax.swing.JLabel();
-        direccionTextField = new javax.swing.JTextField();
+        ipField = new javax.swing.JTextField();
         separadorNombre = new javax.swing.JSeparator();
         idLabel = new javax.swing.JLabel();
         reunionBoton = new javax.swing.JPanel();
-        reunionLabel = new javax.swing.JLabel();
+        joinMeeting = new javax.swing.JLabel();
         separadorNombre1 = new javax.swing.JSeparator();
         direccionLabel = new javax.swing.JLabel();
-        nombreTextField = new javax.swing.JTextField();
+        nameField = new javax.swing.JTextField();
         nombreLabel = new javax.swing.JLabel();
         separadorNombre2 = new javax.swing.JSeparator();
-        idTextField = new javax.swing.JTextField();
+        portField = new javax.swing.JTextField();
         imagenBoton = new javax.swing.JPanel();
-        cambiarLabel = new javax.swing.JLabel();
+        choosePicBtn = new javax.swing.JLabel();
         barraSuperior = new javax.swing.JPanel();
         cerrarBoton = new javax.swing.JPanel();
         cerrarLabel = new javax.swing.JLabel();
@@ -133,16 +133,16 @@ public class a extends javax.swing.JFrame {
         imagenLabel.setText("Foto de Perfil");
         jPanel2.add(imagenLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
-        direccionTextField.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
-        direccionTextField.setForeground(new java.awt.Color(204, 204, 204));
-        direccionTextField.setText("localhost...");
-        direccionTextField.setBorder(null);
-        direccionTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+        ipField.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
+        ipField.setForeground(new java.awt.Color(204, 204, 204));
+        ipField.setText("localhost...");
+        ipField.setBorder(null);
+        ipField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                direccionTextFieldMousePressed(evt);
+                ipFieldMousePressed(evt);
             }
         });
-        jPanel2.add(direccionTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 230, -1));
+        jPanel2.add(ipField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 500, 230, -1));
         jPanel2.add(separadorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 220, 10));
 
         idLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -163,9 +163,9 @@ public class a extends javax.swing.JFrame {
             }
         });
 
-        reunionLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        reunionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        reunionLabel.setText("Iniciar Reunión");
+        joinMeeting.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        joinMeeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        joinMeeting.setText("Iniciar Reunión");
 
         javax.swing.GroupLayout reunionBotonLayout = new javax.swing.GroupLayout(reunionBoton);
         reunionBoton.setLayout(reunionBotonLayout);
@@ -173,13 +173,13 @@ public class a extends javax.swing.JFrame {
             reunionBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reunionBotonLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(reunionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(joinMeeting, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         reunionBotonLayout.setVerticalGroup(
             reunionBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reunionBotonLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(reunionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(joinMeeting, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.add(reunionBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 540, 210, 40));
@@ -189,32 +189,32 @@ public class a extends javax.swing.JFrame {
         direccionLabel.setText("Dirección IP");
         jPanel2.add(direccionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, -1));
 
-        nombreTextField.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
-        nombreTextField.setForeground(new java.awt.Color(204, 204, 204));
-        nombreTextField.setText("Mi nombre...");
-        nombreTextField.setBorder(null);
-        nombreTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+        nameField.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
+        nameField.setForeground(new java.awt.Color(204, 204, 204));
+        nameField.setText("Mi nombre...");
+        nameField.setBorder(null);
+        nameField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                nombreTextFieldMousePressed(evt);
+                nameFieldMousePressed(evt);
             }
         });
-        jPanel2.add(nombreTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 230, -1));
+        jPanel2.add(nameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 230, -1));
 
         nombreLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         nombreLabel.setText("Nombre");
         jPanel2.add(nombreLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
         jPanel2.add(separadorNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 220, 10));
 
-        idTextField.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
-        idTextField.setForeground(new java.awt.Color(204, 204, 204));
-        idTextField.setText("1234...");
-        idTextField.setBorder(null);
-        idTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+        portField.setFont(new java.awt.Font("Verdana", 0, 13)); // NOI18N
+        portField.setForeground(new java.awt.Color(204, 204, 204));
+        portField.setText("1234...");
+        portField.setBorder(null);
+        portField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                idTextFieldMousePressed(evt);
+                portFieldMousePressed(evt);
             }
         });
-        jPanel2.add(idTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 230, -1));
+        jPanel2.add(portField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 230, -1));
 
         imagenBoton.setBackground(new java.awt.Color(204, 204, 255));
         imagenBoton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -230,9 +230,9 @@ public class a extends javax.swing.JFrame {
             }
         });
 
-        cambiarLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        cambiarLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cambiarLabel.setText("Seleccionar\n\n");
+        choosePicBtn.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        choosePicBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        choosePicBtn.setText("Seleccionar\n\n");
 
         javax.swing.GroupLayout imagenBotonLayout = new javax.swing.GroupLayout(imagenBoton);
         imagenBoton.setLayout(imagenBotonLayout);
@@ -240,11 +240,11 @@ public class a extends javax.swing.JFrame {
             imagenBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, imagenBotonLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(cambiarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(choosePicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         imagenBotonLayout.setVerticalGroup(
             imagenBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cambiarLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(choosePicBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         jPanel2.add(imagenBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 210, 40));
@@ -383,57 +383,57 @@ public class a extends javax.swing.JFrame {
     }//GEN-LAST:event_reunionBotonMouseExited
 
 
-    private void nombreTextFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreTextFieldMousePressed
-        if (nombreTextField.getText().equals("Mi nombre...")) {
-            nombreTextField.setText("");
-            nombreTextField.setForeground(Color.BLACK);
+    private void nameFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameFieldMousePressed
+        if (nameField.getText().equals("Mi nombre...")) {
+            nameField.setText("");
+            nameField.setForeground(Color.BLACK);
         }
 
-        if (idTextField.getText().isEmpty()) {
-            idTextField.setText("1234...");
-            idTextField.setForeground(Color.GRAY);
+        if (portField.getText().isEmpty()) {
+            portField.setText("1234...");
+            portField.setForeground(Color.GRAY);
         }
 
-        if (direccionTextField.getText().isEmpty()) {
-            direccionTextField.setText("localhost...");
-            direccionTextField.setForeground(Color.gray);
+        if (ipField.getText().isEmpty()) {
+            ipField.setText("localhost...");
+            ipField.setForeground(Color.gray);
         }
-    }//GEN-LAST:event_nombreTextFieldMousePressed
+    }//GEN-LAST:event_nameFieldMousePressed
 
 
-    private void idTextFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idTextFieldMousePressed
-        if (idTextField.getText().equals("1234...")) {
-            idTextField.setText("");
-            idTextField.setForeground(Color.BLACK);
+    private void portFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_portFieldMousePressed
+        if (portField.getText().equals("1234...")) {
+            portField.setText("");
+            portField.setForeground(Color.BLACK);
         }
 
-        if (nombreTextField.getText().isEmpty()) {
-            nombreTextField.setText("Mi nombre...");
-            nombreTextField.setForeground(Color.GRAY);
+        if (nameField.getText().isEmpty()) {
+            nameField.setText("Mi nombre...");
+            nameField.setForeground(Color.GRAY);
         }
 
-        if (direccionTextField.getText().isEmpty()) {
-            direccionTextField.setText("localhost...");
-            direccionTextField.setForeground(Color.gray);
+        if (ipField.getText().isEmpty()) {
+            ipField.setText("localhost...");
+            ipField.setForeground(Color.gray);
         }
-    }//GEN-LAST:event_idTextFieldMousePressed
+    }//GEN-LAST:event_portFieldMousePressed
 
-    private void direccionTextFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_direccionTextFieldMousePressed
-        if (direccionTextField.getText().equals("localhost...")) {
-            direccionTextField.setText("");
-            direccionTextField.setForeground(Color.BLACK);
-        }
-
-        if (nombreTextField.getText().isEmpty()) {
-            nombreTextField.setText("Mi nombre...");
-            nombreTextField.setForeground(Color.GRAY);
+    private void ipFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ipFieldMousePressed
+        if (ipField.getText().equals("localhost...")) {
+            ipField.setText("");
+            ipField.setForeground(Color.BLACK);
         }
 
-        if (idTextField.getText().isEmpty()) {
-            idTextField.setText("1234...");
-            idTextField.setForeground(Color.gray);
+        if (nameField.getText().isEmpty()) {
+            nameField.setText("Mi nombre...");
+            nameField.setForeground(Color.GRAY);
         }
-    }//GEN-LAST:event_direccionTextFieldMousePressed
+
+        if (portField.getText().isEmpty()) {
+            portField.setText("1234...");
+            portField.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_ipFieldMousePressed
 
     /**
      * @param args the command line arguments
@@ -481,25 +481,25 @@ public class a extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barraSuperior;
-    private javax.swing.JLabel cambiarLabel;
     private javax.swing.JPanel cerrarBoton;
     private javax.swing.JLabel cerrarLabel;
+    private javax.swing.JLabel choosePicBtn;
     private javax.swing.JLabel direccionLabel;
-    private javax.swing.JTextField direccionTextField;
     private javax.swing.JLabel iconoDer;
     private javax.swing.JLabel idLabel;
-    private javax.swing.JTextField idTextField;
     private javax.swing.JPanel imagenBoton;
     private javax.swing.JLabel imagenLabel;
     private javax.swing.JLabel iniciarTitulo;
+    private javax.swing.JTextField ipField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel joinMeeting;
+    private javax.swing.JTextField nameField;
     private javax.swing.JLabel nombreApp;
     private javax.swing.JLabel nombreLabel;
-    private javax.swing.JTextField nombreTextField;
+    private javax.swing.JTextField portField;
     private javax.swing.JPanel reunionBoton;
-    private javax.swing.JLabel reunionLabel;
     private javax.swing.JSeparator separadorIcono;
     private javax.swing.JSeparator separadorNombre;
     private javax.swing.JSeparator separadorNombre1;

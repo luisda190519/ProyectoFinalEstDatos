@@ -51,6 +51,7 @@ public class inicio extends javax.swing.JFrame {
     private ImageIcon videoOff = new ImageIcon("src/imagenes/4.png");
     private ImageIcon audioOn = new ImageIcon("src/imagenes/1.png");
     private ImageIcon audioOff = new ImageIcon("src/imagenes/2.png");
+    private int xMouse, yMouse;
 
     public inicio() {
         initComponents();
@@ -121,16 +122,28 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         callPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        joinMeeting = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
-        portField = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        nombreApp = new javax.swing.JLabel();
+        sloganApp = new javax.swing.JLabel();
+        separadorIcono = new javax.swing.JSeparator();
+        iconoDer = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        iniciarTitulo = new javax.swing.JLabel();
+        imagenLabel = new javax.swing.JLabel();
         ipField = new javax.swing.JTextField();
+        separadorNombre = new javax.swing.JSeparator();
+        idLabel = new javax.swing.JLabel();
+        separadorNombre1 = new javax.swing.JSeparator();
+        direccionLabel = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
+        nombreLabel = new javax.swing.JLabel();
+        separadorNombre2 = new javax.swing.JSeparator();
+        portField = new javax.swing.JTextField();
+        barraSuperior = new javax.swing.JPanel();
+        cerrarBoton = new javax.swing.JPanel();
+        cerrarLabel = new javax.swing.JLabel();
         choosePicBtn = new javax.swing.JButton();
-        title = new javax.swing.JLabel();
+        joinMeeting = new javax.swing.JButton();
 
         chat.setBackground(new java.awt.Color(35, 39, 42));
         chat.setResizable(false);
@@ -338,7 +351,7 @@ public class inicio extends javax.swing.JFrame {
         userPic1.setBorder(null);
         side1.add(userPic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 120));
 
-        jPanel1.add(side1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
+        jPanel1.add(side1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 700));
 
         jScrollPane4.setBorder(null);
         jScrollPane4.setPreferredSize(new java.awt.Dimension(150, 150));
@@ -362,70 +375,209 @@ public class inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(44, 47, 51));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        joinMeeting.setBackground(new java.awt.Color(114, 137, 218));
-        joinMeeting.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        joinMeeting.setForeground(new java.awt.Color(255, 255, 255));
-        joinMeeting.setText("Iniciar reunion");
-        joinMeeting.setBorder(null);
-        joinMeeting.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                joinMeetingActionPerformed(evt);
+        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
+
+        nombreApp.setFont(new java.awt.Font("Verdana", 3, 36)); // NOI18N
+        nombreApp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nombreApp.setText("me.Chat");
+
+        sloganApp.setFont(new java.awt.Font("Verdana", 2, 14)); // NOI18N
+        sloganApp.setText("Conecta.Comunica.Comparte");
+
+        iconoDer.setBackground(new java.awt.Color(255, 255, 255));
+        iconoDer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconoDer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/imagenVideo.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(112, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(separadorIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sloganApp)
+                            .addComponent(nombreApp, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(168, 168, 168))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(iconoDer, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68))))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(nombreApp, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separadorIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(sloganApp)
+                .addGap(29, 29, 29)
+                .addComponent(iconoDer, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104))
+        );
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 580, 700));
+
+        jPanel5.setBackground(new java.awt.Color(204, 204, 255));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 30, 30));
+
+        iniciarTitulo.setFont(new java.awt.Font("Verdana", 3, 36)); // NOI18N
+        iniciarTitulo.setText("Iniciar");
+        jPanel2.add(iniciarTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
+
+        imagenLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        imagenLabel.setText("Foto de Perfil");
+        jPanel2.add(imagenLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, -1));
+
+        ipField.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        ipField.setForeground(new java.awt.Color(204, 204, 204));
+        ipField.setText("localhost...");
+        ipField.setBorder(null);
+        ipField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ipFieldMousePressed(evt);
             }
         });
-        jPanel2.add(joinMeeting, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 580, 790, 50));
+        jPanel2.add(ipField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 530, 440, 40));
+        jPanel2.add(separadorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 440, 10));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nombre");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 138, 36));
+        idLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        idLabel.setText("ID de la Reunión");
+        jPanel2.add(idLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, -1, -1));
+        jPanel2.add(separadorNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, 440, 10));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Foto de perfil");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 159, 36));
+        direccionLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        direccionLabel.setText("Dirección IP");
+        jPanel2.add(direccionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("ID de reunion");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 168, 36));
+        nameField.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        nameField.setForeground(new java.awt.Color(204, 204, 204));
+        nameField.setText("Mi nombre...");
+        nameField.setBorder(null);
+        nameField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nameFieldMousePressed(evt);
+            }
+        });
+        jPanel2.add(nameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 440, 40));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Direccion IP");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 138, 36));
+        nombreLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        nombreLabel.setText("Nombre");
+        jPanel2.add(nombreLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
+        jPanel2.add(separadorNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 440, 10));
 
-        nameField.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        jPanel2.add(nameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 480, -1));
+        portField.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
+        portField.setForeground(new java.awt.Color(204, 204, 204));
+        portField.setText("1234...");
+        portField.setBorder(null);
+        portField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                portFieldMousePressed(evt);
+            }
+        });
+        jPanel2.add(portField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 440, 40));
 
-        portField.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        portField.setText("2003");
-        jPanel2.add(portField, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, 480, -1));
+        barraSuperior.setBackground(new java.awt.Color(255, 255, 255));
+        barraSuperior.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                barraSuperiorMouseDragged(evt);
+            }
+        });
+        barraSuperior.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                barraSuperiorMousePressed(evt);
+            }
+        });
 
-        ipField.setEditable(false);
-        ipField.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        ipField.setText("localhost");
-        jPanel2.add(ipField, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 470, 480, -1));
+        cerrarBoton.setBackground(new java.awt.Color(255, 255, 255));
+        cerrarBoton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrarBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cerrarBotonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cerrarBotonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cerrarBotonMouseExited(evt);
+            }
+        });
 
-        choosePicBtn.setBackground(new java.awt.Color(114, 137, 218));
-        choosePicBtn.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        choosePicBtn.setForeground(new java.awt.Color(255, 255, 255));
-        choosePicBtn.setText("Escoja su foto de perfil");
+        cerrarLabel.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        cerrarLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cerrarLabel.setText("X");
+
+        javax.swing.GroupLayout cerrarBotonLayout = new javax.swing.GroupLayout(cerrarBoton);
+        cerrarBoton.setLayout(cerrarBotonLayout);
+        cerrarBotonLayout.setHorizontalGroup(
+            cerrarBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cerrarLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+        cerrarBotonLayout.setVerticalGroup(
+            cerrarBotonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cerrarBotonLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(cerrarLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout barraSuperiorLayout = new javax.swing.GroupLayout(barraSuperior);
+        barraSuperior.setLayout(barraSuperiorLayout);
+        barraSuperiorLayout.setHorizontalGroup(
+            barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barraSuperiorLayout.createSequentialGroup()
+                .addComponent(cerrarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 760, Short.MAX_VALUE))
+        );
+        barraSuperiorLayout.setVerticalGroup(
+            barraSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraSuperiorLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(cerrarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(barraSuperior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 50));
+
+        choosePicBtn.setBackground(new java.awt.Color(204, 204, 255));
+        choosePicBtn.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        choosePicBtn.setText("Seleccionar");
         choosePicBtn.setBorder(null);
+        choosePicBtn.setBorderPainted(false);
         choosePicBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 choosePicBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(choosePicBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, 480, 40));
+        jPanel2.add(choosePicBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, 440, 40));
 
-        title.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
-        title.setForeground(new java.awt.Color(255, 255, 255));
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Me.Chat");
-        jPanel2.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 42, 1200, 85));
+        joinMeeting.setBackground(new java.awt.Color(204, 204, 255));
+        joinMeeting.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        joinMeeting.setText("Entrar");
+        joinMeeting.setBorder(null);
+        joinMeeting.setBorderPainted(false);
+        joinMeeting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                joinMeetingActionPerformed(evt);
+            }
+        });
+        jPanel2.add(joinMeeting, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 440, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -463,33 +615,6 @@ public class inicio extends javax.swing.JFrame {
     private void chatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chatBtnActionPerformed
-
-    private void joinMeetingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinMeetingActionPerformed
-        if (nameField.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite su nombre");
-        } else {
-            this.setVisible(false);
-            cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
-            cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
-            chat.setVisible(true);
-            chat.setLocationRelativeTo(null);
-            chat.setSize(1230, 730); //778,520
-        }
-    }//GEN-LAST:event_joinMeetingActionPerformed
-
-    private void choosePicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosePicBtnActionPerformed
-        FileDialog dialog = new FileDialog((Frame) null, "Seleccione una foto");
-        dialog.setMode(FileDialog.LOAD);
-        dialog.setVisible(true);
-        String fileChooser = dialog.getDirectory() + dialog.getFile();
-        fotoPath = fileChooser;
-        foto = new ImageIcon(fileChooser);
-        Image img = foto.getImage();
-        Image newimg = img.getScaledInstance(150, 120, java.awt.Image.SCALE_SMOOTH);
-        foto = new ImageIcon(newimg);
-
-        userPic.setIcon(foto);
-    }//GEN-LAST:event_choosePicBtnActionPerformed
 
     private void chatBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBtnMouseEntered
         chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i2.png")));
@@ -559,6 +684,109 @@ public class inicio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_vozBtn1ActionPerformed
 
+    private void ipFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ipFieldMousePressed
+        if (ipField.getText().equals("localhost...")) {
+            ipField.setText("");
+            ipField.setForeground(Color.BLACK);
+        }
+
+        if (nameField.getText().isEmpty()) {
+            nameField.setText("Mi nombre...");
+            nameField.setForeground(Color.GRAY);
+        }
+
+        if (portField.getText().isEmpty()) {
+            portField.setText("1234...");
+            portField.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_ipFieldMousePressed
+
+    private void nameFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nameFieldMousePressed
+        if (nameField.getText().equals("Mi nombre...")) {
+            nameField.setText("");
+            nameField.setForeground(Color.BLACK);
+        }
+
+        if (portField.getText().isEmpty()) {
+            portField.setText("1234...");
+            portField.setForeground(Color.GRAY);
+        }
+
+        if (ipField.getText().isEmpty()) {
+            ipField.setText("localhost...");
+            ipField.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_nameFieldMousePressed
+
+    private void portFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_portFieldMousePressed
+        if (portField.getText().equals("1234...")) {
+            portField.setText("");
+            portField.setForeground(Color.BLACK);
+        }
+
+        if (nameField.getText().isEmpty()) {
+            nameField.setText("Mi nombre...");
+            nameField.setForeground(Color.GRAY);
+        }
+
+        if (ipField.getText().isEmpty()) {
+            ipField.setText("localhost...");
+            ipField.setForeground(Color.gray);
+        }
+    }//GEN-LAST:event_portFieldMousePressed
+
+    private void cerrarBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarBotonMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_cerrarBotonMouseClicked
+
+    private void cerrarBotonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarBotonMouseEntered
+        cerrarBoton.setBackground(Color.RED);
+        cerrarLabel.setForeground(Color.WHITE);
+    }//GEN-LAST:event_cerrarBotonMouseEntered
+
+    private void cerrarBotonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarBotonMouseExited
+        cerrarBoton.setBackground(Color.WHITE);
+        cerrarLabel.setForeground(Color.BLACK);
+    }//GEN-LAST:event_cerrarBotonMouseExited
+
+    private void barraSuperiorMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_barraSuperiorMouseDragged
+
+    private void barraSuperiorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_barraSuperiorMousePressed
+
+    private void choosePicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choosePicBtnActionPerformed
+        FileDialog dialog = new FileDialog((Frame) null, "Seleccione una foto");
+        dialog.setMode(FileDialog.LOAD);
+        dialog.setVisible(true);
+        String fileChooser = dialog.getDirectory() + dialog.getFile();
+        fotoPath = fileChooser;
+        foto = new ImageIcon(fileChooser);
+        Image img = foto.getImage();
+        Image newimg = img.getScaledInstance(150, 120, java.awt.Image.SCALE_SMOOTH);
+        foto = new ImageIcon(newimg);
+
+        userPic.setIcon(foto);
+    }//GEN-LAST:event_choosePicBtnActionPerformed
+
+    private void joinMeetingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinMeetingActionPerformed
+        if (nameField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Digite su nombre");
+        } else {
+            this.setVisible(false);
+            cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
+            cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
+            chat.setVisible(true);
+            chat.setLocationRelativeTo(null);
+            chat.setSize(1230, 730); //778,520
+        }
+    }//GEN-LAST:event_joinMeetingActionPerformed
+
     public JPanel getCallPanel() {
         return callPanel;
     }
@@ -618,20 +846,26 @@ public class inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel barraSuperior;
     private javax.swing.JFrame call;
     private javax.swing.JPanel callPanel;
+    private javax.swing.JPanel cerrarBoton;
+    private javax.swing.JLabel cerrarLabel;
     private javax.swing.JFrame chat;
     private javax.swing.JButton chatBtn;
     private javax.swing.JButton chatBtn1;
     private javax.swing.JButton choosePicBtn;
+    private javax.swing.JLabel direccionLabel;
+    private javax.swing.JLabel iconoDer;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JLabel imagenLabel;
+    private javax.swing.JLabel iniciarTitulo;
     private javax.swing.JTextField ipField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -641,13 +875,19 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JButton jvideo;
     private javax.swing.JSlider micVol;
     private javax.swing.JTextField nameField;
+    private javax.swing.JLabel nombreApp;
+    private javax.swing.JLabel nombreLabel;
     private javax.swing.JPanel panel;
     private javax.swing.JTextField portField;
+    private javax.swing.JSeparator separadorIcono;
+    private javax.swing.JSeparator separadorNombre;
+    private javax.swing.JSeparator separadorNombre1;
+    private javax.swing.JSeparator separadorNombre2;
     private javax.swing.JPanel side;
     private javax.swing.JPanel side1;
+    private javax.swing.JLabel sloganApp;
     private javax.swing.JTable table1;
     private javax.swing.JTable table2;
-    private javax.swing.JLabel title;
     private javax.swing.JButton userPic;
     private javax.swing.JButton userPic1;
     private javax.swing.JPanel users;
