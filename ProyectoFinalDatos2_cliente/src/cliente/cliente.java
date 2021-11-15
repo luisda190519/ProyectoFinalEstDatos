@@ -66,6 +66,7 @@ public class cliente {
     private ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
     private hiloImagen hi;
     private ArrayList<String> names = new ArrayList<String>();
+    private int index;
 
     public cliente() {
 
@@ -87,7 +88,7 @@ public class cliente {
     public void connect(String ip, int port) {
         try {
             socketClient = new Socket(ip, port);
-            hc = new hiloChatCliente(socketClient, cliente);
+            hc = new hiloChatCliente(socketClient, cliente, ip, port);
             hc.start();
 
             Socket s = new Socket(ip, port + 1);
@@ -112,6 +113,40 @@ public class cliente {
     public void updatePanels() {
         inicio.getCallPanel().setLayout(new GridLayout(5, 5));
         updateUsers();
+    }
+
+    public void cameraOn(BufferedImage img, int index) {
+        ImageIcon icon = new ImageIcon(img);
+        Image imageChange = icon.getImage();
+        Image newimg = imageChange.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newimg);
+        userPanel u = new userPanel(icon);
+        userPanels.set(index, u);
+        inicio.getCallPanel().removeAll();
+        inicio.getCallPanel().revalidate();
+        inicio.getCallPanel().repaint();
+        updatePanels();
+    }
+
+    public void stopCamera(int indexCamera) {
+        userPanels.remove(index);
+        ImageIcon icon = images.get(index);
+        Image imageChange = icon.getImage();
+        Image newimg = imageChange.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newimg);
+        userPanel u = new userPanel(icon);
+        userPanels.add(index, u);
+        inicio.getCallPanel().removeAll();
+        updatePanels();
+    }
+
+    public int getIndexCamera(String name) {
+        for (int i = 0; i < names.size(); i++) {
+            if (name.equals(names.get(i))) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     public static void propiedadesTabla2() {
@@ -161,6 +196,8 @@ public class cliente {
         icon = new ImageIcon(newimg);
         userPanel u = new userPanel(icon);
         userPanels.add(u);
+        System.out.println(userPanels.indexOf(u));
+
     }
 
     public void clearPanel() {

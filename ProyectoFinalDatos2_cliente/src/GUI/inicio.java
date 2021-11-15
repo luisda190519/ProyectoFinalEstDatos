@@ -453,7 +453,7 @@ public class inicio extends javax.swing.JFrame {
 
         ipField.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         ipField.setForeground(new java.awt.Color(204, 204, 204));
-        ipField.setText("localhost...");
+        ipField.setText("localhost");
         ipField.setBorder(null);
         ipField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -490,7 +490,7 @@ public class inicio extends javax.swing.JFrame {
 
         portField.setFont(new java.awt.Font("Verdana", 0, 15)); // NOI18N
         portField.setForeground(new java.awt.Color(204, 204, 204));
-        portField.setText("1234...");
+        portField.setText("2003");
         portField.setBorder(null);
         portField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -687,10 +687,10 @@ public class inicio extends javax.swing.JFrame {
     private void jvideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jvideoActionPerformed
         if (jvideo.getIcon() == videoOff) {
             jvideo.setIcon(videoOn);
-            cliente.getHc().cameraOn();
+            cliente.getHc().cameraOn(nameField.getText());
         } else {
             jvideo.setIcon(videoOff);
-            camaraPrendida = false;
+            cliente.getHc().cameraOff(nameField.getText());
         }
     }//GEN-LAST:event_jvideoActionPerformed
 
@@ -875,7 +875,7 @@ public class inicio extends javax.swing.JFrame {
         return camaraPrendida;
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InstantiationException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -889,8 +889,6 @@ public class inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiatichoosePicLabelex) {
             java.util.logging.Logger.getLogger(inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);

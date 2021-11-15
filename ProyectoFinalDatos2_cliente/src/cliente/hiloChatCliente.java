@@ -33,10 +33,18 @@ public class hiloChatCliente extends Thread {
     private File folder = new File("data");
     private File archivo = new File(folder, "usuarios.txt");
     private hiloImagen hi;
+    private int port;
+    private String ip;
+    private hiloCamaraCliente hcc;
 
-    public hiloChatCliente(Socket socket, cliente c) throws IOException {
+    public hiloChatCliente(Socket socket, cliente c, String ip, int port) throws IOException {
         this.socketClient = socket;
         this.c = c;
+        this.port = port;
+        this.ip = ip;
+        hcc = new hiloCamaraCliente(port, ip, c);
+        hcc.start();
+
         dataInputStream = new DataInputStream(socketClient.getInputStream());
         dataOutputStream = new DataOutputStream(socketClient.getOutputStream());
         this.writer = new BufferedWriter(new OutputStreamWriter(dataOutputStream));
@@ -72,9 +80,25 @@ public class hiloChatCliente extends Thread {
         }
     }
 
-    public void cameraOn() {
+    public void cameraOn(String name) {
         try {
             writer.write("/cameraOn");
+            writer.write("\r\n");
+            writer.flush();
+            writer.write(name);
+            writer.write("\r\n");
+            writer.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void cameraOff(String name) {
+        try {
+            writer.write("/cameraOff");
+            writer.write("\r\n");
+            writer.flush();
+            writer.write(name);
             writer.write("\r\n");
             writer.flush();
         } catch (IOException ex) {
@@ -140,6 +164,15 @@ public class hiloChatCliente extends Thread {
                 } else if (msg.equals("/clear")) {
                     c.clearPanel();
                     i = 0;
+                } else if (msg.equals("/cameraOn")) {
+                    msg = reader.readLine();
+                    hcc.setTheName(msg);
+                    hcc.setCameraOn(true);
+                } else if (msg.equals("/cameraOff")) {
+                    msg = reader.readLine();
+                    hcc.setTheName(msg);
+                    hcc.setCameraOn(false);
+                    c.stopCamera(c.getIndexCamera(msg));
                 }
             }
 
@@ -147,29 +180,6 @@ public class hiloChatCliente extends Thread {
             System.out.println("error " + e);
             Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, e);
         }
-    }
-
-    public void makeFile() {
-        if (!archivo.exists()) {
-            folder.mkdir();
-            try {
-                archivo.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("error");
-            }
-        }
-        try (FileWriter fw = new FileWriter(archivo.getAbsoluteFile(), true)) {
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(nombre + "," + foto);
-            bw.newLine();
-            bw.flush();
-            bw.close();
-            fw.close();
-
-        } catch (Exception e) {
-            System.out.println("error");
-        }
-
     }
 
     public String getFoto() {

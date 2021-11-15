@@ -41,6 +41,7 @@ public class Server {
     private ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
     private static ArrayList<hiloImagen> hiloImagen = new ArrayList<hiloImagen>();
     private ArrayList<String> names = new ArrayList<String>();
+    private static ArrayList<hiloCamaraServer> hiloCamaras = new ArrayList<hiloCamaraServer>();
 
     public Server() {
     }
@@ -51,6 +52,7 @@ public class Server {
         ServerSocket s = new ServerSocket(server.port);
         ServerSocket s2 = new ServerSocket(server.port + 1);
         ServerSocket s3 = new ServerSocket(server.port + 2);
+        ServerSocket s4 = new ServerSocket(server.port + 3);
 
         Log.add("Port " + server.port + 2 + ": server started");
         BroadcastThread bt = new BroadcastThread(server);
@@ -73,6 +75,11 @@ public class Server {
             cc.start();
             server.addToClients(cc);
             Log.add("new client " + socket3.getInetAddress() + ":" + socket3.getPort() + " on port " + server.port + 2);
+
+            Socket socket4 = s4.accept();
+            hiloCamaraServer hcs = new hiloCamaraServer(socket4, server);
+            hcs.start();
+            hiloCamaras.add(hcs);
 
         }
     }
@@ -108,12 +115,6 @@ public class Server {
         this.transmision(image);
     }
 
-    public void addCamera() throws IOException {
-        for (hiloImagen hiImagen : hiloImagen) {
-            hiImagen.cameraOn();
-        }
-    }
-
     public void transmision(String mensaje) throws IOException {
         for (hiloChat hc : hilosChat) {
             hc.enviarMensaje(mensaje);
@@ -125,6 +126,12 @@ public class Server {
             for (BufferedImage bi : images) {
                 hiImagen.enviarMensaje(bi);
             }
+        }
+    }
+
+    public void transmisionCamera(BufferedImage image) throws IOException {
+        for (hiloImagen hiImagen : hiloImagen) {
+            hiImagen.enviarMensaje(image);
         }
     }
 
