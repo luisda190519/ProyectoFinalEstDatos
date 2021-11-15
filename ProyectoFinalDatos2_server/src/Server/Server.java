@@ -1,5 +1,8 @@
 package Server;
 
+import hilos.hiloImagen;
+import hilos.hiloCamaraServer;
+import hilos.hiloChat;
 import soundUtils.ClientConnection;
 import Utils.Log;
 import Utils.Message;
@@ -130,8 +133,8 @@ public class Server {
     }
 
     public void transmisionCamera(BufferedImage image) throws IOException {
-        for (hiloImagen hiImagen : hiloImagen) {
-            hiImagen.enviarMensaje(image);
+        for (hiloCamaraServer hcs : hiloCamaras) {
+            hcs.enviarMensaje(image);
         }
     }
 
@@ -139,8 +142,14 @@ public class Server {
         return client.size();
     }
 
-    public void deleteUser(hiloChat hc) {
-        hilosChat.remove(hc);
+    public void deleteUser(hiloChat hc, String name) {
+        int index = hilosChat.indexOf(hc);
+        hilosChat.remove(index);
+        hiloImagen.remove(index);
+        hiloCamaras.remove(index);
+        index = names.indexOf(name);
+        names.remove(index);
+        images.remove(index);
     }
 
     public void addToBroadcastQueue(Message m) { //add a message to the broadcast queue. this method is used by all ClientConnection instances

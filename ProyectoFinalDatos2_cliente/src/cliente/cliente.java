@@ -1,5 +1,9 @@
 package cliente;
 
+import soundUtils.MicThread;
+import soundUtils.ClientVoz;
+import hilos.hiloChatCliente;
+import hilos.hiloImagen;
 import GUI.changeCellColor;
 import GUI.imgTabla;
 import GUI.inicio;
@@ -52,8 +56,6 @@ public class cliente {
     public ImageIcon clientUserPic;
     public static JTable chatTable;
     public static JTable usuariosConectados;
-    private File folder = new File("data");
-    private File archivo = new File(folder, "usuarios.txt");
     private static inicio inicio;
     private boolean camaraPrendida;
     private static String titulos[] = {"", ""};
@@ -129,14 +131,15 @@ public class cliente {
     }
 
     public void stopCamera(int indexCamera) {
-        userPanels.remove(index);
         ImageIcon icon = images.get(index);
         Image imageChange = icon.getImage();
         Image newimg = imageChange.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
         userPanel u = new userPanel(icon);
-        userPanels.add(index, u);
+        userPanels.set(index, u);
         inicio.getCallPanel().removeAll();
+        inicio.getCallPanel().revalidate();
+        inicio.getCallPanel().repaint();
         updatePanels();
     }
 
@@ -200,6 +203,13 @@ public class cliente {
 
     }
 
+    public void deleteUser(String name) {
+        int i = names.indexOf(name);
+        names.remove(i);
+        images.remove(i);
+        userPanels.remove(i);
+    }
+
     public void clearPanel() {
         images.clear();
         names.clear();
@@ -251,20 +261,12 @@ public class cliente {
 
     }
 
-    public File getFolder() {
-        return folder;
-    }
-
     public String getNombre() {
         return nombre;
     }
 
     public static inicio getInicio() {
         return inicio;
-    }
-
-    public File getArchivo() {
-        return archivo;
     }
 
     public String getFoto() {

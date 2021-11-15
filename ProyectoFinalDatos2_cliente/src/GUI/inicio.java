@@ -36,7 +36,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import Utils.Utils;
-import cliente.MicThread;
+import soundUtils.MicThread;
 import static cliente.cliente.chatTable;
 import java.awt.event.WindowAdapter;
 import javax.swing.JPanel;
@@ -55,7 +55,7 @@ public class inicio extends javax.swing.JFrame {
 
     public inicio() {
         initComponents();
-        fotoPath = "imagenes/defaultfoto.png";
+        fotoPath = "src/imagenes/defaultfoto.png";
 
         table1.setOpaque(false);
         table1.setShowGrid(false);
@@ -858,7 +858,8 @@ public class inicio extends javax.swing.JFrame {
     }
 
     public void exitProcedure() {
-        cliente.getHc().deleteUser();
+        cliente.getHc().deleteUser(nameField.getText());
+        cliente.deleteUser(nameField.getText());
         this.dispose();
         System.exit(0);
     }

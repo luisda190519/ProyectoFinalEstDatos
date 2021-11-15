@@ -1,5 +1,6 @@
-package cliente;
+package hilos;
 
+import cliente.cliente;
 import com.github.sarxos.webcam.Webcam;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -22,29 +23,46 @@ public class hiloCamaraCliente extends Thread {
         this.port = port;
         this.ip = ip;
         this.cliente = cliente;
-        this.name = name;
         socket = new Socket(ip, port + 3);
+    }
+
+    public void sendImage() throws IOException {
+        BufferedImage image;
+        Webcam.setAutoOpenMode(true);
+        Webcam cam = Webcam.getDefault();
+        image = cam.getImage();
+        ByteArrayOutputStream ous = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", ous);
+        socket.getOutputStream().write(ous.toByteArray());
     }
 
     @Override
     public void run() {
         BufferedImage image;
         Webcam cam = Webcam.getDefault();
-        
+
         while (true) {
             try {
-                if (cameraOn) {
-                    cam.open();
-                    image = cam.getImage();
-                    ByteArrayOutputStream ous = new ByteArrayOutputStream();
-                    ImageIO.write(image, "png", ous);
-                    socket.getOutputStream().write(ous.toByteArray());
-                    cliente.cameraOn(image, cliente.getIndexCamera(name));
-                } else {
-                    cam.close();
+                sleep(100);
+                int i = 0;
+                while (cameraOn) {
+
+                    sendImage();
+
+                    BufferedImage img = ImageIO.read(socket.getInputStream());
+                    if (img != null) {
+                        cliente.cameraOn(img, cliente.getIndexCamera(name));
+                        System.out.println("entre " + i);
+                        i++;
+                    }
+                    //System.out.println("now im in " + i);
+
                 }
+                cam.close();
 
             } catch (IOException ex) {
+                Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
                 Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

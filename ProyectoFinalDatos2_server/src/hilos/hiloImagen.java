@@ -1,4 +1,4 @@
-package Server;
+package hilos;
 
 import com.github.sarxos.webcam.Webcam;
 import java.awt.Dimension;

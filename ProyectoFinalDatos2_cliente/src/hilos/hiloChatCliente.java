@@ -1,5 +1,6 @@
-package cliente;
+package hilos;
 
+import cliente.cliente;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -59,9 +60,6 @@ public class hiloChatCliente extends Thread {
             writer.write(nombre + ": " + mensaje + "\n");
             writer.write("\r\n");
             writer.flush();
-            writer.write(foto);
-            writer.write("\r\n");
-            writer.flush();
             writer.write("/stopMessage");
             writer.write("\r\n");
             writer.flush();
@@ -70,9 +68,12 @@ public class hiloChatCliente extends Thread {
         }
     }
 
-    public void deleteUser() {
+    public void deleteUser(String name) {
         try {
             writer.write("/deleteUser");
+            writer.write("\r\n");
+            writer.flush();
+            writer.write(name);
             writer.write("\r\n");
             writer.flush();
         } catch (Exception e) {
@@ -135,6 +136,7 @@ public class hiloChatCliente extends Thread {
             int i = 0;
 
             while (msg != null) {
+                sleep(100);
                 msg = reader.readLine();
 
                 if (msg.equals("")) {
@@ -152,14 +154,11 @@ public class hiloChatCliente extends Thread {
                     c.updatePanels();
                 } else if (msg.equals("/starMessage")) {
                     msg = reader.readLine();
-                    texto = msg;
                     foto2 = c.getImages().get(c.getIndex(msg));
-                    msg = reader.readLine();
-                    String path = msg;
                     Image imgage = foto2.getImage();
                     Image newimg = imgage.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
                     foto2 = new ImageIcon(newimg);
-                    c.getChatModel().addRow(new Object[]{new JLabel(foto2), texto});
+                    c.getChatModel().addRow(new Object[]{new JLabel(foto2), msg});
                     msg = reader.readLine();
                 } else if (msg.equals("/clear")) {
                     c.clearPanel();

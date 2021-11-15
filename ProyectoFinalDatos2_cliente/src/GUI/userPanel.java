@@ -80,7 +80,6 @@ public class userPanel extends javax.swing.JPanel {
 
         pic = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 204, 255));
         setMaximumSize(new java.awt.Dimension(323, 165));
         setMinimumSize(new java.awt.Dimension(323, 165));
 

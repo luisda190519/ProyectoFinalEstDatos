@@ -1,5 +1,6 @@
-package Server;
+package hilos;
 
+import Server.Server;
 import com.github.sarxos.webcam.Webcam;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -87,7 +88,8 @@ public class hiloChat extends Thread {
                     data = reader.readLine().trim();
 
                 } else if (data.equals("/deleteUser")) {
-                    server.deleteUser(this);
+                    data = reader.readLine().trim();
+                    server.deleteUser(this, data);
                 } else if (data.equals("/cameraOn")) {
                     server.transmision("/cameraOn");
                     server.transmision("\r\n");

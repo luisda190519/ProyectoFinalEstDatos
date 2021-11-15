@@ -1,6 +1,8 @@
-package Server;
+package hilos;
 
+import Server.Server;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -17,12 +19,23 @@ public class hiloCamaraServer extends Thread {
         this.server = server;
     }
 
+    public void enviarMensaje(BufferedImage image) throws IOException {
+        ByteArrayOutputStream ous = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", ous);
+        socket.getOutputStream().write(ous.toByteArray());
+    }
+
     @Override
     public void run() {
 
         try {
-            BufferedImage img = ImageIO.read(socket.getInputStream());
-            server.transmisionCamera(img);
+            while (true) {
+                BufferedImage img = ImageIO.read(socket.getInputStream());
+                if (img != null) {
+                    server.transmisionCamera(img);
+                }
+
+            }
 
         } catch (IOException ex) {
             Logger.getLogger(hiloCamaraServer.class.getName()).log(Level.SEVERE, null, ex);
