@@ -124,6 +124,10 @@ public class Server {
         }
     }
 
+    public void transmision(hiloChat hc, String mensaje) throws IOException {
+        hc.enviarMensaje(mensaje);
+    }
+
     public void transmision(BufferedImage image) throws IOException {
         for (hiloImagen hiImagen : hiloImagen) {
             for (BufferedImage bi : images) {

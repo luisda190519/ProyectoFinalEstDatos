@@ -26,14 +26,19 @@ public class hiloCamaraCliente extends Thread {
         socket = new Socket(ip, port + 3);
     }
 
-    public void sendImage() throws IOException {
-        BufferedImage image;
-        Webcam.setAutoOpenMode(true);
-        Webcam cam = Webcam.getDefault();
-        image = cam.getImage();
-        ByteArrayOutputStream ous = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", ous);
-        socket.getOutputStream().write(ous.toByteArray());
+    public void sendImage() {
+        try {
+            BufferedImage image;
+            Webcam.setAutoOpenMode(true);
+            Webcam cam = Webcam.getDefault();
+            image = cam.getImage();
+            ByteArrayOutputStream ous = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", ous);
+            socket.getOutputStream().write(ous.toByteArray());
+        } catch (IOException e) {
+            System.out.println("error " + e);
+        }
+
     }
 
     @Override
@@ -42,7 +47,6 @@ public class hiloCamaraCliente extends Thread {
         Webcam cam = Webcam.getDefault();
 
         while (true) {
-
             try {
                 if (cameraOn) {
                     sendImage();
@@ -51,9 +55,8 @@ public class hiloCamaraCliente extends Thread {
                 if (img != null) {
                     cliente.cameraOn(img, cliente.getIndexCamera(name));
                 }
-
             } catch (IOException ex) {
-                Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

@@ -39,6 +39,7 @@ import Utils.Utils;
 import soundUtils.MicThread;
 import static cliente.cliente.chatTable;
 import java.awt.event.WindowAdapter;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class inicio extends javax.swing.JFrame {
@@ -841,6 +842,10 @@ public class inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_joinMeetingBtnMouseClicked
 
+    public JFrame getChat() {
+        return chat;
+    }
+
     private void joinMeetingBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinMeetingBtnMouseEntered
         joinMeetingBtn.setBackground(new Color(134, 134, 255));
     }//GEN-LAST:event_joinMeetingBtnMouseEntered
@@ -859,7 +864,6 @@ public class inicio extends javax.swing.JFrame {
 
     public void exitProcedure() {
         cliente.getHc().deleteUser(nameField.getText());
-        cliente.deleteUser(nameField.getText());
         this.dispose();
         System.exit(0);
     }

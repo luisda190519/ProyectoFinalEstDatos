@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class hiloChatCliente extends Thread {
 
@@ -173,8 +174,19 @@ public class hiloChatCliente extends Thread {
                     msg = reader.readLine();
                     hcc.setTheName(msg);
                     hcc.setCameraOn(false);
-                    hcc.stop();
+                    sleep(500);
                     c.stopCamera(c.getIndexCamera(msg));
+                } else if (msg.equals("/nameRepeted")) {
+                    c.getInicio().getChat().setVisible(false);
+                    c.getInicio().setVisible(true);
+                    socketClient.close();
+                    JOptionPane.showMessageDialog(null, "Nombre de usuario ya esta en uso");
+                    System.exit(0);
+                    break;
+                } else if (msg.equals("/deleteUser")) {
+                    msg = reader.readLine();
+                    System.out.println("entre " + msg);
+                    c.deleteUser(msg);
                 }
             }
 

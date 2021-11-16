@@ -1,21 +1,11 @@
 package soundUtils;
 
-
 import Server.Server;
 import Utils.Log;
 import Utils.Message;
 import Utils.Utils;
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author luisda19
- */
 public class BroadcastThread extends Thread {
 
     private Server s;
@@ -26,30 +16,29 @@ public class BroadcastThread extends Thread {
 
     @Override
     public void run() {
-        for (;;) {
+        while (true) {
             try {
-                ArrayList<ClientConnection> toRemove = new ArrayList<ClientConnection>(); //create a list of dead connections
+                ArrayList<ClientConnection> toRemove = new ArrayList<ClientConnection>();
                 for (ClientConnection cc : s.getClients()) {
-                    if (!cc.isAlive()) { //connection is dead, need to be removed
+                    if (!cc.isAlive()) {
                         Log.add("dead connection closed: " + cc.getInetAddress() + ":" + cc.getPort() + " on port " + s.port);
                         toRemove.add(cc);
                     }
                 }
-                s.getClients().removeAll(toRemove); //delete all dead connections
-                if (s.getBroadCastQueue().isEmpty()) { //nothing to send
-                    Utils.sleep(10); //avoid busy wait
+                s.getClients().removeAll(toRemove);
+                if (s.getBroadCastQueue().isEmpty()) {
+                    Utils.sleep(10);
                     continue;
-                } else { //we got something to broadcast
+                } else {
                     Message m = s.getBroadCastQueue().get(0);
-                    for (ClientConnection cc : s.getClients()) { //broadcast the message
+                    for (ClientConnection cc : s.getClients()) {
                         if (cc.getChId() != m.getChId()) {
                             cc.addToQueue(m);
                         }
                     }
-                    s.getBroadCastQueue().remove(m); //remove it from the broadcast queue
+                    s.getBroadCastQueue().remove(m);
                 }
             } catch (Throwable t) {
-                //mutex error, try again
             }
         }
     }

@@ -1,6 +1,5 @@
 package soundUtils;
 
-
 import Utils.Message;
 import Utils.Utils;
 import java.io.IOException;
@@ -10,16 +9,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-/*
- * To change this template, choose Tools | Templates and open the template in
- * the editor.
- */
-/**
- * Connects to the server, then starts receiving messages. Creates
- * a MicThread that sends microphone data to the server, and creates an instance
- * of AudioThread for each user.
- * @author dosse
- */
 public class ClientVoz extends Thread {
 
     private Socket s;
@@ -30,24 +19,28 @@ public class ClientVoz extends Thread {
         s = new Socket(serverIp, serverPort);
     }
 
+    public void closeSocket() throws IOException {
+        s.close();
+    }
+
     @Override
     public void run() {
         try {
-            ObjectInputStream fromServer = new ObjectInputStream(s.getInputStream());  //create object streams with the server
+            ObjectInputStream fromServer = new ObjectInputStream(s.getInputStream());
             ObjectOutputStream toServer = new ObjectOutputStream(s.getOutputStream());
             try {
-                Utils.sleep(100); //wait for the GUI microphone test to release the microphone
-                st = new MicThread(toServer);  //creates a MicThread that sends microphone data to the server
-                st.start(); //starts the MicThread
-            } catch (Exception e) { //error acquiring microphone. causes: no microphone or microphone busy
+                Utils.sleep(100);
+                st = new MicThread(toServer);
+                st.start();
+            } catch (Exception e) {
                 System.out.println("mic unavailable " + e);
             }
-            for (;;) { //this infinite cycle checks for new data from the server, then sends it to the correct AudioChannel. if needed, a new AudioChannel is created
-                
-                if (s.getInputStream().available() > 0) { //we got something from the server (workaround: used available method from InputStream instead of the one from ObjetInputStream because of a bug in the JRE)
-                    Message in = (Message) (fromServer.readObject()); //read message
-                    //decide which audio channel should get this message
-                    AudioChannel sendTo = null; 
+            //envia los datos del server al canal de audio especifico
+            while (true) {
+
+                if (s.getInputStream().available() > 0) {
+                    Message in = (Message) (fromServer.readObject());
+                    AudioChannel sendTo = null;
                     for (AudioChannel ch : chs) {
                         if (ch.getChId() == in.getChId()) {
                             sendTo = ch;
@@ -55,22 +48,28 @@ public class ClientVoz extends Thread {
                     }
                     if (sendTo != null) {
                         sendTo.addToQueue(in);
-                    } else { //new AudioChannel is needed
+                    } else {
                         AudioChannel ch = new AudioChannel(in.getChId());
                         ch.addToQueue(in);
                         ch.start();
                         chs.add(ch);
                     }
-                }else{ //see if some channels need to be killed and kill them
-                    ArrayList<AudioChannel> killMe=new ArrayList<AudioChannel>();
-                    for(AudioChannel c:chs) if(c.canKill()) killMe.add(c);
-                    for(AudioChannel c:killMe){c.closeAndKill(); chs.remove(c);}
-                    Utils.sleep(1); //avoid busy wait
+                } else {
+                    ArrayList<AudioChannel> killMe = new ArrayList<AudioChannel>();
+                    for (AudioChannel c : chs) {
+                        if (c.canKill()) {
+                            killMe.add(c);
+                        }
+                    }
+                    for (AudioChannel c : killMe) {
+                        c.closeAndKill();
+                        chs.remove(c);
+                    }
+                    Utils.sleep(1);
                 }
             }
-        } catch (Exception e) { //connection error
+        } catch (Exception e) {
             System.out.println("client err " + e.toString());
         }
     }
 }
- 

@@ -1,6 +1,5 @@
 package soundUtils;
 
-
 import Utils.Message;
 import Utils.SoundPacket;
 import Utils.Utils;
@@ -14,15 +13,6 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * reads data from microphone and sends it to the server
- *
- * @author dosse
- */
 public class MicThread extends Thread {
 
     public static double amplification = 1.0;
@@ -31,7 +21,7 @@ public class MicThread extends Thread {
 
     public MicThread(ObjectOutputStream toServer) throws LineUnavailableException {
         this.toServer = toServer;
-        //open microphone line, an exception is thrown in case of error
+        //abrir el microfono
         AudioFormat af = SoundPacket.defaultFormat;
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, null);
         mic = (TargetDataLine) (AudioSystem.getLine(info));
@@ -41,14 +31,13 @@ public class MicThread extends Thread {
 
     @Override
     public void run() {
-        for (;;) {
-            if (mic.available() >= SoundPacket.defaultDataLenght) { //we got enough data to send
+        while (true) {
+            if (mic.available() >= SoundPacket.defaultDataLenght) {
                 byte[] buff = new byte[SoundPacket.defaultDataLenght];
-                while (mic.available() >= SoundPacket.defaultDataLenght) { //flush old data from mic to reduce lag, and read most recent data
-                    mic.read(buff, 0, buff.length); //read from microphone
+                while (mic.available() >= SoundPacket.defaultDataLenght) {
+                    mic.read(buff, 0, buff.length);
                 }
                 try {
-                    //this part is used to decide whether to send or not the packet. if volume is too low, an empty packet will be sent and the remote client will play some comfort noise
                     long tot = 0;
                     for (int i = 0; i < buff.length; i++) {
                         buff[i] *= amplification;
@@ -56,12 +45,12 @@ public class MicThread extends Thread {
                     }
                     tot *= 2.5;
                     tot /= buff.length;
-                    //create and send packet
+                    //mandar los paquetes
                     Message m = null;
-                    if (tot == 0) {//send empty packet
+                    if (tot == 0) {
                         m = new Message(-1, -1, new SoundPacket(null));
-                    } else { //send data
-                        //compress the sound packet with GZIP
+                    } else {
+                        //comprimir los paquetes de sonido con GZIP
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         GZIPOutputStream go = new GZIPOutputStream(baos);
                         go.write(buff);
@@ -69,14 +58,14 @@ public class MicThread extends Thread {
                         go.close();
                         baos.flush();
                         baos.close();
-                        m = new Message(-1, -1, new SoundPacket(baos.toByteArray()));  //create message for server, will generate chId and timestamp from this computer's IP and this socket's port 
+                        m = new Message(-1, -1, new SoundPacket(baos.toByteArray()));
                     }
-                    toServer.writeObject(m); //send message
-                } catch (IOException ex) { //connection error
+                    toServer.writeObject(m);
+                } catch (IOException ex) {
                     stop();
                 }
             } else {
-                Utils.sleep(10); //sleep to avoid busy wait
+                Utils.sleep(10);
             }
         }
     }

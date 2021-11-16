@@ -1,6 +1,5 @@
 package soundUtils;
 
-
 import Server.Server;
 import Utils.Log;
 import Utils.Message;
@@ -13,36 +12,24 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-/*
- * To change this template, choose Tools | Templates and open the template in
- * the editor.
- */
-/**
- * this thread manages a connection with a client. it does a lot of stuff: -read
- * messages from client -add said messages to the server's broadcast queue
- * -receive messages from the server thread -add said messages to a send queue
- * -send messages from said queue to the client (or throw them away if too old)
- *
- * @author dosse
- */
 public class ClientConnection extends Thread {
 
-    private Server serv; //instance of server, needed to put messages in the server's broadcast queue
-    private Socket s; //connection to client 
-    private ObjectInputStream in; //object streams to/from client
+    private Server serv;
+    private Socket s;
+    private ObjectInputStream in;
     private ObjectOutputStream out;
-    private long chId; //unique id of this client, generated in the costructor
-    private ArrayList<Message> toSend = new ArrayList<Message>(); //queue of messages to be sent to the client
+    private long chId;
+    private ArrayList<Message> toSend = new ArrayList<Message>();
 
-    public InetAddress getInetAddress() { //returns this client's ip address
+    public InetAddress getInetAddress() {
         return s.getInetAddress();
     }
 
-    public int getPort() { //returns this client's tcp port
+    public int getPort() {
         return s.getPort();
     }
 
-    public long getChId() { //return this client's unique id
+    public long getChId() {
         return chId;
     }
 
@@ -51,23 +38,22 @@ public class ClientConnection extends Thread {
         this.s = s;
         byte[] addr = s.getInetAddress().getAddress();
         System.out.println(s.getInetAddress());
-        chId = (addr[0] << 48 | addr[1] << 32 | addr[2] << 24 | addr[3] << 16) + s.getPort(); //generate unique chId from client's IP and port
+        chId = (addr[0] << 48 | addr[1] << 32 | addr[2] << 24 | addr[3] << 16) + s.getPort();
     }
 
-    public void addToQueue(Message m) { //add a message to send to the client
+    public void addToQueue(Message m) {
         try {
             toSend.add(m);
         } catch (Throwable t) {
-            //mutex error, ignore because the server must be as fast as possible
         }
     }
 
     @Override
     public void run() {
         try {
-            out = new ObjectOutputStream(s.getOutputStream()); //create object streams to/from client
+            out = new ObjectOutputStream(s.getOutputStream());
             in = new ObjectInputStream(s.getInputStream());
-        } catch (IOException ex) { //connection error, close connection
+        } catch (IOException ex) {
             try {
                 s.close();
                 Log.add("ERROR " + getInetAddress() + ":" + getPort() + " " + ex);
@@ -75,39 +61,39 @@ public class ClientConnection extends Thread {
             }
             stop();
         }
-        for (;;) {
+        while (true) {
             try {
-                if (s.getInputStream().available() > 0) { //we got something from the client
-                    Message toBroadcast = (Message) in.readObject(); //read data from client
-                    if (toBroadcast.getChId() == -1) { //set its chId and timestamp and pass it to the server
+                if (s.getInputStream().available() > 0) {
+                    Message toBroadcast = (Message) in.readObject();
+                    if (toBroadcast.getChId() == -1) {
                         toBroadcast.setChId(chId);
                         toBroadcast.setTimestamp(System.nanoTime() / 1000000L);
                         serv.addToBroadcastQueue(toBroadcast);
                     } else {
-                        continue; //invalid message
+                        continue;
                     }
                 }
                 try {
                     if (!toSend.isEmpty()) {
-                        Message toClient = toSend.get(0); //we got something to send to the client
-                        if (!(toClient.getData() instanceof SoundPacket) || toClient.getTimestamp() + toClient.getTtl() < System.nanoTime() / 1000000L) { //is the message too old or of an unknown type?
+                        Message toClient = toSend.get(0);
+                        if (!(toClient.getData() instanceof SoundPacket) || toClient.getTimestamp() + toClient.getTtl() < System.nanoTime() / 1000000L) {
                             Log.add("dropping packet from " + toClient.getChId() + " to " + chId);
                             continue;
                         }
-                        out.writeObject(toClient); //send the message
-                        toSend.remove(toClient); //and remove it from the queue
+                        out.writeObject(toClient);
+                        toSend.remove(toClient);
                     } else {
-                        Utils.sleep(10); //avoid busy wait
+                        Utils.sleep(10);
                     }
                 } catch (Throwable t) {
-                    if (t instanceof IOException) {//connection closed or connection error
+                    if (t instanceof IOException) {
                         throw (Exception) t;
-                    } else {//mutex error, try again
+                    } else {
                         System.out.println("cc fixmutex");
                         continue;
                     }
                 }
-            } catch (Exception ex) { //connection closed or connection error, kill thread
+            } catch (Exception ex) {
                 try {
                     s.close();
                 } catch (IOException ex1) {

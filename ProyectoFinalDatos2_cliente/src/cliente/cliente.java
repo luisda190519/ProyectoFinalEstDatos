@@ -69,6 +69,8 @@ public class cliente {
     private hiloImagen hi;
     private ArrayList<String> names = new ArrayList<String>();
     private int index;
+    private Socket s;
+    private ClientVoz cv;
 
     public cliente() {
 
@@ -93,17 +95,23 @@ public class cliente {
             hc = new hiloChatCliente(socketClient, cliente, ip, port);
             hc.start();
 
-            Socket s = new Socket(ip, port + 1);
+            s = new Socket(ip, port + 1);
             hiloImagen hi = new hiloImagen(s, cliente);
             hi.start();
 
-            ClientVoz cv = new ClientVoz(ip, port + 2);
+            cv = new ClientVoz(ip, port + 2);
             cv.start();
             MicThread.amplification = 0;
 
         } catch (Exception e) {
             System.out.println("error " + e);
         }
+    }
+
+    public void closeSockets() throws IOException {
+        socketClient.close();
+        s.close();
+        cv.closeSocket();
     }
 
     public void updateUsers() {
@@ -163,30 +171,6 @@ public class cliente {
         usuariosConectados.getColumnModel().getColumn(1).setCellRenderer(new changeCellColor(35, 39, 42));
     }
 
-    public void setTableIcon(String foto) throws IOException {
-        clientUserPic = new ImageIcon(foto);
-        Image img = clientUserPic.getImage();
-        Image newimg = img.getScaledInstance(95, 95, java.awt.Image.SCALE_SMOOTH);
-        clientUserPic = new ImageIcon(newimg);
-        BufferedImage br;
-        Webcam cam = Webcam.getDefault();
-        //fill(foto);
-
-        if (camaraPrendida == true) {
-            while (camaraPrendida == true) {
-                cam.open();
-                br = cam.getImage();
-                clientUserPic = new ImageIcon(br);
-                Image newimg2 = br.getScaledInstance(95, 95, java.awt.Image.SCALE_SMOOTH);
-                clientUserPic = new ImageIcon(newimg2);
-            }
-        } else {
-            //fill(foto);
-            cam.close();
-        }
-
-    }
-
     public static DefaultTableModel getChatModel() {
         return chatModel;
     }
@@ -199,8 +183,6 @@ public class cliente {
         icon = new ImageIcon(newimg);
         userPanel u = new userPanel(icon);
         userPanels.add(u);
-        System.out.println(userPanels.indexOf(u));
-
     }
 
     public void deleteUser(String name) {
@@ -208,6 +190,11 @@ public class cliente {
         names.remove(i);
         images.remove(i);
         userPanels.remove(i);
+        getUsuariosConectadosModel().removeRow(i);
+        inicio.getCallPanel().removeAll();
+        inicio.getCallPanel().revalidate();
+        inicio.getCallPanel().repaint();
+        updatePanels();
     }
 
     public void clearPanel() {
@@ -265,7 +252,7 @@ public class cliente {
         return nombre;
     }
 
-    public static inicio getInicio() {
+    public inicio getInicio() {
         return inicio;
     }
 

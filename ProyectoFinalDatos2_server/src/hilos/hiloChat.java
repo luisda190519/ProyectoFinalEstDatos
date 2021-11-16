@@ -57,38 +57,58 @@ public class hiloChat extends Thread {
                     data = reader.readLine().trim();
                     String path = data;
 
-                    server.addName(name);
-                    ImageIcon icon = new ImageIcon(path);
-                    BufferedImage bi = ImageIO.read(new File(path));
+                    boolean nameRepeted = false;
 
-                    server.transmision("/clear");
-                    server.transmision("\r\n");
-                    server.flush();
+                    for (String nombre : server.getNames()) {
+                        if (name.equals(nombre)) {
+                            nameRepeted = true;
+                        }
+                    }
 
-                    sleep(100);
+                    if (!nameRepeted) {
+                        server.addName(name);
+                        ImageIcon icon = new ImageIcon(path);
+                        BufferedImage bi = ImageIO.read(new File(path));
 
-                    server.addImages(bi);
-                    server.addUsuarios(name + "," + path);
-
-                    sleep(100);
-
-                    server.transmision("/nuevoUsuario");
-                    server.transmision("\r\n");
-                    server.flush();
-
-                    for (String usuario : server.getNames()) {
-                        server.transmision(usuario);
+                        server.transmision("/clear");
                         server.transmision("\r\n");
+                        server.flush();
+
+                        sleep(100);
+
+                        server.addImages(bi);
+                        server.addUsuarios(name + "," + path);
+
+                        sleep(100);
+
+                        server.transmision("/nuevoUsuario");
+                        server.transmision("\r\n");
+                        server.flush();
+
+                        for (String usuario : server.getNames()) {
+                            server.transmision(usuario);
+                            server.transmision("\r\n");
+                            server.flush();
+                        }
+
+                        server.transmision("/finUsuario");
+                        server.transmision("\r\n");
+                        server.flush();
+                        data = reader.readLine().trim();
+                    } else {
+                        server.transmision(this, "/nameRepeted");
+                        server.transmision(this, "\r\n");
                         server.flush();
                     }
 
-                    server.transmision("/finUsuario");
+                } else if (data.equals("/deleteUser")) {
+                    server.transmision("/deleteUser");
                     server.transmision("\r\n");
                     server.flush();
                     data = reader.readLine().trim();
-
-                } else if (data.equals("/deleteUser")) {
-                    data = reader.readLine().trim();
+                    server.transmision(data);
+                    server.transmision("\r\n");
+                    server.flush();
                     server.deleteUser(this, data);
                 } else if (data.equals("/cameraOn")) {
                     server.transmision("/cameraOn");
@@ -115,7 +135,5 @@ public class hiloChat extends Thread {
             }
         } catch (Exception e) {
         }
-
     }
-
 }

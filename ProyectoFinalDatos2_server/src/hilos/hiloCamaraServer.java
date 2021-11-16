@@ -34,13 +34,9 @@ public class hiloCamaraServer extends Thread {
                 if (img != null) {
                     server.transmisionCamera(img);
                 }
-
             }
-
         } catch (IOException ex) {
             Logger.getLogger(hiloCamaraServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-
 }
