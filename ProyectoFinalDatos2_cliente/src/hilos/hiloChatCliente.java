@@ -144,6 +144,7 @@ public class hiloChatCliente extends Thread {
                 }
 
                 if (msg.equals("/nuevoUsuario")) {
+                    sleep(100);
                     msg = reader.readLine();
                     c.getUsuariosConectadosModel().setRowCount(0);
                     while (!msg.equals("/finUsuario")) {
@@ -167,10 +168,12 @@ public class hiloChatCliente extends Thread {
                     msg = reader.readLine();
                     hcc.setTheName(msg);
                     hcc.setCameraOn(true);
+                    hcc.sendImage();
                 } else if (msg.equals("/cameraOff")) {
                     msg = reader.readLine();
                     hcc.setTheName(msg);
                     hcc.setCameraOn(false);
+                    hcc.stop();
                     c.stopCamera(c.getIndexCamera(msg));
                 }
             }

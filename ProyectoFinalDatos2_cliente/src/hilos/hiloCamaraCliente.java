@@ -42,27 +42,17 @@ public class hiloCamaraCliente extends Thread {
         Webcam cam = Webcam.getDefault();
 
         while (true) {
+
             try {
-                sleep(100);
-                int i = 0;
-                while (cameraOn) {
-
+                if (cameraOn) {
                     sendImage();
-
-                    BufferedImage img = ImageIO.read(socket.getInputStream());
-                    if (img != null) {
-                        cliente.cameraOn(img, cliente.getIndexCamera(name));
-                        System.out.println("entre " + i);
-                        i++;
-                    }
-                    //System.out.println("now im in " + i);
-
                 }
-                cam.close();
+                BufferedImage img = ImageIO.read(socket.getInputStream());
+                if (img != null) {
+                    cliente.cameraOn(img, cliente.getIndexCamera(name));
+                }
 
             } catch (IOException ex) {
-                Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InterruptedException ex) {
                 Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
