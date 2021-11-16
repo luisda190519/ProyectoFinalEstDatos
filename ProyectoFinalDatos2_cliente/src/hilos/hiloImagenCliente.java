@@ -13,14 +13,14 @@ import java.net.Socket;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
-public class hiloImagen extends Thread {
+public class hiloImagenCliente extends Thread {
 
     private Socket socket;
     private cliente cliente;
     private hiloChatCliente hc;
     private int tamaño = 0;
 
-    public hiloImagen(Socket socket, cliente cliente) throws IOException {
+    public hiloImagenCliente(Socket socket, cliente cliente) throws IOException {
         this.socket = socket;
         this.cliente = cliente;
         this.hc = hc;

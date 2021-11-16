@@ -41,6 +41,9 @@ import static cliente.cliente.chatTable;
 import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.datatransfer.StringSelection;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 
 public class inicio extends javax.swing.JFrame {
 
@@ -147,6 +150,9 @@ public class inicio extends javax.swing.JFrame {
         choosePicLabel = new javax.swing.JLabel();
         joinMeetingBtn = new javax.swing.JPanel();
         reunionLabel = new javax.swing.JLabel();
+        startMeeting = new javax.swing.JPanel();
+        reunionLabel1 = new javax.swing.JLabel();
+        generatePort = new javax.swing.JButton();
 
         chat.setBackground(new java.awt.Color(35, 39, 42));
         chat.setResizable(false);
@@ -498,7 +504,7 @@ public class inicio extends javax.swing.JFrame {
                 portFieldMousePressed(evt);
             }
         });
-        jPanel2.add(portField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 440, 40));
+        jPanel2.add(portField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 380, 40));
 
         barraSuperior.setBackground(new java.awt.Color(255, 255, 255));
         barraSuperior.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -609,13 +615,15 @@ public class inicio extends javax.swing.JFrame {
 
         reunionLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         reunionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        reunionLabel.setText("Iniciar Reunión");
+        reunionLabel.setText("Unirse");
 
         javax.swing.GroupLayout joinMeetingBtnLayout = new javax.swing.GroupLayout(joinMeetingBtn);
         joinMeetingBtn.setLayout(joinMeetingBtnLayout);
         joinMeetingBtnLayout.setHorizontalGroup(
             joinMeetingBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(reunionLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, joinMeetingBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(reunionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         joinMeetingBtnLayout.setVerticalGroup(
             joinMeetingBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -624,7 +632,47 @@ public class inicio extends javax.swing.JFrame {
                 .addComponent(reunionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(joinMeetingBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 620, 440, 40));
+        jPanel2.add(joinMeetingBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 180, 40));
+
+        startMeeting.setBackground(new java.awt.Color(204, 204, 255));
+        startMeeting.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        startMeeting.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                startMeetingMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                startMeetingMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                startMeetingMouseExited(evt);
+            }
+        });
+
+        reunionLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        reunionLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        reunionLabel1.setText("Iniciar Reunión");
+
+        javax.swing.GroupLayout startMeetingLayout = new javax.swing.GroupLayout(startMeeting);
+        startMeeting.setLayout(startMeetingLayout);
+        startMeetingLayout.setHorizontalGroup(
+            startMeetingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(reunionLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+        );
+        startMeetingLayout.setVerticalGroup(
+            startMeetingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startMeetingLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(reunionLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(startMeeting, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 620, 180, 40));
+
+        generatePort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generatePortActionPerformed(evt);
+            }
+        });
+        jPanel2.add(generatePort, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, 60, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -854,6 +902,43 @@ public class inicio extends javax.swing.JFrame {
         joinMeetingBtn.setBackground(new Color(204, 204, 255));
     }//GEN-LAST:event_joinMeetingBtnMouseExited
 
+    private void startMeetingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingMouseClicked
+        if (nameField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Digite su nombre");
+        } else {
+            try {
+                this.setVisible(false);
+                cliente.createMeeting(Integer.parseInt(portField.getText()));
+                cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
+                cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
+                chat.setVisible(true);
+                chat.setLocationRelativeTo(null);
+                chat.setSize(1230, 730); //778,520
+
+                String myString = nameField.getText() + " te ha invitado a la reunion\nID de reunion: " + portField.getText();
+                StringSelection stringSelection = new StringSelection(myString);
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                clipboard.setContents(stringSelection, null);
+
+            } catch (IOException ex) {
+                Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_startMeetingMouseClicked
+
+    private void startMeetingMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startMeetingMouseEntered
+
+    private void startMeetingMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_startMeetingMouseExited
+
+    private void generatePortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatePortActionPerformed
+        int n = (int) (Math.random() * (65531 - 49149 + 1) + 49149) + 3;
+        portField.setText(n + "");
+    }//GEN-LAST:event_generatePortActionPerformed
+
     public JPanel getCallPanel() {
         return callPanel;
     }
@@ -922,6 +1007,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JPanel choosePicBtn;
     private javax.swing.JLabel choosePicLabel;
     private javax.swing.JLabel direccionLabel;
+    private javax.swing.JButton generatePort;
     private javax.swing.JLabel iconoDer;
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel imagenLabel;
@@ -946,6 +1032,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JPanel panel;
     private javax.swing.JTextField portField;
     private javax.swing.JLabel reunionLabel;
+    private javax.swing.JLabel reunionLabel1;
     private javax.swing.JSeparator separadorIcono;
     private javax.swing.JSeparator separadorNombre;
     private javax.swing.JSeparator separadorNombre1;
@@ -953,6 +1040,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JPanel side;
     private javax.swing.JPanel side1;
     private javax.swing.JLabel sloganApp;
+    private javax.swing.JPanel startMeeting;
     private javax.swing.JTable table1;
     private javax.swing.JTable table2;
     private javax.swing.JButton userPic;

@@ -17,11 +17,11 @@ import java.net.Socket;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
-public class hiloImagen extends Thread {
+public class hiloImagenServer extends Thread {
 
     private Socket socket;
 
-    public hiloImagen(Socket socket) throws IOException {
+    public hiloImagenServer(Socket socket) throws IOException {
         this.socket = socket;
     }
 

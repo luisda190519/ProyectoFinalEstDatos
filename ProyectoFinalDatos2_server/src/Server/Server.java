@@ -1,8 +1,8 @@
 package Server;
 
-import hilos.hiloImagen;
+import hilos.hiloImagenServer;
 import hilos.hiloCamaraServer;
-import hilos.hiloChat;
+import hilos.hiloChatServer;
 import soundUtils.ClientConnection;
 import Utils.Log;
 import Utils.Message;
@@ -40,47 +40,44 @@ public class Server {
     public int port;
     private ArrayList<String> usuarios = new ArrayList<String>();
     private ServerSocket s;
-    private static ArrayList<hiloChat> hilosChat = new ArrayList<hiloChat>();
+    private static ArrayList<hiloChatServer> hilosChat = new ArrayList<hiloChatServer>();
     private ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
-    private static ArrayList<hiloImagen> hiloImagen = new ArrayList<hiloImagen>();
+    private static ArrayList<hiloImagenServer> hiloImagen = new ArrayList<hiloImagenServer>();
     private ArrayList<String> names = new ArrayList<String>();
     private static ArrayList<hiloCamaraServer> hiloCamaras = new ArrayList<hiloCamaraServer>();
 
-    public Server() {
-    }
+    public Server(int port) throws IOException {
+        System.out.println("Server iniciado");
+        this.port = port;
+        ServerSocket s = new ServerSocket(this.port);
+        ServerSocket s2 = new ServerSocket(this.port + 1);
+        ServerSocket s3 = new ServerSocket(this.port + 2);
+        ServerSocket s4 = new ServerSocket(this.port + 3);
 
-    public static void main(String[] args) throws Exception {
-        Server server = new Server();
-        server.port = 2003;
-        ServerSocket s = new ServerSocket(server.port);
-        ServerSocket s2 = new ServerSocket(server.port + 1);
-        ServerSocket s3 = new ServerSocket(server.port + 2);
-        ServerSocket s4 = new ServerSocket(server.port + 3);
-
-        Log.add("Port " + server.port + 2 + ": server started");
-        BroadcastThread bt = new BroadcastThread(server);
+        Log.add("Port " + this.port + 2 + ": server started");
+        BroadcastThread bt = new BroadcastThread(this);
         bt.start();
 
         while (true) {
             Socket socket = s.accept();
-            server.socket = socket;
-            hiloChat hiloChat = new hiloChat(socket, server);
+            this.socket = socket;
+            hiloChatServer hiloChat = new hiloChatServer(socket, this);
             hiloChat.start();
             hilosChat.add(hiloChat);
 
             Socket socket2 = s2.accept();
-            hiloImagen hi = new hiloImagen(socket2);
+            hiloImagenServer hi = new hiloImagenServer(socket2);
             hi.start();
             hiloImagen.add(hi);
 
             Socket socket3 = s3.accept();
-            ClientConnection cc = new ClientConnection(server, socket3);
+            ClientConnection cc = new ClientConnection(this, socket3);
             cc.start();
-            server.addToClients(cc);
-            Log.add("new client " + socket3.getInetAddress() + ":" + socket3.getPort() + " on port " + server.port + 2);
+            this.addToClients(cc);
+            Log.add("new client " + socket3.getInetAddress() + ":" + socket3.getPort() + " on port " + this.port + 2);
 
             Socket socket4 = s4.accept();
-            hiloCamaraServer hcs = new hiloCamaraServer(socket4, server);
+            hiloCamaraServer hcs = new hiloCamaraServer(socket4, this);
             hcs.start();
             hiloCamaras.add(hcs);
 
@@ -100,7 +97,7 @@ public class Server {
     }
 
     public void flush() throws IOException {
-        for (hiloChat hc : hilosChat) {
+        for (hiloChatServer hc : hilosChat) {
             hc.flush();
         }
     }
@@ -119,17 +116,17 @@ public class Server {
     }
 
     public void transmision(String mensaje) throws IOException {
-        for (hiloChat hc : hilosChat) {
+        for (hiloChatServer hc : hilosChat) {
             hc.enviarMensaje(mensaje);
         }
     }
 
-    public void transmision(hiloChat hc, String mensaje) throws IOException {
+    public void transmision(hiloChatServer hc, String mensaje) throws IOException {
         hc.enviarMensaje(mensaje);
     }
 
     public void transmision(BufferedImage image) throws IOException {
-        for (hiloImagen hiImagen : hiloImagen) {
+        for (hiloImagenServer hiImagen : hiloImagen) {
             for (BufferedImage bi : images) {
                 hiImagen.enviarMensaje(bi);
             }
@@ -146,7 +143,7 @@ public class Server {
         return client.size();
     }
 
-    public void deleteUser(hiloChat hc, String name) {
+    public void deleteUser(hiloChatServer hc, String name) {
         int index = hilosChat.indexOf(hc);
         hilosChat.remove(index);
         hiloImagen.remove(index);

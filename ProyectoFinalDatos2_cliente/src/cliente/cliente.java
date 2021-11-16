@@ -3,14 +3,16 @@ package cliente;
 import soundUtils.MicThread;
 import soundUtils.ClientVoz;
 import hilos.hiloChatCliente;
-import hilos.hiloImagen;
+import hilos.hiloImagenServer;
 import GUI.changeCellColor;
 import GUI.imgTabla;
 import GUI.inicio;
 import GUI.userPanel;
+import Server.Server;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.util.ImageUtils;
 import static com.github.sarxos.webcam.util.ImageUtils.toByteArray;
+import hilos.hiloImagenCliente;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -40,6 +42,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -66,7 +69,7 @@ public class cliente {
     private hiloChatCliente hc;
     private static cliente cliente;
     private ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
-    private hiloImagen hi;
+    private hiloImagenServer hi;
     private ArrayList<String> names = new ArrayList<String>();
     private int index;
     private Socket s;
@@ -96,7 +99,7 @@ public class cliente {
             hc.start();
 
             s = new Socket(ip, port + 1);
-            hiloImagen hi = new hiloImagen(s, cliente);
+            hiloImagenCliente hi = new hiloImagenCliente(s, cliente);
             hi.start();
 
             cv = new ClientVoz(ip, port + 2);
@@ -106,6 +109,19 @@ public class cliente {
         } catch (Exception e) {
             System.out.println("error " + e);
         }
+    }
+
+    public void createMeeting(int port) throws IOException {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Server servidor = new Server(port);
+                } catch (Exception ex) {
+                    System.exit(0);
+                }
+            }
+        }.start();
     }
 
     public void closeSockets() throws IOException {
@@ -118,6 +134,32 @@ public class cliente {
         for (userPanel u : userPanels) {
             inicio.getCallPanel().add(u);
         }
+    }
+
+    public void showMessage(ImageIcon foto2, String msg, String nombre) {
+        String data[] = msg.split(":");
+        if (data[0].equals(nombre)) {
+            getChatModel().addRow(new Object[]{new JLabel(foto2), "tu: " + data[1]});
+        } else {
+            getChatModel().addRow(new Object[]{new JLabel(foto2), msg});
+        }
+    }
+
+    public void showMessage(ImageIcon foto2, String sender, String msg, String nombre, boolean aux) {
+        if (aux) {
+            if (sender.equals(nombre)) {
+                getChatModel().addRow(new Object[]{new JLabel(foto2), "Te has unido a la reunion "});
+            } else {
+                getChatModel().addRow(new Object[]{new JLabel(foto2), sender + msg});
+            }
+        } else {
+            if (sender.equals(nombre)) {
+                getChatModel().addRow(new Object[]{new JLabel(foto2), "Has avandonado la reunion"});
+            } else {
+                getChatModel().addRow(new Object[]{new JLabel(foto2), sender + msg});
+            }
+        }
+
     }
 
     public void updatePanels() {
@@ -216,6 +258,15 @@ public class cliente {
         String data[] = msg.split(":");
         for (int i = 0; i < names.size(); i++) {
             if (data[0].equals(names.get(i))) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public int getIndex2(String msg) {
+        for (int i = 0; i < names.size(); i++) {
+            if (msg.equals(names.get(i))) {
                 return i;
             }
         }

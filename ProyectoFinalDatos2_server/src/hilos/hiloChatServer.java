@@ -17,7 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-public class hiloChat extends Thread {
+public class hiloChatServer extends Thread {
 
     private Socket socket;
     private Server server;
@@ -26,7 +26,7 @@ public class hiloChat extends Thread {
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    public hiloChat(Socket socket, Server server) {
+    public hiloChatServer(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
     }
@@ -49,7 +49,6 @@ public class hiloChat extends Thread {
 
             while (true) {
                 String data = reader.readLine().trim();
-                System.out.println("Recivido " + data);
 
                 if (data.equals("/addUser")) {
                     data = reader.readLine().trim();

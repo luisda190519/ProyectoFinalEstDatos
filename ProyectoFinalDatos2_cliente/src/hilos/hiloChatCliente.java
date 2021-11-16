@@ -34,7 +34,7 @@ public class hiloChatCliente extends Thread {
     private ImageIcon foto2;
     private File folder = new File("data");
     private File archivo = new File(folder, "usuarios.txt");
-    private hiloImagen hi;
+    private hiloImagenServer hi;
     private int port;
     private String ip;
     private hiloCamaraCliente hcc;
@@ -69,8 +69,32 @@ public class hiloChatCliente extends Thread {
         }
     }
 
+    public void enviarComands(String nombre, boolean auxiliar) {
+        try {
+            if (auxiliar) {
+                writer.write("/joinChat");
+                writer.write("\r\n");
+                writer.flush();
+                writer.write(nombre);
+                writer.write("\r\n");
+                writer.flush();
+            } else {
+                writer.write("/leftChat");
+                writer.write("\r\n");
+                writer.flush();
+                writer.write(nombre);
+                writer.write("\r\n");
+                writer.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("error " + e);
+        }
+
+    }
+
     public void deleteUser(String name) {
         try {
+            enviarComands(name, false);
             writer.write("/deleteUser");
             writer.write("\r\n");
             writer.flush();
@@ -125,6 +149,7 @@ public class hiloChatCliente extends Thread {
             writer.write("/closeUser");
             writer.write("\r\n");
             writer.flush();
+            enviarComands(nombre, true);
         } catch (Exception e) {
             System.out.println("error " + e);
         }
@@ -160,7 +185,7 @@ public class hiloChatCliente extends Thread {
                     Image imgage = foto2.getImage();
                     Image newimg = imgage.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
                     foto2 = new ImageIcon(newimg);
-                    c.getChatModel().addRow(new Object[]{new JLabel(foto2), msg});
+                    c.showMessage(foto2, msg, this.nombre);
                     msg = reader.readLine();
                 } else if (msg.equals("/clear")) {
                     c.clearPanel();
@@ -187,6 +212,20 @@ public class hiloChatCliente extends Thread {
                     msg = reader.readLine();
                     System.out.println("entre " + msg);
                     c.deleteUser(msg);
+                } else if (msg.equals("/joinChat")) {
+                    msg = reader.readLine();
+                    foto2 = c.getImages().get(c.getIndex2(msg));
+                    Image imgage = foto2.getImage();
+                    Image newimg = imgage.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+                    foto2 = new ImageIcon(newimg);
+                    c.showMessage(foto2, msg, " se ha unido a la reunion", this.nombre, true);
+                } else if (msg.equals("/leftChat")) {
+                    msg = reader.readLine();
+                    foto2 = c.getImages().get(c.getIndex2(msg));
+                    Image imgage = foto2.getImage();
+                    Image newimg = imgage.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+                    foto2 = new ImageIcon(newimg);
+                    c.showMessage(foto2, msg, " abandono la reunion", this.nombre, false);
                 }
             }
 
