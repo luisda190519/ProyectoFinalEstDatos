@@ -61,40 +61,14 @@ public class inicio extends javax.swing.JFrame {
         initComponents();
         fotoPath = "src/imagenes/defaultfoto.png";
 
-        table1.setOpaque(false);
-        table1.setShowGrid(false);
-        table1.getTableHeader().setOpaque(false);
-        ((DefaultTableCellRenderer) table1.getDefaultRenderer(Object.class)).setOpaque(false);
-        jScrollPane2.setOpaque(false);
-        jScrollPane2.getViewport().setOpaque(false);
-        table1.getTableHeader().setOpaque(false);
-        table1.getTableHeader().setBackground(new Color(0, 0, 0, 0.6f));
-        table1.getTableHeader().setForeground(new Color(44, 47, 51));
-        jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        table1.setTableHeader(null);
-
-        table2.setOpaque(false);
-        table2.setShowGrid(false);
-        table2.getTableHeader().setOpaque(false);
-        ((DefaultTableCellRenderer) table2.getDefaultRenderer(Object.class)).setOpaque(false);
-        jScrollPane3.setOpaque(false);
-        jScrollPane3.getViewport().setOpaque(false);
-        table2.getTableHeader().setOpaque(false);
-        table2.getTableHeader().setBackground(new Color(0, 0, 0, 0.6f));
-        table2.getTableHeader().setForeground(new Color(44, 47, 51));
-        jScrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        table2.setTableHeader(null);
+        setTableProperties(table1, jScrollPane2);
+        setTableProperties(table2, jScrollPane3);
 
         jaudio.setIcon(audioOff);
         jvideo.setIcon(videoOff);
 
-        chat.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        chat.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent event) {
-                exitProcedure();
-            }
-        });
+        addExitOperation(chat);
+        addExitOperation(call);
     }
 
     @SuppressWarnings("unchecked")
@@ -878,16 +852,22 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_choosePicBtnMouseExited
 
     private void joinMeetingBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinMeetingBtnMouseClicked
-        if (nameField.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite su nombre");
-        } else {
-            this.setVisible(false);
-            cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
-            cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
-            chat.setVisible(true);
-            chat.setLocationRelativeTo(null);
-            chat.setSize(1230, 730); //778,520
+        try {
+            if (nameField.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Digite su nombre");
+            } else {
+                this.setVisible(false);
+                cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
+                cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
+                chat.setVisible(true);
+                chat.setLocationRelativeTo(null);
+                chat.setSize(1230, 730); //778,520
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No hay ninguna reunion empezada con ese id");
+            System.exit(0);
         }
+
     }//GEN-LAST:event_joinMeetingBtnMouseClicked
 
     public JFrame getChat() {
@@ -938,6 +918,30 @@ public class inicio extends javax.swing.JFrame {
         int n = (int) (Math.random() * (65531 - 49149 + 1) + 49149) + 3;
         portField.setText(n + "");
     }//GEN-LAST:event_generatePortActionPerformed
+
+    public void setTableProperties(JTable table, JScrollPane jScrollPane) {
+        table.setOpaque(false);
+        table.setShowGrid(false);
+        table.getTableHeader().setOpaque(false);
+        ((DefaultTableCellRenderer) table.getDefaultRenderer(Object.class)).setOpaque(false);
+        jScrollPane.setOpaque(false);
+        jScrollPane.getViewport().setOpaque(false);
+        table.getTableHeader().setOpaque(false);
+        table.getTableHeader().setBackground(new Color(0, 0, 0, 0.6f));
+        table.getTableHeader().setForeground(new Color(44, 47, 51));
+        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        table.setTableHeader(null);
+    }
+
+    public void addExitOperation(JFrame frame) {
+        frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                exitProcedure();
+            }
+        });
+    }
 
     public JPanel getCallPanel() {
         return callPanel;

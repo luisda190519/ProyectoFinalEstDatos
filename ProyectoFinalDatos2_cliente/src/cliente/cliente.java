@@ -163,14 +163,14 @@ public class cliente {
     }
 
     public void updatePanels() {
-        inicio.getCallPanel().setLayout(new GridLayout(5, 5));
+        inicio.getCallPanel().setLayout(new GridLayout(3, 3));
         updateUsers();
     }
 
     public void cameraOn(BufferedImage img, int index) {
         ImageIcon icon = new ImageIcon(img);
         Image imageChange = icon.getImage();
-        Image newimg = imageChange.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+        Image newimg = imageChange.getScaledInstance(202, 108, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
         userPanel u = new userPanel(icon);
         userPanels.set(index, u);
@@ -181,12 +181,12 @@ public class cliente {
     }
 
     public void stopCamera(int indexCamera) {
-        ImageIcon icon = images.get(index);
+        ImageIcon icon = images.get(indexCamera);
         Image imageChange = icon.getImage();
-        Image newimg = imageChange.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+        Image newimg = imageChange.getScaledInstance(202, 108, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
         userPanel u = new userPanel(icon);
-        userPanels.set(index, u);
+        userPanels.set(indexCamera, u);
         inicio.getCallPanel().removeAll();
         inicio.getCallPanel().revalidate();
         inicio.getCallPanel().repaint();
@@ -221,7 +221,7 @@ public class cliente {
         ImageIcon icon = new ImageIcon(img);
         images.add(icon);
         Image imageChange = icon.getImage();
-        Image newimg = imageChange.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+        Image newimg = imageChange.getScaledInstance(202, 108, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
         userPanel u = new userPanel(icon);
         userPanels.add(u);

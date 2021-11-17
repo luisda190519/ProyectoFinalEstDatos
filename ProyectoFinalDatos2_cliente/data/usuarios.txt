@@ -1,7 +1,0 @@
-df,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg
-aa,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg
-sda,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg
-asd,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg
-dsa,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg
-weq,C:\Users\luisd\OneDrive\Imágenes\fondos\foto.jpg
-wqe,C:\Users\luisd\OneDrive\Imágenes\fondos\gato.jpeg

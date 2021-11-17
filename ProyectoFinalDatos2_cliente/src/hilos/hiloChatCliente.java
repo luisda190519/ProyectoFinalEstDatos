@@ -136,6 +136,7 @@ public class hiloChatCliente extends Thread {
         try {
             this.nombre = nombre;
             this.foto = foto;
+            hcc.setNameOwner(this.nombre);
             c.getUsuariosConectadosModel().setRowCount(0);
             writer.write("/addUser");
             writer.write("\r\n");
@@ -192,14 +193,15 @@ public class hiloChatCliente extends Thread {
                     i = 0;
                 } else if (msg.equals("/cameraOn")) {
                     msg = reader.readLine();
-                    hcc.setTheName(msg);
+                    hcc.setNameCameraStart(msg);
                     hcc.setCameraOn(true);
-                    hcc.sendImage();
+                    synchronized (hcc) {
+                        hcc.notify();
+                    }
                 } else if (msg.equals("/cameraOff")) {
                     msg = reader.readLine();
-                    hcc.setTheName(msg);
+                    hcc.setNameCameraStart(msg);
                     hcc.setCameraOn(false);
-                    sleep(500);
                     c.stopCamera(c.getIndexCamera(msg));
                 } else if (msg.equals("/nameRepeted")) {
                     c.getInicio().getChat().setVisible(false);

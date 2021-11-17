@@ -15,12 +15,12 @@ public class userPanel extends javax.swing.JPanel {
         initComponents();
         this.setMaximumSize(this.getPreferredSize());
         Image img = imagen.getImage();
-        Image newimg = img.getScaledInstance(150, 96, java.awt.Image.SCALE_SMOOTH);
+        Image newimg = img.getScaledInstance(202, 108, java.awt.Image.SCALE_SMOOTH);
         imagen = new ImageIcon(newimg);
 
         pic.setIcon(imagen);
         JPanel p2 = new RoundedPanel(15, new Color(35, 39, 42));
-        p2.setBounds(0, 0, 323, 165);
+        p2.setBounds(0, 0, 250, 150);
         p2.setOpaque(false);
         this.add(p2);
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -80,24 +80,26 @@ public class userPanel extends javax.swing.JPanel {
 
         pic = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(323, 165));
-        setMinimumSize(new java.awt.Dimension(323, 165));
+        setBackground(new java.awt.Color(44, 47, 51));
+        setMaximumSize(new java.awt.Dimension(250, 150));
+        setMinimumSize(new java.awt.Dimension(250, 150));
+        setPreferredSize(new java.awt.Dimension(250, 150));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(pic, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

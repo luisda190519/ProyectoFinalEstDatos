@@ -47,7 +47,6 @@ public class Server {
     private static ArrayList<hiloCamaraServer> hiloCamaras = new ArrayList<hiloCamaraServer>();
 
     public Server(int port) throws IOException {
-        System.out.println("Server iniciado");
         this.port = port;
         ServerSocket s = new ServerSocket(this.port);
         ServerSocket s2 = new ServerSocket(this.port + 1);
