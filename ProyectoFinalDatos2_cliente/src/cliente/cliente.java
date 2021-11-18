@@ -49,6 +49,12 @@ import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class cliente {
 
@@ -134,6 +140,8 @@ public class cliente {
         for (userPanel u : userPanels) {
             inicio.getCallPanel().add(u);
         }
+        inicio.getCallPanel().revalidate();
+        inicio.getCallPanel().repaint();
     }
 
     public void showMessage(ImageIcon foto2, String msg, String nombre) {
@@ -141,7 +149,24 @@ public class cliente {
         if (data[0].equals(nombre)) {
             getChatModel().addRow(new Object[]{new JLabel(foto2), "tu: " + data[1]});
         } else {
-            getChatModel().addRow(new Object[]{new JLabel(foto2), msg});
+            if (data[1].substring(2, data[1].length()).equals(nombre) && data[1].substring(1, 2).equals("@")) {
+                try {
+                    getChatModel().addRow(new Object[]{new JLabel(foto2), msg});
+                    String soundName = "src/audio/audio.wav";
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(audioInputStream);
+                    clip.start();
+                } catch (LineUnavailableException ex) {
+                    Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedAudioFileException ex) {
+                    Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                getChatModel().addRow(new Object[]{new JLabel(foto2), msg});
+            }
         }
     }
 
@@ -175,8 +200,6 @@ public class cliente {
         userPanel u = new userPanel(icon);
         userPanels.set(index, u);
         inicio.getCallPanel().removeAll();
-        inicio.getCallPanel().revalidate();
-        inicio.getCallPanel().repaint();
         updatePanels();
     }
 

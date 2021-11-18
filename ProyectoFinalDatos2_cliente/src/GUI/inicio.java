@@ -67,6 +67,12 @@ public class inicio extends javax.swing.JFrame {
         jaudio.setIcon(audioOff);
         jvideo.setIcon(videoOff);
 
+        foto = new ImageIcon(fotoPath);
+        Image img = foto.getImage();
+        Image newimg = img.getScaledInstance(150, 120, java.awt.Image.SCALE_SMOOTH);
+        foto = new ImageIcon(newimg);
+        userPic.setIcon(foto);
+
         addExitOperation(chat);
         addExitOperation(call);
     }

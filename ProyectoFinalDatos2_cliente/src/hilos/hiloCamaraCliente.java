@@ -20,66 +20,47 @@ public class hiloCamaraCliente extends Thread {
     private String nameOwner = "";
     private String nameAux;
     private boolean cameraOn = false;
+    private hiloSendCameraCliente sendCamera;
 
     public hiloCamaraCliente(int port, String ip, cliente cliente) throws IOException {
         this.port = port;
         this.ip = ip;
         this.cliente = cliente;
         socket = new Socket(ip, port + 3);
-    }
-
-    public void setNameOwner(String nameOwner) {
-        this.nameOwner = nameOwner;
-    }
-
-    public void sendImage() throws InterruptedException {
-        try {
-            if (nameAux.equals(nameOwner)) {
-                BufferedImage image;
-                Webcam.setAutoOpenMode(true);
-                Webcam cam = Webcam.getDefault();
-                image = cam.getImage();
-                ByteArrayOutputStream ous = new ByteArrayOutputStream();
-                ImageIO.write(image, "png", ous);
-                socket.getOutputStream().write(ous.toByteArray());
-                sleep(100);
-            }
-
-        } catch (IOException e) {
-            System.out.println("error " + e);
-        }
-
+        sendCamera = new hiloSendCameraCliente(socket);
+        sendCamera.start();
     }
 
     @Override
     public void run() {
-        BufferedImage image;
-        Webcam cam = Webcam.getDefault();
         int i = 0;
+        boolean aux = true;
 
         synchronized (this) {
             try {
                 this.wait();
                 while (true) {
                     try {
-                        if (cameraOn && nameAux.equals(nameOwner)) {
-                            sendImage();
+                        if (cameraOn && nameAux.equals(nameOwner) && aux) {
+                            sendCamera.setCameraOn(true);
+                            aux = false;
+                            synchronized (sendCamera) {
+                                sendCamera.notify();
+                            }
                         }
 
                         if (cameraOn) {
                             BufferedImage img = ImageIO.read(socket.getInputStream());
                             if (img != null) {
+                                System.out.println("im in");
                                 cliente.cameraOn(img, cliente.getIndexCamera(nameAux));
                             }
                         } else if (!cameraOn) {
-                            sleep(100);
+                            sendCamera.setCameraOn(false);
                             cliente.stopCamera(cliente.getIndexCamera(nameAux));
-                            cam.close();
+                            aux = true;
                             this.wait();
                         }
-
-                        System.out.println("hola " + i);
-                        i++;
 
                     } catch (IOException ex) {
                         Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,6 +82,10 @@ public class hiloCamaraCliente extends Thread {
 
     public void setNameCameraStart(String name) {
         this.nameAux = name;
+    }
+
+    public void setNameOwner(String nameOwner) {
+        this.nameOwner = nameOwner;
     }
 
 }

@@ -37,7 +37,6 @@ public class ClientConnection extends Thread {
         this.serv = serv;
         this.s = s;
         byte[] addr = s.getInetAddress().getAddress();
-        System.out.println(s.getInetAddress());
         chId = (addr[0] << 48 | addr[1] << 32 | addr[2] << 24 | addr[3] << 16) + s.getPort();
     }
 

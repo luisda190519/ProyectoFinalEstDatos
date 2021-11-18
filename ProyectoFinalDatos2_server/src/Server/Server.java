@@ -165,7 +165,6 @@ public class Server {
     private void addToClients(ClientConnection cc) {
         try {
             clients.add(cc); //add the new connection to the list of connections
-            System.out.println("entre");
         } catch (Throwable t) {
             //mutex error, try again
             Utils.sleep(1);
