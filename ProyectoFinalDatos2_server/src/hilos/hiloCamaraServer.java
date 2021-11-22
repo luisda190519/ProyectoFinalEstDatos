@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 public class hiloCamaraServer extends Thread {
@@ -30,10 +31,15 @@ public class hiloCamaraServer extends Thread {
 
         try {
             while (true) {
-                BufferedImage img = ImageIO.read(socket.getInputStream());
-                if (img != null) {
-                    server.transmisionCamera(img);
+                try {
+                    BufferedImage img = ImageIO.read(socket.getInputStream());
+                    if (img != null) {
+                        server.transmisionCamera(img);
+                    }
+                } catch (IIOException e) {
+                    System.out.println("error " + e);
                 }
+
             }
         } catch (IOException ex) {
             Logger.getLogger(hiloCamaraServer.class.getName()).log(Level.SEVERE, null, ex);

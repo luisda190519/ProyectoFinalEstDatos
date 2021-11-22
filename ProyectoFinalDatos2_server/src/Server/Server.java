@@ -111,7 +111,7 @@ public class Server {
 
     public void addImages(BufferedImage image) throws IOException {
         images.add(image);
-        this.transmision(image);
+        this.transmision();
     }
 
     public void transmision(String mensaje) throws IOException {
@@ -124,7 +124,7 @@ public class Server {
         hc.enviarMensaje(mensaje);
     }
 
-    public void transmision(BufferedImage image) throws IOException {
+    public void transmision() throws IOException {
         for (hiloImagenServer hiImagen : hiloImagen) {
             for (BufferedImage bi : images) {
                 hiImagen.enviarMensaje(bi);

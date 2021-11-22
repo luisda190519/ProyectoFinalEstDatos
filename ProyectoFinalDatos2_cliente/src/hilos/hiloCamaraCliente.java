@@ -50,10 +50,12 @@ public class hiloCamaraCliente extends Thread {
                         }
 
                         if (cameraOn) {
+                            sleep(50);
                             BufferedImage img = ImageIO.read(socket.getInputStream());
                             if (img != null) {
-                                System.out.println("im in");
                                 cliente.cameraOn(img, cliente.getIndexCamera(nameAux));
+                                System.out.println("me meti " + i);
+                                i++;
                             }
                         } else if (!cameraOn) {
                             sendCamera.setCameraOn(false);

@@ -44,6 +44,8 @@ import javax.swing.JPanel;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class inicio extends javax.swing.JFrame {
 

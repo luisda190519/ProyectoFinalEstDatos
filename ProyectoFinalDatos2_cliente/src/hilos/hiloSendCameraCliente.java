@@ -1,6 +1,7 @@
 package hilos;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamUtils;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,15 +27,14 @@ public class hiloSendCameraCliente extends Thread {
 
             synchronized (this) {
                 this.wait();
+                int i = 0;
                 while (true) {
                     while (cameraOn) {
                         Webcam cam = Webcam.getDefault();
                         image = cam.getImage();
-                        ByteArrayOutputStream ous = new ByteArrayOutputStream();
-                        ImageIO.write(image, "png", ous);
-                        socket.getOutputStream().write(ous.toByteArray());
+                        byte[] bytes = WebcamUtils.getImageBytes(cam, "png");
+                        socket.getOutputStream().write(bytes);
                     }
-                    
                     this.wait();
                 }
             }

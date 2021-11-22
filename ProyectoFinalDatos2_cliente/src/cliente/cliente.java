@@ -323,7 +323,11 @@ public class cliente {
     }
 
     public String getNombre() {
-        return nombre;
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public inicio getInicio() {
