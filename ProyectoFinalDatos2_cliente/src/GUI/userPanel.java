@@ -19,7 +19,7 @@ public class userPanel extends javax.swing.JPanel {
         imagen = new ImageIcon(newimg);
 
         pic.setIcon(imagen);
-        JPanel p2 = new RoundedPanel(15, new Color(255,255,255));
+        JPanel p2 = new RoundedPanel(15, new Color(134,134,255));
         p2.setBounds(0, 0, 250, 150);
         p2.setOpaque(false);
         this.add(p2);
@@ -80,7 +80,7 @@ public class userPanel extends javax.swing.JPanel {
 
         pic = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 204, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(250, 150));
         setMinimumSize(new java.awt.Dimension(250, 150));
         setPreferredSize(new java.awt.Dimension(250, 150));

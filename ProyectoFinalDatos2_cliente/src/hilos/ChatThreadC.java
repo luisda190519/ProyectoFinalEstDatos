@@ -148,6 +148,8 @@ public class ChatThreadC extends Thread {
                         i++;
                     }
                     c.updatePanels();
+                    c.updateConnectedUsers();
+
                 } else if (msg.equals("/starMessage")) {
                     msg = reader.readLine();
                     foto2 = c.getImages().get(c.getIndex(msg));
@@ -179,7 +181,9 @@ public class ChatThreadC extends Thread {
                     break;
                 } else if (msg.equals("/deleteUser")) {
                     msg = reader.readLine();
+                    System.out.println("me meti");
                     c.deleteUser(msg);
+                    c.updateConnectedUsers();
                 } else if (msg.equals("/joinChat")) {
                     msg = reader.readLine();
                     foto2 = c.getImages().get(c.getIndex2(msg));

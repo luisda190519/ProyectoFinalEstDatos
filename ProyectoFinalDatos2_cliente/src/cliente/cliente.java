@@ -190,6 +190,10 @@ public class cliente {
         updateUsers();
     }
 
+    public void updateConnectedUsers() {
+        inicio.connectedUsers(names.size());
+    }
+
     public void cameraOn(BufferedImage img, int index) {
         ImageIcon icon = new ImageIcon(img);
         Image imageChange = icon.getImage();
