@@ -3,7 +3,6 @@ package cliente;
 import soundUtils.MicrofonoThread;
 import soundUtils.VozThread;
 import hilos.ChatThreadC;
-import hilos.ImagenesThreadS;
 import GUI.changeCellColor;
 import GUI.imgTabla;
 import GUI.inicio;
@@ -75,7 +74,6 @@ public class cliente {
     private ChatThreadC hc;
     private static cliente cliente;
     private ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
-    private ImagenesThreadS hi;
     private ArrayList<String> names = new ArrayList<String>();
     private int index;
     private Socket s;
@@ -229,11 +227,11 @@ public class cliente {
         chatTable.setDefaultRenderer(Object.class, new imgTabla());
         chatTable.setRowHeight(50);
         chatTable.setModel(chatModel);
-        chatTable.getColumnModel().getColumn(1).setCellRenderer(new changeCellColor(44, 47, 51));
+        chatTable.getColumnModel().getColumn(1).setCellRenderer(new changeCellColor(255, 255, 255));
         usuariosConectados.setDefaultRenderer(Object.class, new imgTabla());
         usuariosConectados.setRowHeight(50);
         usuariosConectados.setModel(usuariosConectadosModel);
-        usuariosConectados.getColumnModel().getColumn(1).setCellRenderer(new changeCellColor(35, 39, 42));
+        usuariosConectados.getColumnModel().getColumn(1).setCellRenderer(new changeCellColor(255, 255, 255));
     }
 
     public static DefaultTableModel getChatModel() {

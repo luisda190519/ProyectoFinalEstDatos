@@ -43,6 +43,7 @@ import javax.swing.JPanel;
 import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import javax.swing.BorderFactory;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -92,9 +93,12 @@ public class inicio extends javax.swing.JFrame {
         exitLabel = new javax.swing.JLabel();
         panel = new javax.swing.JPanel();
         jmensaje = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table1 = new javax.swing.JTable();
         users = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         table2 = new javax.swing.JTable();
         call = new javax.swing.JFrame();
@@ -145,7 +149,7 @@ public class inicio extends javax.swing.JFrame {
         chat.setResizable(false);
         chat.setSize(new java.awt.Dimension(1200, 700));
 
-        jPanel3.setBackground(new java.awt.Color(134, 134, 255));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         side.setBackground(new java.awt.Color(134, 134, 255));
@@ -222,7 +226,7 @@ public class inicio extends javax.swing.JFrame {
 
         side.add(exitPanelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
 
-        jPanel3.add(side, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 700));
+        jPanel3.add(side, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 750));
 
         panel.setBackground(new java.awt.Color(204, 204, 255));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -236,12 +240,14 @@ public class inicio extends javax.swing.JFrame {
                 jmensajeActionPerformed(evt);
             }
         });
-        panel.add(jmensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 660, 40));
+        panel.add(jmensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 660, 660, 40));
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane2.setBorder(null);
 
         table1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        table1.setForeground(new java.awt.Color(255, 255, 255));
+        table1.setForeground(new java.awt.Color(0, 0, 0));
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -253,16 +259,45 @@ public class inicio extends javax.swing.JFrame {
         table1.setEnabled(false);
         jScrollPane2.setViewportView(table1);
 
-        panel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 660, 580));
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 660, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
-        jPanel3.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 720, 700));
+        panel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 660, 580));
+
+        jPanel3.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 720, 750));
 
         users.setBackground(new java.awt.Color(134, 134, 255));
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Online");
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
         jScrollPane3.setBorder(null);
 
+        table2.setBackground(new java.awt.Color(255, 255, 255));
         table2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        table2.setForeground(new java.awt.Color(255, 255, 255));
+        table2.setForeground(new java.awt.Color(0, 0, 0));
         table2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -272,32 +307,52 @@ public class inicio extends javax.swing.JFrame {
             }
         ));
         table2.setEnabled(false);
+        table2.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane3.setViewportView(table2);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 646, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout usersLayout = new javax.swing.GroupLayout(users);
         users.setLayout(usersLayout);
         usersLayout.setHorizontalGroup(
             usersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(usersLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(usersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         usersLayout.setVerticalGroup(
             usersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(usersLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        jPanel3.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 0, -1, 700));
+        jPanel3.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 300, 750));
 
         javax.swing.GroupLayout chatLayout = new javax.swing.GroupLayout(chat.getContentPane());
         chat.getContentPane().setLayout(chatLayout);
         chatLayout.setHorizontalGroup(
             chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, Short.MAX_VALUE)
         );
         chatLayout.setVerticalGroup(
             chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +472,7 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane4.setBorder(null);
         jScrollPane4.setPreferredSize(new java.awt.Dimension(150, 150));
 
-        callPanel.setBackground(new java.awt.Color(134, 134, 255));
+        callPanel.setBackground(new java.awt.Color(204, 204, 255));
         callPanel.setLayout(new java.awt.GridBagLayout());
         jScrollPane4.setViewportView(callPanel);
 
@@ -779,7 +834,7 @@ public class inicio extends javax.swing.JFrame {
     private void vozBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vozBtnActionPerformed
         foto = (ImageIcon) userPic.getIcon();
         userPic1.setIcon(foto);
-        call.setSize(1200, 750);
+        call.setSize(1200, 700);
         call.setVisible(true);
         call.setLocationRelativeTo(null);
         chat.setVisible(false);
@@ -962,9 +1017,10 @@ public class inicio extends javax.swing.JFrame {
                 this.setVisible(false);
                 cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
                 cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
+                chat.setSize(100, 100); //778,520
                 chat.setVisible(true);
                 chat.setLocationRelativeTo(null);
-                chat.setSize(1230, 730); //778,520
+
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No hay ninguna reunion empezada con ese id");
@@ -1014,11 +1070,11 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_startMeetingBtnMouseEntered
 
     private void startMeetingBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingBtnMouseExited
-         startMeetingBtn.setBackground(new Color(204, 204, 255));
+        startMeetingBtn.setBackground(new Color(204, 204, 255));
     }//GEN-LAST:event_startMeetingBtnMouseExited
 
     private void generatePortBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generatePortBtnMouseEntered
-       generatePortBtn.setBackground(new Color(134, 134, 255));
+        generatePortBtn.setBackground(new Color(134, 134, 255));
     }//GEN-LAST:event_generatePortBtnMouseEntered
 
     private void generatePortBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generatePortBtnMouseExited
@@ -1031,7 +1087,7 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_generatePortBtnMouseClicked
 
     private void exitPanelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitPanelBtnMouseClicked
-      System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_exitPanelBtnMouseClicked
 
     private void exitPanelBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitPanelBtnMouseEntered
@@ -1070,6 +1126,10 @@ public class inicio extends javax.swing.JFrame {
         table.getTableHeader().setForeground(new Color(44, 47, 51));
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         table.setTableHeader(null);
+        jScrollPane.setBorder(null);
+        table.setShowHorizontalLines(false);
+        table.setShowVerticalLines(false);
+        table.setBorder(BorderFactory.createEmptyBorder());
     }
 
     public void addExitOperation(JFrame frame) {
@@ -1161,11 +1221,14 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JLabel imagenLabel;
     private javax.swing.JLabel iniciarTitulo;
     private javax.swing.JTextField ipField;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;

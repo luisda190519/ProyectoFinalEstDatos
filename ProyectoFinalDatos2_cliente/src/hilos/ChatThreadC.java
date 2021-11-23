@@ -34,7 +34,6 @@ public class ChatThreadC extends Thread {
     private ImageIcon foto2;
     private File folder = new File("data");
     private File archivo = new File(folder, "usuarios.txt");
-    private ImagenesThreadS hi;
     private int port;
     private String ip;
     private CamaraThreadC hcc;
