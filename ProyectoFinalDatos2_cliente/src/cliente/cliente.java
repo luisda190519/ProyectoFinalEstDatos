@@ -1,9 +1,9 @@
 package cliente;
 
-import soundUtils.MicThread;
-import soundUtils.ClientVoz;
-import hilos.hiloChatCliente;
-import hilos.hiloImagenServer;
+import soundUtils.MicrofonoThread;
+import soundUtils.VozThread;
+import hilos.ChatThreadC;
+import hilos.ImagenesThreadS;
 import GUI.changeCellColor;
 import GUI.imgTabla;
 import GUI.inicio;
@@ -12,7 +12,7 @@ import Server.Server;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.util.ImageUtils;
 import static com.github.sarxos.webcam.util.ImageUtils.toByteArray;
-import hilos.hiloImagenCliente;
+import hilos.ImagenesThreadC;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -72,14 +72,14 @@ public class cliente {
     private static DefaultTableModel usuariosConectadosModel = new DefaultTableModel(null, titulos);
     private ArrayList<userPanel> userPanels = new ArrayList<userPanel>();
     private Socket socketClient;
-    private hiloChatCliente hc;
+    private ChatThreadC hc;
     private static cliente cliente;
     private ArrayList<ImageIcon> images = new ArrayList<ImageIcon>();
-    private hiloImagenServer hi;
+    private ImagenesThreadS hi;
     private ArrayList<String> names = new ArrayList<String>();
     private int index;
     private Socket s;
-    private ClientVoz cv;
+    private VozThread cv;
 
     public cliente() {
 
@@ -101,16 +101,16 @@ public class cliente {
     public void connect(String ip, int port) {
         try {
             socketClient = new Socket(ip, port);
-            hc = new hiloChatCliente(socketClient, cliente, ip, port);
+            hc = new ChatThreadC(socketClient, cliente, ip, port);
             hc.start();
 
             s = new Socket(ip, port + 1);
-            hiloImagenCliente hi = new hiloImagenCliente(s, cliente);
+            ImagenesThreadC hi = new ImagenesThreadC(s, cliente);
             hi.start();
 
-            cv = new ClientVoz(ip, port + 2);
+            cv = new VozThread(ip, port + 2);
             cv.start();
-            MicThread.amplification = 0;
+            MicrofonoThread.amplification = 0;
 
         } catch (Exception e) {
             System.out.println("error " + e);
@@ -338,7 +338,7 @@ public class cliente {
         return foto;
     }
 
-    public hiloChatCliente getHc() {
+    public ChatThreadC getHc() {
         return hc;
     }
 

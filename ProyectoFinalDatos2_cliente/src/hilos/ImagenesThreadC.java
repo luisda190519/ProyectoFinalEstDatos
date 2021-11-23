@@ -13,14 +13,14 @@ import java.net.Socket;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
-public class hiloImagenCliente extends Thread {
+public class ImagenesThreadC extends Thread {
 
     private Socket socket;
     private cliente cliente;
-    private hiloChatCliente hc;
+    private ChatThreadC hc;
     private int tamaño = 0;
 
-    public hiloImagenCliente(Socket socket, cliente cliente) throws IOException {
+    public ImagenesThreadC(Socket socket, cliente cliente) throws IOException {
         this.socket = socket;
         this.cliente = cliente;
         this.hc = hc;
@@ -33,13 +33,11 @@ public class hiloImagenCliente extends Thread {
     @Override
     public void run() {
         try {
-            int i = 0;
             sleep(100);
             while (true) {
                 BufferedImage img = ImageIO.read(socket.getInputStream());
                 if (img != null) {
                     cliente.addClientImage(img);
-                    i++;
                 }
             }
         } catch (Exception e) {

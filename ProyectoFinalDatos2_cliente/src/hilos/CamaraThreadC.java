@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import com.github.sarxos.webcam.WebcamStreamer;
 
-public class hiloCamaraCliente extends Thread {
+public class CamaraThreadC extends Thread {
 
     private int port;
     private String ip;
@@ -20,14 +20,14 @@ public class hiloCamaraCliente extends Thread {
     private String nameOwner = "";
     private String nameAux;
     private boolean cameraOn = false;
-    private hiloSendCameraCliente sendCamera;
+    private EnviarImagenCamaraThreadC sendCamera;
 
-    public hiloCamaraCliente(int port, String ip, cliente cliente) throws IOException {
+    public CamaraThreadC(int port, String ip, cliente cliente) throws IOException {
         this.port = port;
         this.ip = ip;
         this.cliente = cliente;
         socket = new Socket(ip, port + 3);
-        sendCamera = new hiloSendCameraCliente(socket);
+        sendCamera = new EnviarImagenCamaraThreadC(socket);
         sendCamera.start();
     }
 
@@ -35,7 +35,6 @@ public class hiloCamaraCliente extends Thread {
     public void run() {
         int i = 0;
         boolean aux = true;
-
         synchronized (this) {
             try {
                 this.wait();
@@ -65,14 +64,14 @@ public class hiloCamaraCliente extends Thread {
                         }
 
                     } catch (IOException ex) {
-                        Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(CamaraThreadC.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(CamaraThreadC.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
 
             } catch (InterruptedException ex) {
-                Logger.getLogger(hiloCamaraCliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CamaraThreadC.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

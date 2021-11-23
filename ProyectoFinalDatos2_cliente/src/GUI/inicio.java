@@ -35,8 +35,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
-import Utils.Utils;
-import soundUtils.MicThread;
+import soundUtils.MicrofonoThread;
 import static cliente.cliente.chatTable;
 import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
@@ -711,7 +710,7 @@ public class inicio extends javax.swing.JFrame {
 
     private void micVolStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_micVolStateChanged
         if (jaudio.getIcon() == audioOn) {
-            MicThread.amplification = ((double) (micVol.getValue())) / 100.0;
+            MicrofonoThread.amplification = ((double) (micVol.getValue())) / 100.0;
         }
     }//GEN-LAST:event_micVolStateChanged
 
@@ -728,10 +727,10 @@ public class inicio extends javax.swing.JFrame {
     private void jaudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jaudioActionPerformed
         if (jaudio.getIcon() == audioOff) {
             jaudio.setIcon(audioOn);
-            MicThread.amplification = ((double) (micVol.getValue())) / 100.0;
+            MicrofonoThread.amplification = ((double) (micVol.getValue())) / 100.0;
         } else {
             jaudio.setIcon(audioOff);
-            MicThread.amplification = 0;
+            MicrofonoThread.amplification = 0;
         }
     }//GEN-LAST:event_jaudioActionPerformed
 

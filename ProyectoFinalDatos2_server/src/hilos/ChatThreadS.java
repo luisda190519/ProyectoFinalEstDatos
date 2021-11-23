@@ -17,7 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-public class hiloChatServer extends Thread {
+public class ChatThreadS extends Thread {
 
     private Socket socket;
     private Server server;
@@ -26,16 +26,14 @@ public class hiloChatServer extends Thread {
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    public hiloChatServer(Socket socket, Server server) {
+    public ChatThreadS(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
     }
 
     public void enviarMensaje(String mensaje) throws IOException {
         writer.write(mensaje);
-    }
-
-    public void flush() throws IOException {
+        writer.write("\r\n");
         writer.flush();
     }
 
@@ -70,8 +68,6 @@ public class hiloChatServer extends Thread {
                         BufferedImage bi = ImageIO.read(new File(path));
 
                         server.transmision("/clear");
-                        server.transmision("\r\n");
-                        server.flush();
 
                         sleep(100);
 
@@ -81,54 +77,32 @@ public class hiloChatServer extends Thread {
                         sleep(100);
 
                         server.transmision("/nuevoUsuario");
-                        server.transmision("\r\n");
-                        server.flush();
 
                         for (String usuario : server.getNames()) {
                             server.transmision(usuario);
-                            server.transmision("\r\n");
-                            server.flush();
                         }
 
                         server.transmision("/finUsuario");
-                        server.transmision("\r\n");
-                        server.flush();
                         data = reader.readLine().trim();
                     } else {
                         server.transmision(this, "/nameRepeted");
-                        server.transmision(this, "\r\n");
-                        server.flush();
                     }
 
                 } else if (data.equals("/deleteUser")) {
                     server.transmision("/deleteUser");
-                    server.transmision("\r\n");
-                    server.flush();
                     data = reader.readLine().trim();
                     server.transmision(data);
-                    server.transmision("\r\n");
-                    server.flush();
                     server.deleteUser(this, data);
                 } else if (data.equals("/cameraOn")) {
                     server.transmision("/cameraOn");
-                    server.transmision("\r\n");
-                    server.flush();
                     data = reader.readLine().trim();
                     server.transmision(data);
-                    server.transmision("\r\n");
-                    server.flush();
                 } else if (data.equals("/cameraOff")) {
                     server.transmision("/cameraOff");
-                    server.transmision("\r\n");
-                    server.flush();
                     data = reader.readLine().trim();
                     server.transmision(data);
-                    server.transmision("\r\n");
-                    server.flush();
                 } else {
                     server.transmision(data);
-                    server.transmision("\r\n");
-                    server.flush();
                 }
 
             }

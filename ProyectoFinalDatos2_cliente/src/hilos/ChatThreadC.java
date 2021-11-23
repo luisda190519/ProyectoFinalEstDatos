@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class hiloChatCliente extends Thread {
+public class ChatThreadC extends Thread {
 
     private BufferedWriter writer;
     private BufferedReader reader;
@@ -34,17 +34,17 @@ public class hiloChatCliente extends Thread {
     private ImageIcon foto2;
     private File folder = new File("data");
     private File archivo = new File(folder, "usuarios.txt");
-    private hiloImagenServer hi;
+    private ImagenesThreadS hi;
     private int port;
     private String ip;
-    private hiloCamaraCliente hcc;
+    private CamaraThreadC hcc;
 
-    public hiloChatCliente(Socket socket, cliente c, String ip, int port) throws IOException {
+    public ChatThreadC(Socket socket, cliente c, String ip, int port) throws IOException {
         this.socketClient = socket;
         this.c = c;
         this.port = port;
         this.ip = ip;
-        hcc = new hiloCamaraCliente(port, ip, c);
+        hcc = new CamaraThreadC(port, ip, c);
         hcc.start();
 
         dataInputStream = new DataInputStream(socketClient.getInputStream());
@@ -53,17 +53,21 @@ public class hiloChatCliente extends Thread {
         this.reader = new BufferedReader(new InputStreamReader(dataInputStream));
     }
 
+    public void sendMessage(String msg) {
+        try {
+            writer.write(msg);
+            writer.write("\r\n");
+            writer.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(ChatThreadC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void enviarMensaje(String nombre, String mensaje) {
         try {
-            writer.write("/starMessage");
-            writer.write("\r\n");
-            writer.flush();
-            writer.write(nombre + ": " + mensaje + "\n");
-            writer.write("\r\n");
-            writer.flush();
-            writer.write("/stopMessage");
-            writer.write("\r\n");
-            writer.flush();
+            sendMessage("/starMessage");
+            sendMessage(nombre + ": " + mensaje + "\n");
+            sendMessage("/stopMessage");
         } catch (Exception e) {
             System.out.println("error " + e);
         }
@@ -72,19 +76,11 @@ public class hiloChatCliente extends Thread {
     public void enviarComands(String nombre, boolean auxiliar) {
         try {
             if (auxiliar) {
-                writer.write("/joinChat");
-                writer.write("\r\n");
-                writer.flush();
-                writer.write(nombre);
-                writer.write("\r\n");
-                writer.flush();
+                sendMessage("/joinChat");
+                sendMessage(nombre);
             } else {
-                writer.write("/leftChat");
-                writer.write("\r\n");
-                writer.flush();
-                writer.write(nombre);
-                writer.write("\r\n");
-                writer.flush();
+                sendMessage("/leftChat");
+                sendMessage(nombre);
             }
         } catch (Exception e) {
             System.out.println("error " + e);
@@ -95,41 +91,21 @@ public class hiloChatCliente extends Thread {
     public void deleteUser(String name) {
         try {
             enviarComands(name, false);
-            writer.write("/deleteUser");
-            writer.write("\r\n");
-            writer.flush();
-            writer.write(name);
-            writer.write("\r\n");
-            writer.flush();
+            sendMessage("/deleteUser");
+            sendMessage(name);
         } catch (Exception e) {
             System.out.println("error " + e);
         }
     }
 
     public void cameraOn(String name) {
-        try {
-            writer.write("/cameraOn");
-            writer.write("\r\n");
-            writer.flush();
-            writer.write(name);
-            writer.write("\r\n");
-            writer.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sendMessage("/cameraOn");
+        sendMessage(name);
     }
 
     public void cameraOff(String name) {
-        try {
-            writer.write("/cameraOff");
-            writer.write("\r\n");
-            writer.flush();
-            writer.write(name);
-            writer.write("\r\n");
-            writer.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sendMessage("/cameraOff");
+        sendMessage(name);
     }
 
     public void insertarCliente(String nombre, String foto) {
@@ -139,18 +115,10 @@ public class hiloChatCliente extends Thread {
             c.setNombre(this.nombre);
             hcc.setNameOwner(this.nombre);
             c.getUsuariosConectadosModel().setRowCount(0);
-            writer.write("/addUser");
-            writer.write("\r\n");
-            writer.flush();
-            writer.write(this.nombre);
-            writer.write("\r\n");
-            writer.flush();
-            writer.write(foto);
-            writer.write("\r\n");
-            writer.flush();
-            writer.write("/closeUser");
-            writer.write("\r\n");
-            writer.flush();
+            sendMessage("/addUser");
+            sendMessage(this.nombre);
+            sendMessage(foto);
+            sendMessage("/closeUser");
             enviarComands(nombre, true);
         } catch (Exception e) {
             System.out.println("error " + e);
@@ -232,7 +200,7 @@ public class hiloChatCliente extends Thread {
 
         } catch (Exception e) {
             System.out.println("error " + e);
-            Logger.getLogger(hiloChatCliente.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ChatThreadC.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

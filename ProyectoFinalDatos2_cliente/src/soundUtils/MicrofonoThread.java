@@ -2,10 +2,11 @@ package soundUtils;
 
 import Utils.Message;
 import Utils.SoundPacket;
-import Utils.Utils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.GZIPOutputStream;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -13,13 +14,13 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
 
-public class MicThread extends Thread {
+public class MicrofonoThread extends Thread {
 
     public static double amplification = 1.0;
     private ObjectOutputStream toServer;
     private TargetDataLine mic;
 
-    public MicThread(ObjectOutputStream toServer) throws LineUnavailableException {
+    public MicrofonoThread(ObjectOutputStream toServer) throws LineUnavailableException {
         this.toServer = toServer;
         //abrir el microfono
         AudioFormat af = SoundPacket.defaultFormat;
@@ -65,7 +66,11 @@ public class MicThread extends Thread {
                     stop();
                 }
             } else {
-                Utils.sleep(10);
+                try {
+                    sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MicrofonoThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

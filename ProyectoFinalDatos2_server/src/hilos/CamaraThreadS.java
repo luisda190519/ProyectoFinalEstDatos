@@ -10,12 +10,12 @@ import java.util.logging.Logger;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
-public class hiloCamaraServer extends Thread {
+public class CamaraThreadS extends Thread {
 
     private Socket socket;
     private Server server;
 
-    public hiloCamaraServer(Socket socket, Server server) {
+    public CamaraThreadS(Socket socket, Server server) {
         this.socket = socket;
         this.server = server;
     }
@@ -42,7 +42,7 @@ public class hiloCamaraServer extends Thread {
 
             }
         } catch (IOException ex) {
-            Logger.getLogger(hiloCamaraServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CamaraThreadS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

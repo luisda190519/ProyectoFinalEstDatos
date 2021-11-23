@@ -10,12 +10,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
-public class hiloSendCameraCliente extends Thread {
+public class EnviarImagenCamaraThreadC extends Thread {
 
     private Socket socket;
     private boolean cameraOn = false;
 
-    public hiloSendCameraCliente(Socket socket) {
+    public EnviarImagenCamaraThreadC(Socket socket) {
         this.socket = socket;
     }
 
@@ -42,7 +42,7 @@ public class hiloSendCameraCliente extends Thread {
         } catch (IOException e) {
             System.out.println("error " + e);
         } catch (InterruptedException ex) {
-            Logger.getLogger(hiloSendCameraCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnviarImagenCamaraThreadC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

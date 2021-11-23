@@ -2,7 +2,6 @@ package soundUtils;
 
 import Utils.Message;
 import Utils.SoundPacket;
-import Utils.Utils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 
-public class AudioChannel extends Thread {
+public class CanalAudioThread extends Thread {
 
     //id para el usuario generado por el ip y el puerto
     private long chId;
@@ -36,7 +35,7 @@ public class AudioChannel extends Thread {
         stop();
     }
 
-    public AudioChannel(long chId) {
+    public CanalAudioThread(long chId) {
         this.chId = chId;
     }
 
@@ -60,7 +59,7 @@ public class AudioChannel extends Thread {
             //si hay paquetes de sonido nuevos los reproduce
             while (true) {
                 if (queue.isEmpty()) {
-                    Utils.sleep(10);
+                    sleep(10);
                     continue;
                 } else {
                     lastPacketTime = System.nanoTime();
@@ -69,15 +68,11 @@ public class AudioChannel extends Thread {
                     if (in.getData() instanceof SoundPacket) {
                         SoundPacket m = (SoundPacket) (in.getData());
                         if (m.getData() == null) {
-                            byte[] noise = new byte[lastSoundPacketLen];
-                            for (int i = 0; i < noise.length; i++) {
-                                noise[i] = (byte) ((Math.random() * 3) - 1);
-                            }
-                            speaker.write(noise, 0, noise.length);
+
                         } else {
                             GZIPInputStream gis = new GZIPInputStream(new ByteArrayInputStream(m.getData()));
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            for (;;) {
+                            while (true) {
                                 int b = gis.read();
                                 if (b == -1) {
                                     break;

@@ -1,10 +1,8 @@
 package soundUtils;
 
 import Server.Server;
-import Utils.Log;
 import Utils.Message;
 import Utils.SoundPacket;
-import Utils.Utils;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -12,7 +10,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ClientConnection extends Thread {
+public class ConexionAudioThreadS extends Thread {
 
     private Server serv;
     private Socket s;
@@ -33,11 +31,11 @@ public class ClientConnection extends Thread {
         return chId;
     }
 
-    public ClientConnection(Server serv, Socket s) {
+    public ConexionAudioThreadS(Server serv, Socket s) {
         this.serv = serv;
         this.s = s;
         byte[] addr = s.getInetAddress().getAddress();
-        chId = (addr[0] << 48 | addr[1] << 32 | addr[2] << 24 | addr[3] << 16) + s.getPort();
+        chId = (addr[0] << 48 | addr[1] << 32 | addr[2] << 24 | addr[3] << 16) + s.getPort(); 
     }
 
     public void addToQueue(Message m) {
@@ -55,7 +53,6 @@ public class ClientConnection extends Thread {
         } catch (IOException ex) {
             try {
                 s.close();
-                Log.add("ERROR " + getInetAddress() + ":" + getPort() + " " + ex);
             } catch (IOException ex1) {
             }
             stop();
@@ -76,19 +73,17 @@ public class ClientConnection extends Thread {
                     if (!toSend.isEmpty()) {
                         Message toClient = toSend.get(0);
                         if (!(toClient.getData() instanceof SoundPacket) || toClient.getTimestamp() + toClient.getTtl() < System.nanoTime() / 1000000L) {
-                            Log.add("dropping packet from " + toClient.getChId() + " to " + chId);
                             continue;
                         }
                         out.writeObject(toClient);
                         toSend.remove(toClient);
                     } else {
-                        Utils.sleep(10);
+                        sleep(10);
                     }
                 } catch (Throwable t) {
                     if (t instanceof IOException) {
                         throw (Exception) t;
                     } else {
-                        System.out.println("cc fixmutex");
                         continue;
                     }
                 }

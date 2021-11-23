@@ -1,12 +1,10 @@
 package Server;
 
-import hilos.hiloImagenServer;
-import hilos.hiloCamaraServer;
-import hilos.hiloChatServer;
-import soundUtils.ClientConnection;
-import Utils.Log;
+import hilos.ImagenesThreadS;
+import hilos.CamaraThreadS;
+import hilos.ChatThreadS;
+import soundUtils.ConexionAudioThreadS;
 import Utils.Message;
-import Utils.Utils;
 import java.awt.image.BufferedImage;
 import java.net.*;
 import java.io.*;
@@ -36,15 +34,15 @@ public class Server {
     private Socket socket;
     private static Vector client = new Vector();
     private ArrayList<Message> broadCastQueue = new ArrayList<Message>();
-    private ArrayList<ClientConnection> clients = new ArrayList<ClientConnection>();
+    private ArrayList<ConexionAudioThreadS> clients = new ArrayList<ConexionAudioThreadS>();
     public int port;
     private ArrayList<String> usuarios = new ArrayList<String>();
     private ServerSocket s;
-    private static ArrayList<hiloChatServer> hilosChat = new ArrayList<hiloChatServer>();
+    private static ArrayList<ChatThreadS> hilosChat = new ArrayList<ChatThreadS>();
     private ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
-    private static ArrayList<hiloImagenServer> hiloImagen = new ArrayList<hiloImagenServer>();
+    private static ArrayList<ImagenesThreadS> hiloImagen = new ArrayList<ImagenesThreadS>();
     private ArrayList<String> names = new ArrayList<String>();
-    private static ArrayList<hiloCamaraServer> hiloCamaras = new ArrayList<hiloCamaraServer>();
+    private static ArrayList<CamaraThreadS> hiloCamaras = new ArrayList<CamaraThreadS>();
 
     public Server(int port) throws IOException {
         this.port = port;
@@ -53,79 +51,46 @@ public class Server {
         ServerSocket s3 = new ServerSocket(this.port + 2);
         ServerSocket s4 = new ServerSocket(this.port + 3);
 
-        Log.add("Port " + this.port + 2 + ": server started");
         BroadcastThread bt = new BroadcastThread(this);
         bt.start();
 
         while (true) {
             Socket socket = s.accept();
             this.socket = socket;
-            hiloChatServer hiloChat = new hiloChatServer(socket, this);
+            ChatThreadS hiloChat = new ChatThreadS(socket, this);
             hiloChat.start();
             hilosChat.add(hiloChat);
 
             Socket socket2 = s2.accept();
-            hiloImagenServer hi = new hiloImagenServer(socket2);
+            ImagenesThreadS hi = new ImagenesThreadS(socket2);
             hi.start();
             hiloImagen.add(hi);
 
             Socket socket3 = s3.accept();
-            ClientConnection cc = new ClientConnection(this, socket3);
+            ConexionAudioThreadS cc = new ConexionAudioThreadS(this, socket3);
             cc.start();
             this.addToClients(cc);
-            Log.add("new client " + socket3.getInetAddress() + ":" + socket3.getPort() + " on port " + this.port + 2);
 
             Socket socket4 = s4.accept();
-            hiloCamaraServer hcs = new hiloCamaraServer(socket4, this);
+            CamaraThreadS hcs = new CamaraThreadS(socket4, this);
             hcs.start();
             hiloCamaras.add(hcs);
 
         }
     }
 
-    public ArrayList<BufferedImage> getImages() {
-        return images;
-    }
-
-    public ArrayList<Message> getBroadCastQueue() {
-        return broadCastQueue;
-    }
-
-    public ArrayList<ClientConnection> getClients() {
-        return clients;
-    }
-
-    public void flush() throws IOException {
-        for (hiloChatServer hc : hilosChat) {
-            hc.flush();
-        }
-    }
-
-    public ArrayList<String> getUsuarios() {
-        return usuarios;
-    }
-
-    public void addUsuarios(String usuario) {
-        this.usuarios.add(usuario);
-    }
-
-    public void addImages(BufferedImage image) throws IOException {
-        images.add(image);
-        this.transmision();
-    }
-
     public void transmision(String mensaje) throws IOException {
-        for (hiloChatServer hc : hilosChat) {
+        for (ChatThreadS hc : hilosChat) {
             hc.enviarMensaje(mensaje);
         }
     }
 
-    public void transmision(hiloChatServer hc, String mensaje) throws IOException {
+    public void transmision(ChatThreadS hc, String mensaje) throws IOException {
         hc.enviarMensaje(mensaje);
     }
 
     public void transmision() throws IOException {
-        for (hiloImagenServer hiImagen : hiloImagen) {
+        for (ImagenesThreadS hiImagen : hiloImagen) {
             for (BufferedImage bi : images) {
                 hiImagen.enviarMensaje(bi);
             }
@@ -133,16 +98,12 @@ public class Server {
     }
 
     public void transmisionCamera(BufferedImage image) throws IOException {
-        for (hiloCamaraServer hcs : hiloCamaras) {
+        for (CamaraThreadS hcs : hiloCamaras) {
             hcs.enviarMensaje(image);
         }
     }
 
-    public int getNumeroCliente() {
-        return client.size();
-    }
-
-    public void deleteUser(hiloChatServer hc, String name) {
+    public void deleteUser(ChatThreadS hc, String name) {
         int index = hilosChat.indexOf(hc);
         hilosChat.remove(index);
         hiloImagen.remove(index);
@@ -157,19 +118,26 @@ public class Server {
             broadCastQueue.add(m);
         } catch (Throwable t) {
             //mutex error, try again
-            Utils.sleep(1);
             addToBroadcastQueue(m);
         }
     }
 
-    private void addToClients(ClientConnection cc) {
+    private void addToClients(ConexionAudioThreadS cc) {
         try {
             clients.add(cc); //add the new connection to the list of connections
         } catch (Throwable t) {
             //mutex error, try again
-            Utils.sleep(1);
             addToClients(cc);
         }
+    }
+
+    public void addUsuarios(String usuario) {
+        this.usuarios.add(usuario);
+    }
+
+    public void addImages(BufferedImage image) throws IOException {
+        images.add(image);
+        this.transmision();
     }
 
     public void addName(String name) {
@@ -178,6 +146,26 @@ public class Server {
 
     public ArrayList<String> getNames() {
         return names;
+    }
+
+    public ArrayList<String> getUsuarios() {
+        return usuarios;
+    }
+
+    public ArrayList<BufferedImage> getImages() {
+        return images;
+    }
+
+    public ArrayList<Message> getBroadCastQueue() {
+        return broadCastQueue;
+    }
+
+    public ArrayList<ConexionAudioThreadS> getClients() {
+        return clients;
+    }
+
+    public int getNumeroCliente() {
+        return client.size();
     }
 
 }
