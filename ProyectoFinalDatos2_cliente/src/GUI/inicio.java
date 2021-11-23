@@ -151,7 +151,7 @@ public class inicio extends javax.swing.JFrame {
         chat.setResizable(false);
         chat.setSize(new java.awt.Dimension(1200, 700));
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         side.setBackground(new java.awt.Color(134, 134, 255));
@@ -257,10 +257,10 @@ public class inicio extends javax.swing.JFrame {
 
         jPanel3.add(side, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 750));
 
-        panel.setBackground(new java.awt.Color(204, 204, 255));
+        panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jmensaje.setBackground(new java.awt.Color(134, 134, 255));
+        jmensaje.setBackground(new java.awt.Color(204, 204, 255));
         jmensaje.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jmensaje.setForeground(new java.awt.Color(255, 255, 255));
         jmensaje.setBorder(null);
