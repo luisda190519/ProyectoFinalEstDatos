@@ -89,6 +89,7 @@ public class inicio extends javax.swing.JFrame {
         chatBtn = new javax.swing.JButton();
         vozBtn = new javax.swing.JButton();
         userPic = new javax.swing.JButton();
+        barraSuperiorChat = new javax.swing.JPanel();
         exitPanelBtn = new javax.swing.JPanel();
         exitLabel = new javax.swing.JLabel();
         panel = new javax.swing.JPanel();
@@ -110,6 +111,7 @@ public class inicio extends javax.swing.JFrame {
         chatBtn1 = new javax.swing.JButton();
         vozBtn1 = new javax.swing.JButton();
         userPic1 = new javax.swing.JButton();
+        barraSuperiorCall = new javax.swing.JPanel();
         exitBtn = new javax.swing.JPanel();
         exitLabel1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -190,6 +192,19 @@ public class inicio extends javax.swing.JFrame {
         userPic.setBorder(null);
         side.add(userPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, 120));
 
+        barraSuperiorChat.setBackground(new java.awt.Color(134, 134, 255));
+        barraSuperiorChat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        barraSuperiorChat.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                barraSuperiorChatMouseDragged(evt);
+            }
+        });
+        barraSuperiorChat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                barraSuperiorChatMousePressed(evt);
+            }
+        });
+
         exitPanelBtn.setBackground(new java.awt.Color(134, 134, 255));
         exitPanelBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitPanelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,14 +227,33 @@ public class inicio extends javax.swing.JFrame {
         exitPanelBtn.setLayout(exitPanelBtnLayout);
         exitPanelBtnLayout.setHorizontalGroup(
             exitPanelBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitPanelBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(exitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         exitPanelBtnLayout.setVerticalGroup(
             exitPanelBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitPanelBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(exitLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        side.add(exitPanelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+        javax.swing.GroupLayout barraSuperiorChatLayout = new javax.swing.GroupLayout(barraSuperiorChat);
+        barraSuperiorChat.setLayout(barraSuperiorChatLayout);
+        barraSuperiorChatLayout.setHorizontalGroup(
+            barraSuperiorChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barraSuperiorChatLayout.createSequentialGroup()
+                .addComponent(exitPanelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 170, Short.MAX_VALUE))
+        );
+        barraSuperiorChatLayout.setVerticalGroup(
+            barraSuperiorChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, barraSuperiorChatLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(exitPanelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        side.add(barraSuperiorChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 30));
 
         jPanel3.add(side, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 750));
 
@@ -426,6 +460,19 @@ public class inicio extends javax.swing.JFrame {
         userPic1.setBorder(null);
         side1.add(userPic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, 120));
 
+        barraSuperiorCall.setBackground(new java.awt.Color(134, 134, 255));
+        barraSuperiorCall.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        barraSuperiorCall.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                barraSuperiorCallMouseDragged(evt);
+            }
+        });
+        barraSuperiorCall.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                barraSuperiorCallMousePressed(evt);
+            }
+        });
+
         exitBtn.setBackground(new java.awt.Color(134, 134, 255));
         exitBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -448,14 +495,33 @@ public class inicio extends javax.swing.JFrame {
         exitBtn.setLayout(exitBtnLayout);
         exitBtnLayout.setHorizontalGroup(
             exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(exitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         exitBtnLayout.setVerticalGroup(
             exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(exitLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, exitBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(exitLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        side1.add(exitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
+        javax.swing.GroupLayout barraSuperiorCallLayout = new javax.swing.GroupLayout(barraSuperiorCall);
+        barraSuperiorCall.setLayout(barraSuperiorCallLayout);
+        barraSuperiorCallLayout.setHorizontalGroup(
+            barraSuperiorCallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barraSuperiorCallLayout.createSequentialGroup()
+                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 180, Short.MAX_VALUE))
+        );
+        barraSuperiorCallLayout.setVerticalGroup(
+            barraSuperiorCallLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barraSuperiorCallLayout.createSequentialGroup()
+                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 13, Short.MAX_VALUE))
+        );
+
+        side1.add(barraSuperiorCall, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, -1));
 
         jPanel1.add(side1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 750));
 
@@ -463,10 +529,11 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane4.setPreferredSize(new java.awt.Dimension(150, 150));
 
         callPanel.setBackground(new java.awt.Color(255, 255, 255));
+        callPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         callPanel.setLayout(new java.awt.GridBagLayout());
         jScrollPane4.setViewportView(callPanel);
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 930, 530));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 930, 500));
 
         javax.swing.GroupLayout callLayout = new javax.swing.GroupLayout(call.getContentPane());
         call.getContentPane().setLayout(callLayout);
@@ -1103,6 +1170,28 @@ public class inicio extends javax.swing.JFrame {
         exitLabel1.setForeground(Color.BLACK);
     }//GEN-LAST:event_exitBtnMouseExited
 
+    private void barraSuperiorChatMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorChatMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        chat.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_barraSuperiorChatMouseDragged
+
+    private void barraSuperiorChatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorChatMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_barraSuperiorChatMousePressed
+
+    private void barraSuperiorCallMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorCallMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        call.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_barraSuperiorCallMouseDragged
+
+    private void barraSuperiorCallMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraSuperiorCallMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_barraSuperiorCallMousePressed
+
     public void setTableProperties(JTable table, JScrollPane jScrollPane) {
         table.setOpaque(false);
         table.setShowGrid(false);
@@ -1193,6 +1282,8 @@ public class inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel barraSuperior;
+    private javax.swing.JPanel barraSuperiorCall;
+    private javax.swing.JPanel barraSuperiorChat;
     private javax.swing.JFrame call;
     private javax.swing.JPanel callPanel;
     private javax.swing.JPanel cerrarBoton;
