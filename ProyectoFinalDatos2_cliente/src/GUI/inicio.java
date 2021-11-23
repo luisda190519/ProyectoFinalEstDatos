@@ -149,7 +149,7 @@ public class inicio extends javax.swing.JFrame {
         chat.setResizable(false);
         chat.setSize(new java.awt.Dimension(1200, 700));
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         side.setBackground(new java.awt.Color(134, 134, 255));
@@ -228,10 +228,10 @@ public class inicio extends javax.swing.JFrame {
 
         jPanel3.add(side, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 750));
 
-        panel.setBackground(new java.awt.Color(204, 204, 255));
+        panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jmensaje.setBackground(new java.awt.Color(134, 134, 255));
+        jmensaje.setBackground(new java.awt.Color(204, 204, 255));
         jmensaje.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jmensaje.setForeground(new java.awt.Color(255, 255, 255));
         jmensaje.setBorder(null);
@@ -247,7 +247,6 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane2.setBorder(null);
 
         table1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        table1.setForeground(new java.awt.Color(0, 0, 0));
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -286,8 +285,7 @@ public class inicio extends javax.swing.JFrame {
 
         users.setBackground(new java.awt.Color(134, 134, 255));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Online");
 
@@ -295,9 +293,7 @@ public class inicio extends javax.swing.JFrame {
 
         jScrollPane3.setBorder(null);
 
-        table2.setBackground(new java.awt.Color(255, 255, 255));
         table2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        table2.setForeground(new java.awt.Color(0, 0, 0));
         table2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -307,7 +303,6 @@ public class inicio extends javax.swing.JFrame {
             }
         ));
         table2.setEnabled(false);
-        table2.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane3.setViewportView(table2);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -343,7 +338,7 @@ public class inicio extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         jPanel3.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 300, 750));
@@ -352,7 +347,7 @@ public class inicio extends javax.swing.JFrame {
         chat.getContentPane().setLayout(chatLayout);
         chatLayout.setHorizontalGroup(
             chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1223, Short.MAX_VALUE)
         );
         chatLayout.setVerticalGroup(
             chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,10 +358,10 @@ public class inicio extends javax.swing.JFrame {
         call.setUndecorated(true);
         call.setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        micVol.setBackground(new java.awt.Color(134, 134, 255));
+        micVol.setBackground(new java.awt.Color(255, 255, 255));
         micVol.setMaximum(300);
         micVol.setMinimum(50);
         micVol.setValue(100);
@@ -496,7 +491,7 @@ public class inicio extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel4.setBackground(new java.awt.Color(134, 134, 255));
 
         nombreApp.setFont(new java.awt.Font("Verdana", 3, 36)); // NOI18N
         nombreApp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -504,6 +499,8 @@ public class inicio extends javax.swing.JFrame {
 
         sloganApp.setFont(new java.awt.Font("Verdana", 2, 14)); // NOI18N
         sloganApp.setText("Conecta.Comunica.Comparte");
+
+        separadorIcono.setBackground(new java.awt.Color(0, 0, 0));
 
         iconoDer.setBackground(new java.awt.Color(255, 255, 255));
         iconoDer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -844,19 +841,19 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_chatBtnActionPerformed
 
     private void chatBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBtnMouseEntered
-        chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i2.png")));
+        chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i1.png")));
     }//GEN-LAST:event_chatBtnMouseEntered
 
     private void chatBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBtnMouseExited
-        chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i1.png")));
+       chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i2.png")));  
     }//GEN-LAST:event_chatBtnMouseExited
 
     private void vozBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vozBtnMouseEntered
-        vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i4.png")));
+        vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png")));
     }//GEN-LAST:event_vozBtnMouseEntered
 
     private void vozBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vozBtnMouseExited
-        vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png")));
+        vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i4.png")));
     }//GEN-LAST:event_vozBtnMouseExited
 
     private void micVolStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_micVolStateChanged
