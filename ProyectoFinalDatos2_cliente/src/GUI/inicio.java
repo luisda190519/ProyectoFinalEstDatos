@@ -88,6 +88,8 @@ public class inicio extends javax.swing.JFrame {
         chatBtn = new javax.swing.JButton();
         vozBtn = new javax.swing.JButton();
         userPic = new javax.swing.JButton();
+        exitPanelBtn = new javax.swing.JPanel();
+        exitLabel = new javax.swing.JLabel();
         panel = new javax.swing.JPanel();
         jmensaje = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -104,6 +106,8 @@ public class inicio extends javax.swing.JFrame {
         chatBtn1 = new javax.swing.JButton();
         vozBtn1 = new javax.swing.JButton();
         userPic1 = new javax.swing.JButton();
+        exitBtn = new javax.swing.JPanel();
+        exitLabel1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         callPanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -131,22 +135,25 @@ public class inicio extends javax.swing.JFrame {
         choosePicLabel = new javax.swing.JLabel();
         joinMeetingBtn = new javax.swing.JPanel();
         reunionLabel = new javax.swing.JLabel();
-        startMeeting = new javax.swing.JPanel();
+        startMeetingBtn = new javax.swing.JPanel();
         reunionLabel1 = new javax.swing.JLabel();
-        generatePort = new javax.swing.JButton();
+        generatePortBtn = new javax.swing.JPanel();
+        generarPortLabel = new javax.swing.JLabel();
 
         chat.setBackground(new java.awt.Color(35, 39, 42));
+        chat.setUndecorated(true);
         chat.setResizable(false);
         chat.setSize(new java.awt.Dimension(1200, 700));
 
-        jPanel3.setBackground(new java.awt.Color(44, 47, 51));
+        jPanel3.setBackground(new java.awt.Color(134, 134, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        side.setBackground(new java.awt.Color(35, 39, 42));
+        side.setBackground(new java.awt.Color(134, 134, 255));
         side.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i1.png"))); // NOI18N
         chatBtn.setBorder(null);
+        chatBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         chatBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 chatBtnMouseEntered(evt);
@@ -164,6 +171,7 @@ public class inicio extends javax.swing.JFrame {
 
         vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png"))); // NOI18N
         vozBtn.setBorder(null);
+        vozBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         vozBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 vozBtnMouseEntered(evt);
@@ -181,14 +189,45 @@ public class inicio extends javax.swing.JFrame {
 
         userPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/defaultfoto.png"))); // NOI18N
         userPic.setBorder(null);
-        side.add(userPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 120));
+        side.add(userPic, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, 120));
+
+        exitPanelBtn.setBackground(new java.awt.Color(134, 134, 255));
+        exitPanelBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitPanelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitPanelBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitPanelBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitPanelBtnMouseExited(evt);
+            }
+        });
+
+        exitLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        exitLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exitLabel.setText("X");
+
+        javax.swing.GroupLayout exitPanelBtnLayout = new javax.swing.GroupLayout(exitPanelBtn);
+        exitPanelBtn.setLayout(exitPanelBtnLayout);
+        exitPanelBtnLayout.setHorizontalGroup(
+            exitPanelBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(exitLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+        exitPanelBtnLayout.setVerticalGroup(
+            exitPanelBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(exitLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        side.add(exitPanelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
 
         jPanel3.add(side, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 700));
 
-        panel.setBackground(new java.awt.Color(44, 47, 51));
+        panel.setBackground(new java.awt.Color(204, 204, 255));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jmensaje.setBackground(new java.awt.Color(153, 170, 181));
+        jmensaje.setBackground(new java.awt.Color(134, 134, 255));
         jmensaje.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jmensaje.setForeground(new java.awt.Color(255, 255, 255));
         jmensaje.setBorder(null);
@@ -218,7 +257,7 @@ public class inicio extends javax.swing.JFrame {
 
         jPanel3.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 720, 700));
 
-        users.setBackground(new java.awt.Color(35, 39, 42));
+        users.setBackground(new java.awt.Color(134, 134, 255));
 
         jScrollPane3.setBorder(null);
 
@@ -266,12 +305,13 @@ public class inicio extends javax.swing.JFrame {
         );
 
         call.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        call.setUndecorated(true);
         call.setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(44, 47, 51));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        micVol.setBackground(new java.awt.Color(44, 47, 51));
+        micVol.setBackground(new java.awt.Color(134, 134, 255));
         micVol.setMaximum(300);
         micVol.setMinimum(50);
         micVol.setValue(100);
@@ -300,7 +340,7 @@ public class inicio extends javax.swing.JFrame {
         });
         jPanel1.add(jaudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, 90, 90));
 
-        side1.setBackground(new java.awt.Color(35, 39, 42));
+        side1.setBackground(new java.awt.Color(134, 134, 255));
         side1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         chatBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i1.png"))); // NOI18N
@@ -339,14 +379,45 @@ public class inicio extends javax.swing.JFrame {
 
         userPic1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/defaultfoto.png"))); // NOI18N
         userPic1.setBorder(null);
-        side1.add(userPic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 150, 120));
+        side1.add(userPic1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 150, 120));
+
+        exitBtn.setBackground(new java.awt.Color(134, 134, 255));
+        exitBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exitBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitBtnMouseExited(evt);
+            }
+        });
+
+        exitLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        exitLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exitLabel1.setText("X");
+
+        javax.swing.GroupLayout exitBtnLayout = new javax.swing.GroupLayout(exitBtn);
+        exitBtn.setLayout(exitBtnLayout);
+        exitBtnLayout.setHorizontalGroup(
+            exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(exitLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+        exitBtnLayout.setVerticalGroup(
+            exitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(exitLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        side1.add(exitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
 
         jPanel1.add(side1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 700));
 
         jScrollPane4.setBorder(null);
         jScrollPane4.setPreferredSize(new java.awt.Dimension(150, 150));
 
-        callPanel.setBackground(new java.awt.Color(44, 47, 51));
+        callPanel.setBackground(new java.awt.Color(134, 134, 255));
         callPanel.setLayout(new java.awt.GridBagLayout());
         jScrollPane4.setViewportView(callPanel);
 
@@ -485,9 +556,10 @@ public class inicio extends javax.swing.JFrame {
                 portFieldMousePressed(evt);
             }
         });
-        jPanel2.add(portField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 380, 40));
+        jPanel2.add(portField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 310, 40));
 
         barraSuperior.setBackground(new java.awt.Color(255, 255, 255));
+        barraSuperior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         barraSuperior.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 barraSuperiorMouseDragged(evt);
@@ -615,17 +687,17 @@ public class inicio extends javax.swing.JFrame {
 
         jPanel2.add(joinMeetingBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 620, 180, 40));
 
-        startMeeting.setBackground(new java.awt.Color(204, 204, 255));
-        startMeeting.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        startMeeting.addMouseListener(new java.awt.event.MouseAdapter() {
+        startMeetingBtn.setBackground(new java.awt.Color(204, 204, 255));
+        startMeetingBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        startMeetingBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                startMeetingMouseClicked(evt);
+                startMeetingBtnMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                startMeetingMouseEntered(evt);
+                startMeetingBtnMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                startMeetingMouseExited(evt);
+                startMeetingBtnMouseExited(evt);
             }
         });
 
@@ -633,27 +705,51 @@ public class inicio extends javax.swing.JFrame {
         reunionLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         reunionLabel1.setText("Iniciar Reunión");
 
-        javax.swing.GroupLayout startMeetingLayout = new javax.swing.GroupLayout(startMeeting);
-        startMeeting.setLayout(startMeetingLayout);
-        startMeetingLayout.setHorizontalGroup(
-            startMeetingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout startMeetingBtnLayout = new javax.swing.GroupLayout(startMeetingBtn);
+        startMeetingBtn.setLayout(startMeetingBtnLayout);
+        startMeetingBtnLayout.setHorizontalGroup(
+            startMeetingBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(reunionLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
         );
-        startMeetingLayout.setVerticalGroup(
-            startMeetingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startMeetingLayout.createSequentialGroup()
+        startMeetingBtnLayout.setVerticalGroup(
+            startMeetingBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startMeetingBtnLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(reunionLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.add(startMeeting, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 620, 180, 40));
+        jPanel2.add(startMeetingBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 620, 180, 40));
 
-        generatePort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generatePortActionPerformed(evt);
+        generatePortBtn.setBackground(new java.awt.Color(204, 204, 255));
+        generatePortBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        generatePortBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                generatePortBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                generatePortBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                generatePortBtnMouseExited(evt);
             }
         });
-        jPanel2.add(generatePort, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, 60, 40));
+
+        generarPortLabel.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        generarPortLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        generarPortLabel.setText("Generar");
+
+        javax.swing.GroupLayout generatePortBtnLayout = new javax.swing.GroupLayout(generatePortBtn);
+        generatePortBtn.setLayout(generatePortBtnLayout);
+        generatePortBtnLayout.setHorizontalGroup(
+            generatePortBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(generarPortLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+        );
+        generatePortBtnLayout.setVerticalGroup(
+            generatePortBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(generarPortLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(generatePortBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 130, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -735,11 +831,11 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jaudioActionPerformed
 
     private void chatBtn1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBtn1MouseEntered
-        chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i2.png")));
+        chatBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i2.png")));
     }//GEN-LAST:event_chatBtn1MouseEntered
 
     private void chatBtn1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_chatBtn1MouseExited
-        chatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i1.png")));
+        chatBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i1.png")));
     }//GEN-LAST:event_chatBtn1MouseExited
 
     private void chatBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatBtn1ActionPerformed
@@ -749,11 +845,11 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_chatBtn1ActionPerformed
 
     private void vozBtn1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vozBtn1MouseEntered
-        vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i4.png")));
+        vozBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i4.png")));
     }//GEN-LAST:event_vozBtn1MouseEntered
 
     private void vozBtn1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vozBtn1MouseExited
-        vozBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png")));
+        vozBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/i3.png")));
     }//GEN-LAST:event_vozBtn1MouseExited
 
     private void vozBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vozBtn1ActionPerformed
@@ -889,7 +985,7 @@ public class inicio extends javax.swing.JFrame {
         joinMeetingBtn.setBackground(new Color(204, 204, 255));
     }//GEN-LAST:event_joinMeetingBtnMouseExited
 
-    private void startMeetingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingMouseClicked
+    private void startMeetingBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingBtnMouseClicked
         if (nameField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite su nombre");
         } else {
@@ -911,20 +1007,56 @@ public class inicio extends javax.swing.JFrame {
                 Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_startMeetingMouseClicked
+    }//GEN-LAST:event_startMeetingBtnMouseClicked
 
-    private void startMeetingMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_startMeetingMouseEntered
+    private void startMeetingBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingBtnMouseEntered
+        startMeetingBtn.setBackground(new Color(134, 134, 255));
+    }//GEN-LAST:event_startMeetingBtnMouseEntered
 
-    private void startMeetingMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_startMeetingMouseExited
+    private void startMeetingBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMeetingBtnMouseExited
+         startMeetingBtn.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_startMeetingBtnMouseExited
 
-    private void generatePortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generatePortActionPerformed
+    private void generatePortBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generatePortBtnMouseEntered
+       generatePortBtn.setBackground(new Color(134, 134, 255));
+    }//GEN-LAST:event_generatePortBtnMouseEntered
+
+    private void generatePortBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generatePortBtnMouseExited
+        generatePortBtn.setBackground(new Color(204, 204, 255));
+    }//GEN-LAST:event_generatePortBtnMouseExited
+
+    private void generatePortBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generatePortBtnMouseClicked
         int n = (int) (Math.random() * (65531 - 49149 + 1) + 49149) + 3;
         portField.setText(n + "");
-    }//GEN-LAST:event_generatePortActionPerformed
+    }//GEN-LAST:event_generatePortBtnMouseClicked
+
+    private void exitPanelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitPanelBtnMouseClicked
+      System.exit(0);
+    }//GEN-LAST:event_exitPanelBtnMouseClicked
+
+    private void exitPanelBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitPanelBtnMouseEntered
+        exitPanelBtn.setBackground(Color.RED);
+        exitLabel.setForeground(Color.WHITE);
+    }//GEN-LAST:event_exitPanelBtnMouseEntered
+
+    private void exitPanelBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitPanelBtnMouseExited
+        exitPanelBtn.setBackground(new Color(134, 134, 255));
+        exitLabel.setForeground(Color.BLACK);
+    }//GEN-LAST:event_exitPanelBtnMouseExited
+
+    private void exitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_exitBtnMouseClicked
+
+    private void exitBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseEntered
+        exitBtn.setBackground(Color.RED);
+        exitLabel1.setForeground(Color.WHITE);
+    }//GEN-LAST:event_exitBtnMouseEntered
+
+    private void exitBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitBtnMouseExited
+        exitBtn.setBackground(new Color(134, 134, 255));
+        exitLabel1.setForeground(Color.BLACK);
+    }//GEN-LAST:event_exitBtnMouseExited
 
     public void setTableProperties(JTable table, JScrollPane jScrollPane) {
         table.setOpaque(false);
@@ -1018,7 +1150,12 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JPanel choosePicBtn;
     private javax.swing.JLabel choosePicLabel;
     private javax.swing.JLabel direccionLabel;
-    private javax.swing.JButton generatePort;
+    private javax.swing.JPanel exitBtn;
+    private javax.swing.JLabel exitLabel;
+    private javax.swing.JLabel exitLabel1;
+    private javax.swing.JPanel exitPanelBtn;
+    private javax.swing.JLabel generarPortLabel;
+    private javax.swing.JPanel generatePortBtn;
     private javax.swing.JLabel iconoDer;
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel imagenLabel;
@@ -1051,7 +1188,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JPanel side;
     private javax.swing.JPanel side1;
     private javax.swing.JLabel sloganApp;
-    private javax.swing.JPanel startMeeting;
+    private javax.swing.JPanel startMeetingBtn;
     private javax.swing.JTable table1;
     private javax.swing.JTable table2;
     private javax.swing.JButton userPic;
