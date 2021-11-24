@@ -23,19 +23,22 @@ public class EnviarImagenCamaraThreadC extends Thread {
     public void run() {
         try {
             BufferedImage image;
-            Webcam.setAutoOpenMode(true);
+            Webcam cam = null;
+            //Webcam.setAutoOpenMode(true);
 
             synchronized (this) {
                 this.wait();
                 int i = 0;
                 while (true) {
                     while (cameraOn) {
-                        Webcam cam = Webcam.getDefault();
+                        cam = Webcam.getDefault();
+                        cam.open();
                         image = cam.getImage();
                         byte[] bytes = WebcamUtils.getImageBytes(cam, "png");
                         socket.getOutputStream().write(bytes);
                         sleep(10);
                     }
+                    cam.close();
                     this.wait();
                 }
             }

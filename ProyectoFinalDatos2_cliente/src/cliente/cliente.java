@@ -168,6 +168,7 @@ public class cliente {
                 getChatModel().addRow(new Object[]{new JLabel(foto2), msg});
             }
         }
+        chatTable.scrollRectToVisible(chatTable.getCellRect(chatTable.getRowCount() - 1, chatTable.getColumnCount(), true));
     }
 
     public void showMessage(ImageIcon foto2, String sender, String msg, String nombre, boolean aux) {
@@ -285,6 +286,7 @@ public class cliente {
         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
         ImageIcon icon = new ImageIcon(newimg);
         usuariosConectadosModel.addRow(new Object[]{new JLabel(icon), name});
+        usuariosConectados.scrollRectToVisible(usuariosConectados.getCellRect(usuariosConectados.getRowCount() - 1, usuariosConectados.getColumnCount(), true));
     }
 
     public int getIndex(String msg) {

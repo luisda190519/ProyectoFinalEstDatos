@@ -287,6 +287,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {&#xa;    @Override&#xa;        protected void configureScrollBarColors() {&#xa;        this.thumbColor = new Color(134,134,255);&#xa;    }&#xa;});&#xa;jScrollPane2.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {&#xa;    @Override&#xa;        protected void configureScrollBarColors() {&#xa;        this.thumbColor = new Color(134,134,255);&#xa;    }&#xa;});&#xa;"/>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
 
@@ -395,6 +396,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jScrollPane3.getVerticalScrollBar().setUI(new BasicScrollBarUI() {&#xa;    @Override&#xa;        protected void configureScrollBarColors() {&#xa;        this.thumbColor = new Color(134,134,255);&#xa;    }&#xa;});&#xa;jScrollPane3.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {&#xa;    @Override&#xa;        protected void configureScrollBarColors() {&#xa;        this.thumbColor = new Color(134,134,255);&#xa;    }&#xa;});"/>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
 

@@ -46,6 +46,7 @@ import java.awt.datatransfer.Clipboard;
 import javax.swing.BorderFactory;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class inicio extends javax.swing.JFrame {
 
@@ -77,6 +78,7 @@ public class inicio extends javax.swing.JFrame {
 
         addExitOperation(chat);
         addExitOperation(call);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -274,6 +276,18 @@ public class inicio extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane2.setBorder(null);
+        jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(134,134,255);
+            }
+        });
+        jScrollPane2.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(134,134,255);
+            }
+        });
 
         table1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         table1.setModel(new javax.swing.table.DefaultTableModel(
@@ -321,6 +335,18 @@ public class inicio extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane3.setBorder(null);
+        jScrollPane3.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(134,134,255);
+            }
+        });
+        jScrollPane3.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(134,134,255);
+            }
+        });
 
         table2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         table2.setModel(new javax.swing.table.DefaultTableModel(
@@ -967,7 +993,7 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_vozBtn1ActionPerformed
 
     private void ipFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ipFieldMousePressed
-        if (ipField.getText().equals("localhost...")) {
+        if (ipField.getText().equals("localhost")) {
             ipField.setText("");
             ipField.setForeground(Color.BLACK);
         }
@@ -978,7 +1004,7 @@ public class inicio extends javax.swing.JFrame {
         }
 
         if (portField.getText().isEmpty()) {
-            portField.setText("1234...");
+            portField.setText("2003");
             portField.setForeground(Color.gray);
         }
     }//GEN-LAST:event_ipFieldMousePressed
@@ -990,18 +1016,18 @@ public class inicio extends javax.swing.JFrame {
         }
 
         if (portField.getText().isEmpty()) {
-            portField.setText("1234...");
+            portField.setText("2003");
             portField.setForeground(Color.GRAY);
         }
 
         if (ipField.getText().isEmpty()) {
-            ipField.setText("localhost...");
+            ipField.setText("localhost");
             ipField.setForeground(Color.gray);
         }
     }//GEN-LAST:event_nameFieldMousePressed
 
     private void portFieldMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_portFieldMousePressed
-        if (portField.getText().equals("1234...")) {
+        if (portField.getText().equals("2003")) {
             portField.setText("");
             portField.setForeground(Color.BLACK);
         }
@@ -1012,7 +1038,7 @@ public class inicio extends javax.swing.JFrame {
         }
 
         if (ipField.getText().isEmpty()) {
-            ipField.setText("localhost...");
+            ipField.setText("localhost");
             ipField.setForeground(Color.gray);
         }
     }//GEN-LAST:event_portFieldMousePressed
@@ -1109,7 +1135,7 @@ public class inicio extends javax.swing.JFrame {
                 chat.setLocationRelativeTo(null);
                 chat.setSize(1230, 730); //778,520
 
-                String myString = nameField.getText() + " te ha invitado a la reunion\nID de reunion: " + portField.getText();
+                String myString = nameField.getText() + " te ha invitado a la reunion\nID de reunion: " + portField.getText() + "\nDireccion IP: " + ipField.getText();
                 StringSelection stringSelection = new StringSelection(myString);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(stringSelection, null);
