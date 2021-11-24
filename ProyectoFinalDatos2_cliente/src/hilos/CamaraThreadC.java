@@ -54,7 +54,6 @@ public class CamaraThreadC extends Thread {
                                 cliente.cameraOn(img, cliente.getIndexCamera(nameAux));
                                 System.out.println("me meti " + i);
                                 i++;
-                                sleep(10);
                             }
                         } else if (!cameraOn) {
                             sendCamera.setCameraOn(false);
@@ -75,6 +74,10 @@ public class CamaraThreadC extends Thread {
             }
         }
 
+    }
+
+    public String getNameAux() {
+        return nameAux;
     }
 
     public void setCameraOn(boolean cameraOn) {

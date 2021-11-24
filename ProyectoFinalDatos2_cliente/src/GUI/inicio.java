@@ -118,6 +118,7 @@ public class inicio extends javax.swing.JFrame {
         exitLabel1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         callPanel = new javax.swing.JPanel();
+        disconnect = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         nombreApp = new javax.swing.JLabel();
@@ -153,7 +154,7 @@ public class inicio extends javax.swing.JFrame {
         chat.setResizable(false);
         chat.setSize(new java.awt.Dimension(1200, 700));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         side.setBackground(new java.awt.Color(134, 134, 255));
@@ -259,7 +260,7 @@ public class inicio extends javax.swing.JFrame {
 
         jPanel3.add(side, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 750));
 
-        panel.setBackground(new java.awt.Color(255, 255, 255));
+        panel.setBackground(new java.awt.Color(204, 204, 255));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jmensaje.setBackground(new java.awt.Color(134, 134, 255));
@@ -560,6 +561,15 @@ public class inicio extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 930, 500));
 
+        disconnect.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/5.png"))); // NOI18N
+        disconnect.setBorder(null);
+        disconnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disconnectActionPerformed(evt);
+            }
+        });
+        jPanel1.add(disconnect, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 570, 90, 90));
+
         javax.swing.GroupLayout callLayout = new javax.swing.GroupLayout(call.getContentPane());
         call.getContentPane().setLayout(callLayout);
         callLayout.setHorizontalGroup(
@@ -597,23 +607,22 @@ public class inicio extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(112, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(93, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(separadorIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sloganApp)
                             .addComponent(nombreApp, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(168, 168, 168))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(iconoDer, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68))))
+                        .addGap(100, 100, 100))
+                    .addComponent(iconoDer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(87, 87, 87))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+                .addGap(71, 71, 71)
                 .addComponent(nombreApp, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(separadorIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -621,7 +630,7 @@ public class inicio extends javax.swing.JFrame {
                 .addComponent(sloganApp)
                 .addGap(29, 29, 29)
                 .addComponent(iconoDer, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 580, 700));
@@ -1163,8 +1172,9 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_generatePortBtnMouseExited
 
     private void generatePortBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generatePortBtnMouseClicked
-        int n = (int) (Math.random() * (65531 - 49149 + 1) + 49149) + 3;
+        int n = (int) (Math.random() * (65531 - 49149 + 1) + 49149) + 4;
         portField.setText(n + "");
+        portField.setForeground(Color.BLACK);
     }//GEN-LAST:event_generatePortBtnMouseClicked
 
     private void exitPanelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitPanelBtnMouseClicked
@@ -1216,6 +1226,10 @@ public class inicio extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_barraSuperiorCallMousePressed
+
+    private void disconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disconnectActionPerformed
+        exitProcedure();
+    }//GEN-LAST:event_disconnectActionPerformed
 
     public void setTableProperties(JTable table, JScrollPane jScrollPane) {
         table.setOpaque(false);
@@ -1320,6 +1334,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JLabel choosePicLabel;
     private javax.swing.JLabel conectados;
     private javax.swing.JLabel direccionLabel;
+    private javax.swing.JButton disconnect;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitLabel;
     private javax.swing.JLabel exitLabel1;

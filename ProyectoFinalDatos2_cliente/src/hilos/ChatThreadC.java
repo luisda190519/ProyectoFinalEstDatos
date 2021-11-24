@@ -144,7 +144,7 @@ public class ChatThreadC extends Thread {
                 }
 
                 if (msg.equals("/nuevoUsuario")) {
-                    sleep(500);
+                    sleep(1000);
                     msg = reader.readLine();
                     c.getUsuariosConectadosModel().setRowCount(0);
                     while (!msg.equals("/finUsuario")) {
@@ -206,6 +206,9 @@ public class ChatThreadC extends Thread {
                     c.showMessage(foto2, msg, " abandono la reunion", this.nombre, false);
                 } else if (msg.equals("/closeMeeting")) {
                     System.exit(0);
+                } else if (msg.equals("/camaraBug")) {
+                    c.stopCamera(c.getIndexCamera(hcc.getNameAux()));
+                    System.out.println("llegue");
                 }
             }
 

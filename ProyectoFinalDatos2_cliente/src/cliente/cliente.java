@@ -186,6 +186,10 @@ public class cliente {
             }
         }
 
+        chatTable.getColumnModel().getColumn(0).setPreferredWidth(150);
+        chatTable.getColumnModel().getColumn(0).setMinWidth(150);
+        chatTable.getColumnModel().getColumn(0).setMaxWidth(150);
+
     }
 
     public void updatePanels() {
