@@ -260,7 +260,7 @@ public class inicio extends javax.swing.JFrame {
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jmensaje.setBackground(new java.awt.Color(204, 204, 255));
+        jmensaje.setBackground(new java.awt.Color(134, 134, 255));
         jmensaje.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jmensaje.setForeground(new java.awt.Color(255, 255, 255));
         jmensaje.setBorder(null);
@@ -529,7 +529,6 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane4.setPreferredSize(new java.awt.Dimension(150, 150));
 
         callPanel.setBackground(new java.awt.Color(255, 255, 255));
-        callPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         callPanel.setLayout(new java.awt.GridBagLayout());
         jScrollPane4.setViewportView(callPanel);
 

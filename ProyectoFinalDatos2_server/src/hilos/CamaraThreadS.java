@@ -35,7 +35,7 @@ public class CamaraThreadS extends Thread {
                     BufferedImage img = ImageIO.read(socket.getInputStream());
                     if (img != null) {
                         server.transmisionCamera(img);
-                        sleep(50);
+                        sleep(10);
                     }
                 } catch (IIOException e) {
                     System.out.println("error " + e);

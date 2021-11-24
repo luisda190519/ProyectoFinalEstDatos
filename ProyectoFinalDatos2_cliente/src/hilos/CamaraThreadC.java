@@ -49,12 +49,12 @@ public class CamaraThreadC extends Thread {
                         }
 
                         if (cameraOn) {
-                            sleep(50);
                             BufferedImage img = ImageIO.read(socket.getInputStream());
                             if (img != null) {
                                 cliente.cameraOn(img, cliente.getIndexCamera(nameAux));
                                 System.out.println("me meti " + i);
                                 i++;
+                                sleep(10);
                             }
                         } else if (!cameraOn) {
                             sendCamera.setCameraOn(false);

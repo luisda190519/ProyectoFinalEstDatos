@@ -89,9 +89,14 @@ public class ChatThreadC extends Thread {
 
     public void deleteUser(String name) {
         try {
-            enviarComands(name, false);
-            sendMessage("/deleteUser");
-            sendMessage(name);
+            if (c.isAdmin()) {
+                sendMessage("/closeMeeting");
+            } else {
+                enviarComands(name, false);
+                sendMessage("/deleteUser");
+                sendMessage(name);
+            }
+
         } catch (Exception e) {
             System.out.println("error " + e);
         }
@@ -139,7 +144,7 @@ public class ChatThreadC extends Thread {
                 }
 
                 if (msg.equals("/nuevoUsuario")) {
-                    sleep(100);
+                    sleep(500);
                     msg = reader.readLine();
                     c.getUsuariosConectadosModel().setRowCount(0);
                     while (!msg.equals("/finUsuario")) {
@@ -149,6 +154,7 @@ public class ChatThreadC extends Thread {
                     }
                     c.updatePanels();
                     c.updateConnectedUsers();
+                    c.makeAdmin();
 
                 } else if (msg.equals("/starMessage")) {
                     msg = reader.readLine();
@@ -172,6 +178,7 @@ public class ChatThreadC extends Thread {
                     msg = reader.readLine();
                     hcc.setNameCameraStart(msg);
                     hcc.setCameraOn(false);
+                    c.stopCamera(c.getIndexCamera(msg));
                 } else if (msg.equals("/nameRepeted")) {
                     c.getInicio().getChat().setVisible(false);
                     c.getInicio().setVisible(true);
@@ -181,7 +188,6 @@ public class ChatThreadC extends Thread {
                     break;
                 } else if (msg.equals("/deleteUser")) {
                     msg = reader.readLine();
-                    System.out.println("me meti");
                     c.deleteUser(msg);
                     c.updateConnectedUsers();
                 } else if (msg.equals("/joinChat")) {
@@ -198,6 +204,8 @@ public class ChatThreadC extends Thread {
                     Image newimg = imgage.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
                     foto2 = new ImageIcon(newimg);
                     c.showMessage(foto2, msg, " abandono la reunion", this.nombre, false);
+                } else if (msg.equals("/closeMeeting")) {
+                    System.exit(0);
                 }
             }
 

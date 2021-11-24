@@ -34,6 +34,7 @@ public class EnviarImagenCamaraThreadC extends Thread {
                         image = cam.getImage();
                         byte[] bytes = WebcamUtils.getImageBytes(cam, "png");
                         socket.getOutputStream().write(bytes);
+                        sleep(10);
                     }
                     this.wait();
                 }

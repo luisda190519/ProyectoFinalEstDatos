@@ -78,6 +78,7 @@ public class cliente {
     private int index;
     private Socket s;
     private VozThread cv;
+    private boolean admin = false;
 
     public cliente() {
 
@@ -144,10 +145,11 @@ public class cliente {
 
     public void showMessage(ImageIcon foto2, String msg, String nombre) {
         String data[] = msg.split(":");
+        String[] splited = data[1].split("\\s+");
         if (data[0].equals(nombre)) {
             getChatModel().addRow(new Object[]{new JLabel(foto2), "tu: " + data[1]});
         } else {
-            if (data[1].substring(2, data[1].length()).equals(nombre) && data[1].substring(1, 2).equals("@")) {
+            if (splited[1].equals("@" + nombre)) {
                 try {
                     getChatModel().addRow(new Object[]{new JLabel(foto2), msg});
                     String soundName = "src/audio/audio.wav";
@@ -192,6 +194,12 @@ public class cliente {
 
     public void updateConnectedUsers() {
         inicio.connectedUsers(names.size());
+    }
+
+    public void makeAdmin() {
+        if (names.size() == 1) {
+            admin = true;
+        }
     }
 
     public void cameraOn(BufferedImage img, int index) {
@@ -342,6 +350,10 @@ public class cliente {
 
     public ChatThreadC getHc() {
         return hc;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 
     public ImageIcon searchPic(String path) {
