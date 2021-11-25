@@ -231,6 +231,8 @@ public class cliente {
         inicio.getCallPanel().revalidate();
         inicio.getCallPanel().repaint();
         updatePanels();
+        inicio.closeCam();
+        
     }
 
     public int getIndexCamera(String name) {
@@ -283,7 +285,6 @@ public class cliente {
         images.clear();
         names.clear();
         userPanels.clear();
-        inicio.getCallPanel().removeAll();
     }
 
     public void updateImages(String name, int i) {

@@ -472,6 +472,9 @@
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="micVolStateChanged"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="micVol = new JSlider() {&#xd;&#xa;                @Override&#xd;&#xa;        public void updateUI() {&#xd;&#xa;                    setUI(new CustomSliderUI(micVol));&#xd;&#xa;                }&#xd;&#xa;            };&#xd;&#xa;"/>
+              </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="610" y="610" width="330" height="-1"/>
@@ -681,6 +684,9 @@
                   <Dimension value="[150, 150]"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jScrollPane4.getVerticalScrollBar().setUI(new BasicScrollBarUI() {&#xa;    @Override&#xa;        protected void configureScrollBarColors() {&#xa;        this.thumbColor = new Color(134,134,255);&#xa;    }&#xa;});&#xa;jScrollPane4.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {&#xa;    @Override&#xa;        protected void configureScrollBarColors() {&#xa;        this.thumbColor = new Color(134,134,255);&#xa;    }&#xa;});"/>
+              </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="230" y="50" width="930" height="500"/>

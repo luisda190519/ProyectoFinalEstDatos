@@ -1,11 +1,13 @@
 package hilos;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamException;
 import com.github.sarxos.webcam.WebcamUtils;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -23,15 +25,36 @@ public class EnviarImagenCamaraThreadC extends Thread {
     public void run() {
         try {
             BufferedImage image;
+            String name = null;
+            int camaras = 0;
             Webcam cam = null;
+
+            for (Webcam w : Webcam.getWebcams()) {
+                if (!w.isOpen()) {
+                    name = w.getName();
+                    break;
+                }
+            }
 
             synchronized (this) {
                 this.wait();
                 int i = 0;
                 while (true) {
                     while (cameraOn) {
-                        cam = Webcam.getDefault();
-                        cam.open();
+
+                        try {
+                            cam = Webcam.getWebcamByName(name);
+                            cam.open();
+                        } catch (WebcamException e) {
+                            for (Webcam w : Webcam.getWebcams()) {
+                                if (!w.isOpen()) {
+                                    name = w.getName();
+                                    break;
+                                }
+                            }
+                            cam = Webcam.getWebcamByName(name);
+                            cam.open();
+                        }
                         image = cam.getImage();
                         byte[] bytes = WebcamUtils.getImageBytes(cam, "png");
                         socket.getOutputStream().write(bytes);

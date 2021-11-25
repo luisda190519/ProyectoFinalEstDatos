@@ -146,7 +146,7 @@ public class ChatThreadC extends Thread {
                 if (msg.equals("/nuevoUsuario")) {
                     msg = reader.readLine();
                     c.getUsuariosConectadosModel().setRowCount(0);
-                    sleep(5000);
+                    c.getInicio().getCallPanel().removeAll();
                     while (!msg.equals("/finUsuario")) {
                         c.updateImages(msg, i);
                         msg = reader.readLine();
@@ -166,6 +166,7 @@ public class ChatThreadC extends Thread {
                     msg = reader.readLine();
                 } else if (msg.equals("/clear")) {
                     c.clearPanel();
+                    sleep(6000);
                     i = 0;
                 } else if (msg.equals("/cameraOn")) {
                     msg = reader.readLine();

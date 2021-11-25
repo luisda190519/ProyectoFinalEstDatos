@@ -45,6 +45,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import javax.swing.BorderFactory;
+import javax.swing.JSlider;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
@@ -60,6 +61,8 @@ public class inicio extends javax.swing.JFrame {
     private ImageIcon audioOn = new ImageIcon("src/imagenes/1.png");
     private ImageIcon audioOff = new ImageIcon("src/imagenes/2.png");
     private int xMouse, yMouse;
+    private int auxiliar = 0;
+    private boolean realizado = false;
 
     public inicio() {
         initComponents();
@@ -429,6 +432,12 @@ public class inicio extends javax.swing.JFrame {
         micVol.setMaximum(300);
         micVol.setMinimum(50);
         micVol.setValue(100);
+        micVol = new JSlider() {
+            @Override
+            public void updateUI() {
+                setUI(new CustomSliderUI(micVol));
+            }
+        };
         micVol.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 micVolStateChanged(evt);
@@ -562,6 +571,18 @@ public class inicio extends javax.swing.JFrame {
 
         jScrollPane4.setBorder(null);
         jScrollPane4.setPreferredSize(new java.awt.Dimension(150, 150));
+        jScrollPane4.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(134,134,255);
+            }
+        });
+        jScrollPane4.getHorizontalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(134,134,255);
+            }
+        });
 
         callPanel.setBackground(new java.awt.Color(255, 255, 255));
         callPanel.setLayout(new java.awt.GridBagLayout());
@@ -1141,8 +1162,6 @@ public class inicio extends javax.swing.JFrame {
     private void choosePicBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choosePicBtnMouseExited
         choosePicBtn.setBackground(new Color(204, 204, 255));
     }//GEN-LAST:event_choosePicBtnMouseExited
-    int auxiliar = 0;
-    boolean realizado = false;
     private void joinMeetingBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinMeetingBtnMouseClicked
         try {
             if (nameField.getText().equals("")) {
@@ -1159,10 +1178,6 @@ public class inicio extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_joinMeetingBtnMouseClicked
-
-    public JFrame getChat() {
-        return chat;
-    }
 
     private void joinMeetingBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinMeetingBtnMouseEntered
         joinMeetingBtn.setBackground(new Color(134, 134, 255));
@@ -1331,7 +1346,7 @@ public class inicio extends javax.swing.JFrame {
                                 carga.setVisible(false);
                                 break;
                         }
-                        Thread.sleep(100);
+                        Thread.sleep(105);
                     }
                 } catch (InterruptedException ex) {
                 }
@@ -1364,6 +1379,14 @@ public class inicio extends javax.swing.JFrame {
 
     public String getFotoPath() {
         return fotoPath;
+    }
+
+    public JFrame getChat() {
+        return chat;
+    }
+
+    public void closeCam() {
+        jvideo.setIcon(videoOff);
     }
 
     public JTable getTable12() {

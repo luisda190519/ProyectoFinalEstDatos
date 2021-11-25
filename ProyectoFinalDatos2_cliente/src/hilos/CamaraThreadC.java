@@ -52,8 +52,6 @@ public class CamaraThreadC extends Thread {
                             BufferedImage img = ImageIO.read(socket.getInputStream());
                             if (img != null) {
                                 cliente.cameraOn(img, cliente.getIndexCamera(nameAux));
-                                System.out.println("me meti " + i);
-                                i++;
                             }
                         } else if (!cameraOn) {
                             sendCamera.setCameraOn(false);
@@ -64,6 +62,10 @@ public class CamaraThreadC extends Thread {
 
                     } catch (IOException ex) {
                         Logger.getLogger(CamaraThreadC.class.getName()).log(Level.SEVERE, null, ex);
+                        sendCamera.setCameraOn(false);
+                        cliente.stopCamera(cliente.getIndexCamera(nameAux));
+                        aux = true;
+                        this.wait();
                     } catch (InterruptedException ex) {
                         Logger.getLogger(CamaraThreadC.class.getName()).log(Level.SEVERE, null, ex);
                     }
