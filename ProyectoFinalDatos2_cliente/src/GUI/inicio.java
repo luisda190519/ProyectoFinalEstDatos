@@ -37,6 +37,7 @@ import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import soundUtils.MicrofonoThread;
 import static cliente.cliente.chatTable;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -119,6 +120,13 @@ public class inicio extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         callPanel = new javax.swing.JPanel();
         disconnect = new javax.swing.JButton();
+        carga = new javax.swing.JFrame();
+        jPanel8 = new javax.swing.JPanel();
+        text = new javax.swing.JLabel();
+        barra = new javax.swing.JProgressBar();
+        sloganApp1 = new javax.swing.JLabel();
+        separadorIcono1 = new javax.swing.JSeparator();
+        nombreApp1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         nombreApp = new javax.swing.JLabel();
@@ -579,6 +587,41 @@ public class inicio extends javax.swing.JFrame {
         callLayout.setVerticalGroup(
             callLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        carga.setUndecorated(true);
+        carga.setResizable(false);
+
+        jPanel8.setBackground(new java.awt.Color(134, 134, 255));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        text.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        text.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        text.setText("jLabel1");
+        jPanel8.add(text, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 330, -1));
+        jPanel8.add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 340, 30));
+
+        sloganApp1.setFont(new java.awt.Font("Verdana", 2, 14)); // NOI18N
+        sloganApp1.setText("Conecta.Comunica.Comparte");
+        jPanel8.add(sloganApp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
+
+        separadorIcono1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel8.add(separadorIcono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
+
+        nombreApp1.setFont(new java.awt.Font("Verdana", 3, 36)); // NOI18N
+        nombreApp1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nombreApp1.setText("me.Chat");
+        jPanel8.add(nombreApp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
+
+        javax.swing.GroupLayout cargaLayout = new javax.swing.GroupLayout(carga.getContentPane());
+        carga.getContentPane().setLayout(cargaLayout);
+        cargaLayout.setHorizontalGroup(
+            cargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+        );
+        cargaLayout.setVerticalGroup(
+            cargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -1098,7 +1141,8 @@ public class inicio extends javax.swing.JFrame {
     private void choosePicBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_choosePicBtnMouseExited
         choosePicBtn.setBackground(new Color(204, 204, 255));
     }//GEN-LAST:event_choosePicBtnMouseExited
-
+    int auxiliar = 0;
+    boolean realizado = false;
     private void joinMeetingBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinMeetingBtnMouseClicked
         try {
             if (nameField.getText().equals("")) {
@@ -1107,13 +1151,10 @@ public class inicio extends javax.swing.JFrame {
                 this.setVisible(false);
                 cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
                 cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
-                chat.setVisible(true);
-                chat.setLocationRelativeTo(null);
-                chat.setSize(1240, 738); //778,520
-
+                pantallaDeCarga();
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No hay ninguna reunion empezada con ese id");
+            JOptionPane.showMessageDialog(null, "No hay ninguna reunión empezada con ese ID");
             System.exit(0);
         }
 
@@ -1140,11 +1181,9 @@ public class inicio extends javax.swing.JFrame {
                 cliente.createMeeting(Integer.parseInt(portField.getText()));
                 cliente.connect(ipField.getText(), Integer.parseInt(portField.getText()));
                 cliente.getHc().insertarCliente(nameField.getText(), fotoPath);
-                chat.setVisible(true);
-                chat.setLocationRelativeTo(null);
-                chat.setSize(1230, 730); //778,520
+                pantallaDeCarga();
 
-                String myString = nameField.getText() + " te ha invitado a la reunion\nID de reunion: " + portField.getText() + "\nDireccion IP: " + ipField.getText();
+                String myString = nameField.getText() + " te ha invitado a la reunión\nID de reunión: " + portField.getText() + "\nDirección IP: " + ipField.getText();
                 StringSelection stringSelection = new StringSelection(myString);
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(stringSelection, null);
@@ -1259,6 +1298,48 @@ public class inicio extends javax.swing.JFrame {
         });
     }
 
+    public void pantallaDeCarga() {
+        new Thread() {
+            @Override
+            public void run() {
+                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+                carga.setLocation((dim.width / 4) + dim.width / 6, dim.height / 3);
+                carga.setVisible(true);
+                carga.setSize(400, 300);
+                barra.setMaximum(49);
+                barra.setMinimum(0);
+                barra.setStringPainted(true);
+                try {
+                    while (true) {
+                        auxiliar++;
+                        barra.setValue(auxiliar);
+                        repaint();
+                        switch (auxiliar) {
+                            case 3:
+                                text.setText("Cargando programa...");
+                                break;
+                            case 20:
+                                text.setText("Leyendo datos");
+                                break;
+                            case 50:
+                                text.setText("Carga finalizada");
+                                break;
+                            case 60:
+                                chat.setVisible(true);
+                                chat.setLocationRelativeTo(null);
+                                chat.setSize(1240, 738); //778,520
+                                carga.setVisible(false);
+                                break;
+                        }
+                        Thread.sleep(100);
+                    }
+                } catch (InterruptedException ex) {
+                }
+            }
+
+        }.start();
+    }
+
     public void connectedUsers(int n) {
         conectados.setText("Online - " + n);
     }
@@ -1279,6 +1360,10 @@ public class inicio extends javax.swing.JFrame {
 
     public JTable getTable1() {
         return table1;
+    }
+
+    public String getFotoPath() {
+        return fotoPath;
     }
 
     public JTable getTable12() {
@@ -1320,11 +1405,13 @@ public class inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar barra;
     private javax.swing.JPanel barraSuperior;
     private javax.swing.JPanel barraSuperiorCall;
     private javax.swing.JPanel barraSuperiorChat;
     private javax.swing.JFrame call;
     private javax.swing.JPanel callPanel;
+    private javax.swing.JFrame carga;
     private javax.swing.JPanel cerrarBoton;
     private javax.swing.JLabel cerrarLabel;
     private javax.swing.JFrame chat;
@@ -1353,6 +1440,7 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1363,21 +1451,25 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JSlider micVol;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nombreApp;
+    private javax.swing.JLabel nombreApp1;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JPanel panel;
     private javax.swing.JTextField portField;
     private javax.swing.JLabel reunionLabel;
     private javax.swing.JLabel reunionLabel1;
     private javax.swing.JSeparator separadorIcono;
+    private javax.swing.JSeparator separadorIcono1;
     private javax.swing.JSeparator separadorNombre;
     private javax.swing.JSeparator separadorNombre1;
     private javax.swing.JSeparator separadorNombre2;
     private javax.swing.JPanel side;
     private javax.swing.JPanel side1;
     private javax.swing.JLabel sloganApp;
+    private javax.swing.JLabel sloganApp1;
     private javax.swing.JPanel startMeetingBtn;
     private javax.swing.JTable table1;
     private javax.swing.JTable table2;
+    private javax.swing.JLabel text;
     private javax.swing.JButton userPic;
     private javax.swing.JButton userPic1;
     private javax.swing.JPanel users;

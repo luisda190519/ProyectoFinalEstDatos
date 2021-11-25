@@ -106,6 +106,8 @@ public class cliente {
             s = new Socket(ip, port + 1);
             ImagenesThreadC hi = new ImagenesThreadC(s, cliente);
             hi.start();
+            BufferedImage bi = ImageIO.read(new File(inicio.getFotoPath()));
+            hi.enviarImagen(bi);
 
             cv = new VozThread(ip, port + 2);
             cv.start();
@@ -174,13 +176,13 @@ public class cliente {
     public void showMessage(ImageIcon foto2, String sender, String msg, String nombre, boolean aux) {
         if (aux) {
             if (sender.equals(nombre)) {
-                getChatModel().addRow(new Object[]{new JLabel(foto2), "Te has unido a la reunion "});
+                getChatModel().addRow(new Object[]{new JLabel(foto2), "Te has unido a la reunión"});
             } else {
                 getChatModel().addRow(new Object[]{new JLabel(foto2), sender + msg});
             }
         } else {
             if (sender.equals(nombre)) {
-                getChatModel().addRow(new Object[]{new JLabel(foto2), "Has avandonado la reunion"});
+                getChatModel().addRow(new Object[]{new JLabel(foto2), "Has abandonado la reunión"});
             } else {
                 getChatModel().addRow(new Object[]{new JLabel(foto2), sender + msg});
             }

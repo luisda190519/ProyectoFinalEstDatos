@@ -11,7 +11,7 @@ public class changeCellColor extends DefaultTableCellRenderer {
     private int r;
     private int g;
     private int b;
-    
+
     public changeCellColor(int r, int g, int b) {
         this.r = r;
         this.g = g;

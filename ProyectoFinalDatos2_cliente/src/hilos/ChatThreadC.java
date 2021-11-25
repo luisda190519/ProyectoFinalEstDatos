@@ -144,16 +144,16 @@ public class ChatThreadC extends Thread {
                 }
 
                 if (msg.equals("/nuevoUsuario")) {
-                    sleep(1000);
                     msg = reader.readLine();
                     c.getUsuariosConectadosModel().setRowCount(0);
+                    sleep(5000);
                     while (!msg.equals("/finUsuario")) {
                         c.updateImages(msg, i);
                         msg = reader.readLine();
+                        c.updateConnectedUsers();
                         i++;
                     }
                     c.updatePanels();
-                    c.updateConnectedUsers();
                     c.makeAdmin();
 
                 } else if (msg.equals("/starMessage")) {
@@ -178,6 +178,7 @@ public class ChatThreadC extends Thread {
                     msg = reader.readLine();
                     hcc.setNameCameraStart(msg);
                     hcc.setCameraOn(false);
+                    sleep(10);
                     c.stopCamera(c.getIndexCamera(msg));
                 } else if (msg.equals("/nameRepeted")) {
                     c.getInicio().getChat().setVisible(false);

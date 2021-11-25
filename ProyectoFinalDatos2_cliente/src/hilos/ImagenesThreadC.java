@@ -4,6 +4,7 @@ import cliente.cliente;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,14 +27,15 @@ public class ImagenesThreadC extends Thread {
         this.hc = hc;
     }
 
-    public void setTamaño(int tamaño) {
-        this.tamaño = tamaño;
+    public void enviarImagen(BufferedImage image) throws IOException {
+        ByteArrayOutputStream ous = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", ous);
+        socket.getOutputStream().write(ous.toByteArray());
     }
 
     @Override
     public void run() {
         try {
-            sleep(100);
             while (true) {
                 BufferedImage img = ImageIO.read(socket.getInputStream());
                 if (img != null) {
@@ -44,6 +46,10 @@ public class ImagenesThreadC extends Thread {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    public void setTamaño(int tamaño) {
+        this.tamaño = tamaño;
     }
 
 }

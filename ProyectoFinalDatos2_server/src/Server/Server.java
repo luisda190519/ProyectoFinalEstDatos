@@ -62,7 +62,7 @@ public class Server {
             hilosChat.add(hiloChat);
 
             Socket socket2 = s2.accept();
-            ImagenesThreadS hi = new ImagenesThreadS(socket2);
+            ImagenesThreadS hi = new ImagenesThreadS(socket2, this);
             hi.start();
             hiloImagen.add(hi);
 
@@ -113,20 +113,18 @@ public class Server {
         images.remove(index);
     }
 
-    public void addToBroadcastQueue(Message m) { //add a message to the broadcast queue. this method is used by all ClientConnection instances
+    public void addToBroadcastQueue(Message m) {
         try {
             broadCastQueue.add(m);
         } catch (Throwable t) {
-            //mutex error, try again
             addToBroadcastQueue(m);
         }
     }
 
     private void addToClients(ConexionAudioThreadS cc) {
         try {
-            clients.add(cc); //add the new connection to the list of connections
+            clients.add(cc);
         } catch (Throwable t) {
-            //mutex error, try again
             addToClients(cc);
         }
     }

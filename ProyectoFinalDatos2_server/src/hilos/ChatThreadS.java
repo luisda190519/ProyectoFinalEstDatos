@@ -64,18 +64,8 @@ public class ChatThreadS extends Thread {
 
                     if (!nameRepeted) {
                         server.addName(name);
-                        ImageIcon icon = new ImageIcon(path);
-                        BufferedImage bi = ImageIO.read(new File(path));
-
                         server.transmision("/clear");
-
-                        sleep(100);
-
-                        server.addImages(bi);
                         server.addUsuarios(name + "," + path);
-
-                        sleep(100);
-
                         server.transmision("/nuevoUsuario");
 
                         for (String usuario : server.getNames()) {

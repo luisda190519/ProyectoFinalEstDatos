@@ -24,7 +24,6 @@ public class EnviarImagenCamaraThreadC extends Thread {
         try {
             BufferedImage image;
             Webcam cam = null;
-            //Webcam.setAutoOpenMode(true);
 
             synchronized (this) {
                 this.wait();
