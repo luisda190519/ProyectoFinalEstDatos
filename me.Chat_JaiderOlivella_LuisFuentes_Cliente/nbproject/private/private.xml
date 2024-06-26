@@ -11,15 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/ProyectoFinalDatos2_cliente/src/soundUtils/CanalAudioThread.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/ProyectoFinalDatos2_cliente/src/soundUtils/MicrofonoThread.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/ProyectoFinalDatos2_cliente/src/hilos/ChatThreadC.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/ProyectoFinalDatos2_cliente/src/cliente/cliente.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/ProyectoFinalDatos2_cliente/src/hilos/CamaraThreadC.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/ProyectoFinalDatos2_cliente/src/hilos/EnviarImagenCamaraThreadC.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/ProyectoFinalDatos2_cliente/src/soundUtils/VozThread.java</file>
-            <file>file:/D:/GitHub/ProyectoFinalEstDatos/ProyectoFinalDatos2_cliente/src/hilos/ImagenesThreadC.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
